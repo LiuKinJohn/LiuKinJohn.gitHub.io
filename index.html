@@ -18,25 +18,47 @@
       <header class="top-nav">
         <a class="wordmark" href="#top">YourName</a>
         <nav class="nav">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#timeline">Timeline</a>
-          <a href="#contact">Contact</a>
+          <a href="#about" data-en="About" data-zh="关于">About</a>
+          <a href="#experience" data-en="Experience" data-zh="经历">Experience</a>
+          <a href="#projects" data-en="Projects" data-zh="项目">Projects</a>
+          <a href="#timeline" data-en="Timeline" data-zh="流程">Timeline</a>
+          <a href="#contact" data-en="Contact" data-zh="联系">Contact</a>
         </nav>
         <details class="nav-toggle">
-          <summary>Menu</summary>
+          <summary data-en="Menu" data-zh="菜单">Menu</summary>
           <div class="nav-panel">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#timeline">Timeline</a>
-            <a href="#contact">Contact</a>
+            <a href="#about" data-en="About" data-zh="关于">About</a>
+            <a href="#experience" data-en="Experience" data-zh="经历">Experience</a>
+            <a href="#projects" data-en="Projects" data-zh="项目">Projects</a>
+            <a href="#timeline" data-en="Timeline" data-zh="流程">Timeline</a>
+            <a href="#contact" data-en="Contact" data-zh="联系">Contact</a>
           </div>
         </details>
         <div class="nav-actions">
-          <a class="btn btn-tertiary" href="mailto:hello@email.com">Email</a>
-          <a class="btn btn-primary" href="assets/resume.pdf">Download Resume</a>
+          <a
+            class="btn btn-tertiary"
+            href="mailto:hello@email.com"
+            data-en="Email"
+            data-zh="邮箱"
+          >
+            Email
+          </a>
+          <a
+            class="btn btn-primary"
+            href="assets/resume.pdf"
+            data-en="Download Resume"
+            data-zh="下载简历"
+          >
+            Download Resume
+          </a>
+          <div class="lang-toggle" role="group" aria-label="Language">
+            <button class="lang-button is-active" type="button" data-lang="en">
+              EN
+            </button>
+            <button class="lang-button" type="button" data-lang="zh">
+              中文
+            </button>
+          </div>
         </div>
       </header>
 
@@ -44,18 +66,46 @@
         <section class="hero-band">
           <div class="hero-layout">
             <div class="hero-copy">
-              <span class="badge-pill">Open for collaborations</span>
-              <h1 class="display-mega">
+              <span
+                class="badge-pill"
+                data-en="Open for collaborations"
+                data-zh="可合作"
+              >
+                Open for collaborations
+              </span>
+              <h1
+                class="display-mega"
+                data-en="Quiet systems for complex products, built with care and clarity."
+                data-zh="以克制与清晰，打造复杂产品的安静系统。"
+              >
                 Quiet systems for complex products, built with care and clarity.
               </h1>
-              <p class="body-md">
+              <p
+                class="body-md"
+                data-en="I design and build calm product experiences for teams shipping AI, fintech, and education tools. My work blends systems thinking, interface craft, and hands-on delivery."
+                data-zh="我为 AI、金融科技与教育团队设计并实现平静的产品体验，将系统思维、界面工艺与落地交付结合在一起。"
+              >
                 I design and build calm product experiences for teams shipping AI,
                 fintech, and education tools. My work blends systems thinking,
                 interface craft, and hands-on delivery.
               </p>
               <div class="hero-actions">
-                <a class="btn btn-download" href="assets/resume.pdf">Download Resume</a>
-                <a class="btn btn-tertiary" href="#projects">View Projects</a>
+                <a
+                  class="btn btn-download"
+                  href="assets/resume.pdf"
+                  data-en="Download Resume"
+                  data-zh="下载简历"
+                >
+                  Download Resume
+                </a>
+                <a
+                  class="btn btn-tertiary"
+                  href="#projects"
+                  data-en="View Projects"
+                  data-zh="查看项目"
+                >
+                  View Projects
+                </a>
               </div>
             </div>
             <div class="hero-visual">
@@ -66,18 +116,36 @@
                     <span></span>
                     <span></span>
                   </div>
-                  <span class="ide-title">Portfolio Workspace</span>
-                  <span class="ide-status">Synced May 2026</span>
+                  <span
+                    class="ide-title"
+                    data-en="Portfolio Workspace"
+                    data-zh="作品集工作区"
+                  >
+                    Portfolio Workspace
+                  </span>
+                  <span
+                    class="ide-status"
+                    data-en="Synced May 2026"
+                    data-zh="已同步 2026年5月"
+                  >
+                    Synced May 2026
+                  </span>
                 </div>
                 <div class="ide-layout">
                   <div class="ide-pane ide-sidebar">
-                    <p class="ide-pane-title">Sections</p>
+                    <p
+                      class="ide-pane-title"
+                      data-en="Sections"
+                      data-zh="目录"
+                    >
+                      Sections
+                    </p>
                     <ul class="ide-list">
-                      <li>01 Profile</li>
-                      <li>02 Experience</li>
-                      <li>03 Projects</li>
-                      <li>04 Timeline</li>
-                      <li>05 Contact</li>
+                      <li data-en="01 Profile" data-zh="01 简介">01 Profile</li>
+                      <li data-en="02 Experience" data-zh="02 经历">02 Experience</li>
+                      <li data-en="03 Projects" data-zh="03 项目">03 Projects</li>
+                      <li data-en="04 Timeline" data-zh="04 流程">04 Timeline</li>
+                      <li data-en="05 Contact" data-zh="05 联系">05 Contact</li>
                     </ul>
                   </div>
                   <div class="ide-pane ide-editor">
@@ -90,30 +158,77 @@
 };</code></pre>
                   </div>
                   <div class="ide-pane ide-chat">
-                    <p class="ide-pane-title">Agent Timeline</p>
+                    <p
+                      class="ide-pane-title"
+                      data-en="Agent Timeline"
+                      data-zh="Agent 时间线"
+                    >
+                      Agent Timeline
+                    </p>
                     <div class="timeline-row">
-                      <span class="pill pill-thinking">Thinking</span>
-                      <span>Clarifying the brief and objectives.</span>
+                      <span class="pill pill-thinking" data-en="Thinking" data-zh="思考">
+                        Thinking
+                      </span>
+                      <span
+                        data-en="Clarifying the brief and objectives."
+                        data-zh="明确需求与目标。"
+                      >
+                        Clarifying the brief and objectives.
+                      </span>
                     </div>
                     <div class="timeline-row">
-                      <span class="pill pill-grep">Grepping</span>
-                      <span>Scanning references and patterns.</span>
+                      <span class="pill pill-grep" data-en="Grepping" data-zh="检索">
+                        Grepping
+                      </span>
+                      <span
+                        data-en="Scanning references and patterns."
+                        data-zh="扫描参考与模式。"
+                      >
+                        Scanning references and patterns.
+                      </span>
                     </div>
                     <div class="timeline-row">
-                      <span class="pill pill-read">Reading</span>
-                      <span>Reviewing UX and data insights.</span>
+                      <span class="pill pill-read" data-en="Reading" data-zh="阅读">
+                        Reading
+                      </span>
+                      <span
+                        data-en="Reviewing UX and data insights."
+                        data-zh="复盘 UX 与数据洞察。"
+                      >
+                        Reviewing UX and data insights.
+                      </span>
                     </div>
                     <div class="timeline-row">
-                      <span class="pill pill-edit">Editing</span>
-                      <span>Refining layout and interaction.</span>
+                      <span class="pill pill-edit" data-en="Editing" data-zh="编辑">
+                        Editing
+                      </span>
+                      <span
+                        data-en="Refining layout and interaction."
+                        data-zh="优化版式与交互。"
+                      >
+                        Refining layout and interaction.
+                      </span>
                     </div>
                     <div class="timeline-row">
-                      <span class="pill pill-done">Done</span>
-                      <span>Packaging for GitHub Pages.</span>
+                      <span class="pill pill-done" data-en="Done" data-zh="完成">
+                        Done
+                      </span>
+                      <span
+                        data-en="Packaging for GitHub Pages."
+                        data-zh="打包发布到 GitHub Pages。"
+                      >
+                        Packaging for GitHub Pages.
+                      </span>
                     </div>
                   </div>
                   <div class="ide-pane ide-terminal">
-                    <p class="ide-pane-title">Deploy</p>
+                    <p
+                      class="ide-pane-title"
+                      data-en="Deploy"
+                      data-zh="部署"
+                    >
+                      Deploy
+                    </p>
                     <pre><code>$ npm run build
 vite v5.1.0  built in 0.38s
 $ npm run deploy
@@ -125,54 +240,104 @@ success  Pages published</code></pre>
           </div>
           <div class="hero-meta">
             <div class="meta-card">
-              <p class="meta-label">Location</p>
-              <p class="meta-value">Shanghai, CN</p>
+              <p class="meta-label" data-en="Location" data-zh="地点">Location</p>
+              <p class="meta-value" data-en="Shanghai, CN" data-zh="上海，中国">
+                Shanghai, CN
+              </p>
             </div>
             <div class="meta-card">
-              <p class="meta-label">Focus</p>
-              <p class="meta-value">Product Design + Frontend</p>
+              <p class="meta-label" data-en="Focus" data-zh="专注">Focus</p>
+              <p
+                class="meta-value"
+                data-en="Product Design + Frontend"
+                data-zh="产品设计 + 前端"
+              >
+                Product Design + Frontend
+              </p>
             </div>
             <div class="meta-card">
-              <p class="meta-label">Availability</p>
-              <p class="meta-value">Freelance + Full-time</p>
+              <p class="meta-label" data-en="Availability" data-zh="状态">
+                Availability
+              </p>
+              <p
+                class="meta-value"
+                data-en="Freelance + Full-time"
+                data-zh="自由职业 + 全职"
+              >
+                Freelance + Full-time
+              </p>
             </div>
           </div>
         </section>
 
         <section id="about" class="section">
           <div class="section-heading">
-            <p class="section-label">About</p>
-            <h2 class="display-lg">Editorial clarity with a builder's mindset.</h2>
+            <p class="section-label" data-en="About" data-zh="关于">About</p>
+            <h2
+              class="display-lg"
+              data-en="Editorial clarity with a builder's mindset."
+              data-zh="以编辑般的清晰度，带着工程师的执行力。"
+            >
+              Editorial clarity with a builder's mindset.
+            </h2>
           </div>
           <div class="feature-grid">
             <article class="feature-card reveal" style="--delay: 0ms">
-              <h3 class="title-md">Profile</h3>
-              <p class="body-md">
+              <h3 class="title-md" data-en="Profile" data-zh="简介">Profile</h3>
+              <p
+                class="body-md"
+                data-en="I design product experiences that feel calm, obvious, and easy to trust. I work across research, interaction, and front-end delivery to keep teams aligned."
+                data-zh="我设计让人感到平静、直观、可信的产品体验，并在研究、交互与前端落地之间穿梭，让团队保持对齐。"
+              >
                 I design product experiences that feel calm, obvious, and easy to
                 trust. I work across research, interaction, and front-end delivery
                 to keep teams aligned.
               </p>
             </article>
             <article class="feature-card reveal" style="--delay: 80ms">
-              <h3 class="title-md">Core Strengths</h3>
+              <h3 class="title-md" data-en="Core Strengths" data-zh="核心能力">
+                Core Strengths
+              </h3>
               <ul class="list body-md">
-                <li>Design systems and component strategy</li>
-                <li>Product storytelling and UX writing</li>
-                <li>Prototyping with production-ready code</li>
-                <li>Data-informed iteration and testing</li>
+                <li
+                  data-en="Design systems and component strategy"
+                  data-zh="设计系统与组件策略"
+                >
+                  Design systems and component strategy
+                </li>
+                <li
+                  data-en="Product storytelling and UX writing"
+                  data-zh="产品叙事与 UX 文案"
+                >
+                  Product storytelling and UX writing
+                </li>
+                <li
+                  data-en="Prototyping with production-ready code"
+                  data-zh="可落地的代码原型"
+                >
+                  Prototyping with production-ready code
+                </li>
+                <li
+                  data-en="Data-informed iteration and testing"
+                  data-zh="数据驱动的迭代与测试"
+                >
+                  Data-informed iteration and testing
+                </li>
               </ul>
             </article>
             <article class="feature-card reveal" style="--delay: 160ms">
-              <h3 class="title-md">Toolkit</h3>
+              <h3 class="title-md" data-en="Toolkit" data-zh="工具栈">Toolkit</h3>
               <div class="tag-grid">
-                <span>Figma</span>
-                <span>Framer</span>
-                <span>React</span>
-                <span>TypeScript</span>
-                <span>Notion</span>
-                <span>Webflow</span>
-                <span>Jira</span>
-                <span>After Effects</span>
+                <span data-en="Figma" data-zh="Figma">Figma</span>
+                <span data-en="Framer" data-zh="Framer">Framer</span>
+                <span data-en="React" data-zh="React">React</span>
+                <span data-en="TypeScript" data-zh="TypeScript">TypeScript</span>
+                <span data-en="Notion" data-zh="Notion">Notion</span>
+                <span data-en="Webflow" data-zh="Webflow">Webflow</span>
+                <span data-en="Jira" data-zh="Jira">Jira</span>
+                <span data-en="After Effects" data-zh="After Effects">
+                  After Effects
+                </span>
               </div>
             </article>
           </div>
@@ -180,31 +345,87 @@ success  Pages published</code></pre>
 
         <section id="experience" class="section">
           <div class="section-heading">
-            <p class="section-label">Experience</p>
-            <h2 class="display-lg">Shipped products that move key metrics.</h2>
+            <p class="section-label" data-en="Experience" data-zh="经历">
+              Experience
+            </p>
+            <h2
+              class="display-lg"
+              data-en="Shipped products that move key metrics."
+              data-zh="交付推动指标增长的产品。"
+            >
+              Shipped products that move key metrics.
+            </h2>
           </div>
           <div class="experience-grid">
             <article class="experience-card reveal" style="--delay: 0ms">
-              <p class="meta-label">2023 - Present</p>
-              <h3 class="title-md">Lead Product Designer · Nova AI Studio</h3>
-              <p class="body-md">
+              <p
+                class="meta-label"
+                data-en="2023 - Present"
+                data-zh="2023 - 至今"
+              >
+                2023 - Present
+              </p>
+              <h3
+                class="title-md"
+                data-en="Lead Product Designer · Nova AI Studio"
+                data-zh="主任产品设计师 · Nova AI Studio"
+              >
+                Lead Product Designer · Nova AI Studio
+              </h3>
+              <p
+                class="body-md"
+                data-en="Led a cross-functional team to launch an AI research workspace. Reduced onboarding time by 40% and improved activation by 18%."
+                data-zh="带领跨职能团队发布 AI 研究工作区，将新手引导时间缩短 40%，激活率提升 18%。"
+              >
                 Led a cross-functional team to launch an AI research workspace.
                 Reduced onboarding time by 40% and improved activation by 18%.
               </p>
             </article>
             <article class="experience-card reveal" style="--delay: 90ms">
-              <p class="meta-label">2021 - 2023</p>
-              <h3 class="title-md">Senior UX Designer · Finovo Labs</h3>
-              <p class="body-md">
+              <p
+                class="meta-label"
+                data-en="2021 - 2023"
+                data-zh="2021 - 2023"
+              >
+                2021 - 2023
+              </p>
+              <h3
+                class="title-md"
+                data-en="Senior UX Designer · Finovo Labs"
+                data-zh="高级 UX 设计师 · Finovo Labs"
+              >
+                Senior UX Designer · Finovo Labs
+              </h3>
+              <p
+                class="body-md"
+                data-en="Built a design system for a multi-tenant fintech platform. Delivered a library of 70+ components and upgraded accessibility to WCAG AA."
+                data-zh="为多租户金融科技平台搭建设计系统，交付 70+ 组件库并升级到 WCAG AA 级无障碍标准。"
+              >
                 Built a design system for a multi-tenant fintech platform.
                 Delivered a library of 70+ components and upgraded accessibility
                 to WCAG AA.
               </p>
             </article>
             <article class="experience-card reveal" style="--delay: 180ms">
-              <p class="meta-label">2018 - 2021</p>
-              <h3 class="title-md">Product Designer · Academy Cloud</h3>
-              <p class="body-md">
+              <p
+                class="meta-label"
+                data-en="2018 - 2021"
+                data-zh="2018 - 2021"
+              >
+                2018 - 2021
+              </p>
+              <h3
+                class="title-md"
+                data-en="Product Designer · Academy Cloud"
+                data-zh="产品设计师 · Academy Cloud"
+              >
+                Product Designer · Academy Cloud
+              </h3>
+              <p
+                class="body-md"
+                data-en="Designed a learning analytics dashboard used by 120+ schools. Improved engagement with data-driven UI and clear copywriting."
+                data-zh="设计学习分析仪表盘，覆盖 120+ 学校使用，通过数据驱动的界面与清晰文案提升活跃度。"
+              >
                 Designed a learning analytics dashboard used by 120+ schools.
                 Improved engagement with data-driven UI and clear copywriting.
               </p>
@@ -214,8 +435,14 @@ success  Pages published</code></pre>
 
         <section id="projects" class="section">
           <div class="section-heading">
-            <p class="section-label">Projects</p>
-            <h2 class="display-lg">Selected work with visuals and outcomes.</h2>
+            <p class="section-label" data-en="Projects" data-zh="项目">Projects</p>
+            <h2
+              class="display-lg"
+              data-en="Selected work with visuals and outcomes."
+              data-zh="精选项目与结果展示。"
+            >
+              Selected work with visuals and outcomes.
+            </h2>
           </div>
           <div class="project-grid">
             <article class="project-card reveal" style="--delay: 0ms">
@@ -223,17 +450,25 @@ success  Pages published</code></pre>
                 <img src="assets/project-01.svg" alt="Project 1 preview" />
               </div>
               <div class="project-content">
-                <h3 class="title-md">Signal Notes</h3>
-                <p class="body-md">
+                <h3 class="title-md" data-en="Signal Notes" data-zh="Signal Notes">
+                  Signal Notes
+                </h3>
+                <p
+                  class="body-md"
+                  data-en="A knowledge system for research teams. Crafted onboarding and shared libraries to cut duplication by 32%."
+                  data-zh="为研究团队打造知识系统，通过优化 onboarding 与共享库将重复工作降低 32%。"
+                >
                   A knowledge system for research teams. Crafted onboarding and
                   shared libraries to cut duplication by 32%.
                 </p>
                 <div class="project-tags">
-                  <span>UX Strategy</span>
-                  <span>Design System</span>
-                  <span>React</span>
+                  <span data-en="UX Strategy" data-zh="UX 策略">UX Strategy</span>
+                  <span data-en="Design System" data-zh="设计系统">Design System</span>
+                  <span data-en="React" data-zh="React">React</span>
                 </div>
-                <a class="project-link" href="#">View case study</a>
+                <a class="project-link" href="#" data-en="View case study" data-zh="查看案例">
+                  View case study
+                </a>
               </div>
             </article>
             <article class="project-card reveal" style="--delay: 100ms">
@@ -241,17 +476,31 @@ success  Pages published</code></pre>
                 <img src="assets/project-02.svg" alt="Project 2 preview" />
               </div>
               <div class="project-content">
-                <h3 class="title-md">Pulse Insights</h3>
-                <p class="body-md">
+                <h3
+                  class="title-md"
+                  data-en="Pulse Insights"
+                  data-zh="Pulse Insights"
+                >
+                  Pulse Insights
+                </h3>
+                <p
+                  class="body-md"
+                  data-en="A leadership dashboard for product health. Built a KPI storytelling model and improved weekly usage by 25%."
+                  data-zh="为管理层打造产品健康仪表盘，构建 KPI 叙事模型，使周活提升 25%。"
+                >
                   A leadership dashboard for product health. Built a KPI
                   storytelling model and improved weekly usage by 25%.
                 </p>
                 <div class="project-tags">
-                  <span>Data Design</span>
-                  <span>Information Architecture</span>
-                  <span>Prototyping</span>
+                  <span data-en="Data Design" data-zh="数据设计">Data Design</span>
+                  <span data-en="Information Architecture" data-zh="信息架构">
+                    Information Architecture
+                  </span>
+                  <span data-en="Prototyping" data-zh="原型">Prototyping</span>
                 </div>
-                <a class="project-link" href="#">View case study</a>
+                <a class="project-link" href="#" data-en="View case study" data-zh="查看案例">
+                  View case study
+                </a>
               </div>
             </article>
             <article class="project-card reveal" style="--delay: 200ms">
@@ -259,17 +508,25 @@ success  Pages published</code></pre>
                 <img src="assets/project-03.svg" alt="Project 3 preview" />
               </div>
               <div class="project-content">
-                <h3 class="title-md">Studio Ops</h3>
-                <p class="body-md">
+                <h3 class="title-md" data-en="Studio Ops" data-zh="Studio Ops">
+                  Studio Ops
+                </h3>
+                <p
+                  class="body-md"
+                  data-en="A client management hub for agencies. Designed a streamlined pipeline view and reusable templates for scaling teams."
+                  data-zh="为创意机构打造客户管理中枢，设计更流畅的流程视图与可复用模板，支持团队扩张。"
+                >
                   A client management hub for agencies. Designed a streamlined
                   pipeline view and reusable templates for scaling teams.
                 </p>
                 <div class="project-tags">
-                  <span>Service Design</span>
-                  <span>UI Engineering</span>
-                  <span>Accessibility</span>
+                  <span data-en="Service Design" data-zh="服务设计">Service Design</span>
+                  <span data-en="UI Engineering" data-zh="UI 工程">UI Engineering</span>
+                  <span data-en="Accessibility" data-zh="无障碍">Accessibility</span>
                 </div>
-                <a class="project-link" href="#">View case study</a>
+                <a class="project-link" href="#" data-en="View case study" data-zh="查看案例">
+                  View case study
+                </a>
               </div>
             </article>
           </div>
@@ -277,29 +534,62 @@ success  Pages published</code></pre>
 
         <section id="timeline" class="section">
           <div class="section-heading">
-            <p class="section-label">Timeline</p>
-            <h2 class="display-lg">How I keep delivery calm and predictable.</h2>
+            <p class="section-label" data-en="Timeline" data-zh="流程">Timeline</p>
+            <h2
+              class="display-lg"
+              data-en="How I keep delivery calm and predictable."
+              data-zh="我如何让交付保持稳定与可预期。"
+            >
+              How I keep delivery calm and predictable.
+            </h2>
           </div>
           <div class="comparison-card">
             <div>
-              <h3 class="title-sm">Approach</h3>
+              <h3 class="title-sm" data-en="Approach" data-zh="方法">Approach</h3>
               <ul class="list body-md">
-                <li>Align on outcomes and constraints first</li>
-                <li>Prototype quickly with production-level polish</li>
-                <li>Document decisions for future teams</li>
+                <li
+                  data-en="Align on outcomes and constraints first"
+                  data-zh="先对齐目标与约束"
+                >
+                  Align on outcomes and constraints first
+                </li>
+                <li
+                  data-en="Prototype quickly with production-level polish"
+                  data-zh="快速原型并保持可上线质量"
+                >
+                  Prototype quickly with production-level polish
+                </li>
+                <li
+                  data-en="Document decisions for future teams"
+                  data-zh="记录决策以便后续团队承接"
+                >
+                  Document decisions for future teams
+                </li>
               </ul>
             </div>
             <div>
-              <h3 class="title-sm">Outcomes</h3>
+              <h3 class="title-sm" data-en="Outcomes" data-zh="结果">Outcomes</h3>
               <ul class="list body-md">
-                <li>Clear scope, fewer reworks</li>
-                <li>Reusable components and patterns</li>
-                <li>Measurable product momentum</li>
+                <li data-en="Clear scope, fewer reworks" data-zh="范围清晰，减少返工">
+                  Clear scope, fewer reworks
+                </li>
+                <li data-en="Reusable components and patterns" data-zh="可复用组件与模式">
+                  Reusable components and patterns
+                </li>
+                <li data-en="Measurable product momentum" data-zh="可衡量的产品推进">
+                  Measurable product momentum
+                </li>
               </ul>
             </div>
           </div>
           <div class="code-block">
-            <p class="code-caption">Recent delivery checklist</p>
+            <p
+              class="code-caption"
+              data-en="Recent delivery checklist"
+              data-zh="近期交付清单"
+            >
+              Recent delivery checklist
+            </p>
             <pre><code>// Ship focused, measure carefully
 designSystem.audit()
 prototype.validate()
@@ -308,56 +598,123 @@ build.release("github-pages")</code></pre>
         </section>
 
         <section id="contact" class="cta-band">
-          <p class="section-label">Contact</p>
-          <h2 class="display-lg">Ready to plan your next build?</h2>
-          <p class="body-md">
+          <p class="section-label" data-en="Contact" data-zh="联系">Contact</p>
+          <h2
+            class="display-lg"
+            data-en="Ready to plan your next build?"
+            data-zh="准备好规划你的下一次构建了吗？"
+          >
+            Ready to plan your next build?
+          </h2>
+          <p
+            class="body-md"
+            data-en="Share your idea, timeline, or collaboration. I reply within 48 hours."
+            data-zh="欢迎分享你的想法、时间线或合作需求，我会在 48 小时内回复。"
+          >
             Share your idea, timeline, or collaboration. I reply within 48 hours.
           </p>
           <div class="cta-actions">
-            <a class="btn btn-primary" href="mailto:hello@email.com">Start a project</a>
-            <a class="btn btn-secondary" href="https://www.linkedin.com">LinkedIn</a>
-            <a class="btn btn-secondary" href="https://github.com">GitHub</a>
+            <a
+              class="btn btn-primary"
+              href="mailto:hello@email.com"
+              data-en="Start a project"
+              data-zh="开始合作"
+            >
+              Start a project
+            </a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com" data-en="LinkedIn" data-zh="LinkedIn">
+              LinkedIn
+            </a>
+            <a class="btn btn-secondary" href="https://github.com" data-en="GitHub" data-zh="GitHub">
+              GitHub
+            </a>
           </div>
         </section>
       </main>
 
       <footer class="footer">
         <div class="footer-brand">
-          <p class="body-sm">Designed and built by YourName.</p>
-          <p class="body-sm">Last updated May 2026.</p>
+          <p class="body-sm" data-en="Designed and built by YourName." data-zh="由 YourName 设计并构建。">
+            Designed and built by YourName.
+          </p>
+          <p class="body-sm" data-en="Last updated May 2026." data-zh="最后更新 2026 年 5 月。">
+            Last updated May 2026.
+          </p>
         </div>
         <div class="footer-grid">
           <div>
-            <p class="footer-title">Profile</p>
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#timeline">Timeline</a>
+            <p class="footer-title" data-en="Profile" data-zh="简介">Profile</p>
+            <a href="#about" data-en="About" data-zh="关于">About</a>
+            <a href="#experience" data-en="Experience" data-zh="经历">Experience</a>
+            <a href="#timeline" data-en="Timeline" data-zh="流程">Timeline</a>
           </div>
           <div>
-            <p class="footer-title">Work</p>
-            <a href="#projects">Projects</a>
-            <a href="#">Case Studies</a>
-            <a href="#">Clients</a>
+            <p class="footer-title" data-en="Work" data-zh="项目">Work</p>
+            <a href="#projects" data-en="Projects" data-zh="项目">Projects</a>
+            <a href="#" data-en="Case Studies" data-zh="案例">Case Studies</a>
+            <a href="#" data-en="Clients" data-zh="客户">Clients</a>
           </div>
           <div>
-            <p class="footer-title">Writing</p>
-            <a href="#">Product Notes</a>
-            <a href="#">Design Systems</a>
-            <a href="#">AI Workflow</a>
+            <p class="footer-title" data-en="Writing" data-zh="写作">Writing</p>
+            <a href="#" data-en="Product Notes" data-zh="产品笔记">Product Notes</a>
+            <a href="#" data-en="Design Systems" data-zh="设计系统">Design Systems</a>
+            <a href="#" data-en="AI Workflow" data-zh="AI 工作流">AI Workflow</a>
           </div>
           <div>
-            <p class="footer-title">Social</p>
-            <a href="https://www.linkedin.com">LinkedIn</a>
-            <a href="https://github.com">GitHub</a>
-            <a href="#">Dribbble</a>
+            <p class="footer-title" data-en="Social" data-zh="社交">Social</p>
+            <a href="https://www.linkedin.com" data-en="LinkedIn" data-zh="LinkedIn">
+              LinkedIn
+            </a>
+            <a href="https://github.com" data-en="GitHub" data-zh="GitHub">GitHub</a>
+            <a href="#" data-en="Dribbble" data-zh="Dribbble">Dribbble</a>
           </div>
           <div>
-            <p class="footer-title">Contact</p>
-            <a href="mailto:hello@email.com">hello@email.com</a>
-            <a href="assets/resume.pdf">Resume PDF</a>
+            <p class="footer-title" data-en="Contact" data-zh="联系">Contact</p>
+            <a href="mailto:hello@email.com" data-en="hello@email.com" data-zh="hello@email.com">
+              hello@email.com
+            </a>
+            <a href="assets/resume.pdf" data-en="Resume PDF" data-zh="简历 PDF">Resume PDF</a>
           </div>
         </div>
       </footer>
     </div>
+
+    <script>
+      (() => {
+        const storageKey = "site-lang";
+        const elements = document.querySelectorAll("[data-en]");
+        const buttons = document.querySelectorAll(".lang-button");
+
+        const setLang = (lang) => {
+          elements.forEach((element) => {
+            const value = element.dataset[lang];
+            if (value) {
+              element.textContent = value;
+            }
+          });
+
+          buttons.forEach((button) => {
+            const isActive = button.dataset.lang === lang;
+            button.classList.toggle("is-active", isActive);
+            button.setAttribute("aria-pressed", isActive ? "true" : "false");
+          });
+
+          document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+          localStorage.setItem(storageKey, lang);
+        };
+
+        const saved = localStorage.getItem(storageKey);
+        const prefersZh =
+          navigator.language && navigator.language.toLowerCase().startsWith("zh");
+
+        setLang(saved || (prefersZh ? "zh" : "en"));
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            setLang(button.dataset.lang);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

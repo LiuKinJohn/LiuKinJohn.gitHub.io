@@ -103,6 +103,35 @@ img {
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface-card);
+}
+
+.lang-button {
+  border: none;
+  background: transparent;
+  font-family: var(--font-code);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.lang-button.is-active {
+  background: var(--surface-strong);
+  color: var(--ink);
 }
 
 .nav-toggle {
@@ -291,6 +320,11 @@ img {
   gap: 20px;
   max-width: 560px;
 }
+
+.hero-copy .body-md {
+  max-width: 640px;
+}
+
 .hero-visual {
   display: grid;
   align-content: start;
@@ -298,10 +332,6 @@ img {
 
 .hero-visual .ide-mockup-card {
   min-height: 520px;
-}
-
-.hero-copy .body-md {
-  max-width: 640px;
 }
 
 .badge-pill {
@@ -752,7 +782,11 @@ img {
 
   .nav-actions {
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
+  }
+
+  .nav-actions .btn {
+    width: auto;
   }
 
   .btn {
