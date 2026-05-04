@@ -1,2 +1,2 @@
-# KinJohn_intro
-Introduce me &amp; my project
+# LiuKinJohn.github.io
+Personal website for my introduction and project showcase.
