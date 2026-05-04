@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Personal Homepage</title>
+    <meta name="description" content="Personal homepage showcasing profile, experience, and projects." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page" id="top">
+      <header class="top-nav">
+        <a class="wordmark" href="#top">YourName</a>
+        <nav class="nav">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <details class="nav-toggle">
+          <summary>Menu</summary>
+          <div class="nav-panel">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </details>
+        <div class="nav-actions">
+          <a class="btn btn-tertiary" href="mailto:hello@email.com">Email</a>
+          <a class="btn btn-primary" href="assets/resume.pdf">Download Resume</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero-band">
+          <div class="hero-layout">
+            <div class="hero-copy">
+              <span class="badge-pill">Open for collaborations</span>
+              <h1 class="display-mega">
+                Quiet systems for complex products, built with care and clarity.
+              </h1>
+              <p class="body-md">
+                I design and build calm product experiences for teams shipping AI,
+                fintech, and education tools. My work blends systems thinking,
+                interface craft, and hands-on delivery.
+              </p>
+              <div class="hero-actions">
+                <a class="btn btn-download" href="assets/resume.pdf">Download Resume</a>
+                <a class="btn btn-tertiary" href="#projects">View Projects</a>
+              </div>
+            </div>
+            <div class="hero-visual">
+              <div class="ide-mockup-card reveal" style="--delay: 120ms">
+                <div class="ide-bar">
+                  <div class="ide-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <span class="ide-title">Portfolio Workspace</span>
+                  <span class="ide-status">Synced May 2026</span>
+                </div>
+                <div class="ide-layout">
+                  <div class="ide-pane ide-sidebar">
+                    <p class="ide-pane-title">Sections</p>
+                    <ul class="ide-list">
+                      <li>01 Profile</li>
+                      <li>02 Experience</li>
+                      <li>03 Projects</li>
+                      <li>04 Timeline</li>
+                      <li>05 Contact</li>
+                    </ul>
+                  </div>
+                  <div class="ide-pane ide-editor">
+                    <p class="ide-pane-title">profile.ts</p>
+                    <pre><code>const profile = {
+  name: "YourName",
+  role: "Product Designer + Frontend",
+  focus: ["Design Systems", "UX Strategy", "AI"],
+  location: "Shanghai",
+};</code></pre>
+                  </div>
+                  <div class="ide-pane ide-chat">
+                    <p class="ide-pane-title">Agent Timeline</p>
+                    <div class="timeline-row">
+                      <span class="pill pill-thinking">Thinking</span>
+                      <span>Clarifying the brief and objectives.</span>
+                    </div>
+                    <div class="timeline-row">
+                      <span class="pill pill-grep">Grepping</span>
+                      <span>Scanning references and patterns.</span>
+                    </div>
+                    <div class="timeline-row">
+                      <span class="pill pill-read">Reading</span>
+                      <span>Reviewing UX and data insights.</span>
+                    </div>
+                    <div class="timeline-row">
+                      <span class="pill pill-edit">Editing</span>
+                      <span>Refining layout and interaction.</span>
+                    </div>
+                    <div class="timeline-row">
+                      <span class="pill pill-done">Done</span>
+                      <span>Packaging for GitHub Pages.</span>
+                    </div>
+                  </div>
+                  <div class="ide-pane ide-terminal">
+                    <p class="ide-pane-title">Deploy</p>
+                    <pre><code>$ npm run build
+vite v5.1.0  built in 0.38s
+$ npm run deploy
+success  Pages published</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-meta">
+            <div class="meta-card">
+              <p class="meta-label">Location</p>
+              <p class="meta-value">Shanghai, CN</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-label">Focus</p>
+              <p class="meta-value">Product Design + Frontend</p>
+            </div>
+            <div class="meta-card">
+              <p class="meta-label">Availability</p>
+              <p class="meta-value">Freelance + Full-time</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" class="section">
+          <div class="section-heading">
+            <p class="section-label">About</p>
+            <h2 class="display-lg">Editorial clarity with a builder's mindset.</h2>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card reveal" style="--delay: 0ms">
+              <h3 class="title-md">Profile</h3>
+              <p class="body-md">
+                I design product experiences that feel calm, obvious, and easy to
+                trust. I work across research, interaction, and front-end delivery
+                to keep teams aligned.
+              </p>
+            </article>
+            <article class="feature-card reveal" style="--delay: 80ms">
+              <h3 class="title-md">Core Strengths</h3>
+              <ul class="list body-md">
+                <li>Design systems and component strategy</li>
+                <li>Product storytelling and UX writing</li>
+                <li>Prototyping with production-ready code</li>
+                <li>Data-informed iteration and testing</li>
+              </ul>
+            </article>
+            <article class="feature-card reveal" style="--delay: 160ms">
+              <h3 class="title-md">Toolkit</h3>
+              <div class="tag-grid">
+                <span>Figma</span>
+                <span>Framer</span>
+                <span>React</span>
+                <span>TypeScript</span>
+                <span>Notion</span>
+                <span>Webflow</span>
+                <span>Jira</span>
+                <span>After Effects</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="experience" class="section">
+          <div class="section-heading">
+            <p class="section-label">Experience</p>
+            <h2 class="display-lg">Shipped products that move key metrics.</h2>
+          </div>
+          <div class="experience-grid">
+            <article class="experience-card reveal" style="--delay: 0ms">
+              <p class="meta-label">2023 - Present</p>
+              <h3 class="title-md">Lead Product Designer · Nova AI Studio</h3>
+              <p class="body-md">
+                Led a cross-functional team to launch an AI research workspace.
+                Reduced onboarding time by 40% and improved activation by 18%.
+              </p>
+            </article>
+            <article class="experience-card reveal" style="--delay: 90ms">
+              <p class="meta-label">2021 - 2023</p>
+              <h3 class="title-md">Senior UX Designer · Finovo Labs</h3>
+              <p class="body-md">
+                Built a design system for a multi-tenant fintech platform.
+                Delivered a library of 70+ components and upgraded accessibility
+                to WCAG AA.
+              </p>
+            </article>
+            <article class="experience-card reveal" style="--delay: 180ms">
+              <p class="meta-label">2018 - 2021</p>
+              <h3 class="title-md">Product Designer · Academy Cloud</h3>
+              <p class="body-md">
+                Designed a learning analytics dashboard used by 120+ schools.
+                Improved engagement with data-driven UI and clear copywriting.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="projects" class="section">
+          <div class="section-heading">
+            <p class="section-label">Projects</p>
+            <h2 class="display-lg">Selected work with visuals and outcomes.</h2>
+          </div>
+          <div class="project-grid">
+            <article class="project-card reveal" style="--delay: 0ms">
+              <div class="project-media">
+                <img src="assets/project-01.svg" alt="Project 1 preview" />
+              </div>
+              <div class="project-content">
+                <h3 class="title-md">Signal Notes</h3>
+                <p class="body-md">
+                  A knowledge system for research teams. Crafted onboarding and
+                  shared libraries to cut duplication by 32%.
+                </p>
+                <div class="project-tags">
+                  <span>UX Strategy</span>
+                  <span>Design System</span>
+                  <span>React</span>
+                </div>
+                <a class="project-link" href="#">View case study</a>
+              </div>
+            </article>
+            <article class="project-card reveal" style="--delay: 100ms">
+              <div class="project-media">
+                <img src="assets/project-02.svg" alt="Project 2 preview" />
+              </div>
+              <div class="project-content">
+                <h3 class="title-md">Pulse Insights</h3>
+                <p class="body-md">
+                  A leadership dashboard for product health. Built a KPI
+                  storytelling model and improved weekly usage by 25%.
+                </p>
+                <div class="project-tags">
+                  <span>Data Design</span>
+                  <span>Information Architecture</span>
+                  <span>Prototyping</span>
+                </div>
+                <a class="project-link" href="#">View case study</a>
+              </div>
+            </article>
+            <article class="project-card reveal" style="--delay: 200ms">
+              <div class="project-media">
+                <img src="assets/project-03.svg" alt="Project 3 preview" />
+              </div>
+              <div class="project-content">
+                <h3 class="title-md">Studio Ops</h3>
+                <p class="body-md">
+                  A client management hub for agencies. Designed a streamlined
+                  pipeline view and reusable templates for scaling teams.
+                </p>
+                <div class="project-tags">
+                  <span>Service Design</span>
+                  <span>UI Engineering</span>
+                  <span>Accessibility</span>
+                </div>
+                <a class="project-link" href="#">View case study</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="timeline" class="section">
+          <div class="section-heading">
+            <p class="section-label">Timeline</p>
+            <h2 class="display-lg">How I keep delivery calm and predictable.</h2>
+          </div>
+          <div class="comparison-card">
+            <div>
+              <h3 class="title-sm">Approach</h3>
+              <ul class="list body-md">
+                <li>Align on outcomes and constraints first</li>
+                <li>Prototype quickly with production-level polish</li>
+                <li>Document decisions for future teams</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="title-sm">Outcomes</h3>
+              <ul class="list body-md">
+                <li>Clear scope, fewer reworks</li>
+                <li>Reusable components and patterns</li>
+                <li>Measurable product momentum</li>
+              </ul>
+            </div>
+          </div>
+          <div class="code-block">
+            <p class="code-caption">Recent delivery checklist</p>
+            <pre><code>// Ship focused, measure carefully
+designSystem.audit()
+prototype.validate()
+build.release("github-pages")</code></pre>
+          </div>
+        </section>
+
+        <section id="contact" class="cta-band">
+          <p class="section-label">Contact</p>
+          <h2 class="display-lg">Ready to plan your next build?</h2>
+          <p class="body-md">
+            Share your idea, timeline, or collaboration. I reply within 48 hours.
+          </p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="mailto:hello@email.com">Start a project</a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com">LinkedIn</a>
+            <a class="btn btn-secondary" href="https://github.com">GitHub</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-brand">
+          <p class="body-sm">Designed and built by YourName.</p>
+          <p class="body-sm">Last updated May 2026.</p>
+        </div>
+        <div class="footer-grid">
+          <div>
+            <p class="footer-title">Profile</p>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#timeline">Timeline</a>
+          </div>
+          <div>
+            <p class="footer-title">Work</p>
+            <a href="#projects">Projects</a>
+            <a href="#">Case Studies</a>
+            <a href="#">Clients</a>
+          </div>
+          <div>
+            <p class="footer-title">Writing</p>
+            <a href="#">Product Notes</a>
+            <a href="#">Design Systems</a>
+            <a href="#">AI Workflow</a>
+          </div>
+          <div>
+            <p class="footer-title">Social</p>
+            <a href="https://www.linkedin.com">LinkedIn</a>
+            <a href="https://github.com">GitHub</a>
+            <a href="#">Dribbble</a>
+          </div>
+          <div>
+            <p class="footer-title">Contact</p>
+            <a href="mailto:hello@email.com">hello@email.com</a>
+            <a href="assets/resume.pdf">Resume PDF</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
