@@ -12,8 +12,222 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- ========== LOADER ANIMATION STYLES ========== -->
+    <style>
+      /* Loader: prevent body scroll during animation */
+      html.is-loading { overflow: hidden; }
+
+      /* Two-page slide container */
+      .pages-container {
+        display: flex;
+        width: 200vw;
+        height: 100vh;
+        transition: transform .85s cubic-bezier(.22, 1, .36, 1);
+        will-change: transform;
+      }
+      .pages-container.swiped { transform: translateX(-100vw); }
+      .page-loader, .page-main {
+        width: 100vw; height: 100vh; flex-shrink: 0; overflow: hidden;
+      }
+      .page-main { overflow-y: auto; overflow-x: hidden; }
+
+      /* Loader page */
+      .loader-page {
+        background: var(--canvas, #fafafa);
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 20px;
+        position: relative;
+      }
+
+      /* Noise texture */
+      .noise-overlay {
+        position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        opacity: .03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-repeat: repeat; background-size: 200px 200px;
+      }
+
+      /* Logo */
+      .logo-wrap-l {
+        position: relative; z-index: 5;
+        width: clamp(520px, 70vw, 900px); max-width: 90vw; height: auto;
+        opacity: 0; transform: translateY(20px) scale(.94);
+        animation: logoInL 1s cubic-bezier(.22,1,.36,1) forwards .15s;
+      }
+      @keyframes logoInL { to { opacity:1; transform:translateY(0) scale(1); } }
+
+      .logo-svg-l { width: 100%; height: auto; overflow: visible; }
+      .logo-svg-l path {
+        fill: none; stroke: var(--ink, #1a1a1a); stroke-width: .6;
+        stroke-linecap: round; stroke-linejoin: round;
+        stroke-dasharray: var(--path-len); stroke-dashoffset: var(--path-len);
+        animation: logoDrawL 2.4s cubic-bezier(.4,0,.2,1) forwards .4s;
+      }
+      @keyframes logoDrawL { to { stroke-dashoffset: 0; } }
+      .logo-fill-in-l .logo-svg-l path { fill: rgba(26,26,26,.04); }
+
+      .logo-wrap-l::after {
+        content: ''; position: absolute; inset: -30px;
+        background: radial-gradient(ellipse at center, rgba(196,163,90,.05) 0%, transparent 65%);
+        opacity: 0; animation: glowInL 1.2s ease forwards 2.5s; pointer-events: none;
+      }
+      @keyframes glowInL { to { opacity: 1; } }
+
+      /* Corner marks */
+      .deco-mark-l {
+        position: absolute; width: 28px; height: 28px; opacity: 0; z-index: 6;
+        animation: decoInL .5s ease forwards;
+      }
+      .deco-mark-l--tl { top:-16px; left:-16px; animation-delay:2.7s; }
+      .deco-mark-l--tr { top:-14px; right:-12px; animation-delay:2.85s; }
+      .deco-mark-l--bl { bottom:-12px; left:-14px; animation-delay:2.75s; }
+      .deco-mark-l--br { bottom:-16px; right:-16px; animation-delay:2.9s; }
+      .deco-mark-l svg { width:100%; height:100%; stroke:#9a9a9a; stroke-width:.5; fill:none; }
+      @keyframes decoInL { to { opacity:.3; } }
+
+      /* Name */
+      .name-block-l { text-align: center; z-index: 5; opacity: 0; transform: translateY(10px);
+        animation: nameInL .8s ease forwards 2.4s; }
+      @keyframes nameInL { to { opacity:1; transform:translateY(0); } }
+      .main-name-l {
+        font-family: "Space Grotesk", sans-serif; font-weight: 300;
+        font-size: clamp(14px, 3.5vw, 24px); color: var(--ink, #1a1a1a);
+        letter-spacing: .12em; text-transform: uppercase;
+      }
+      .name-cursor-l {
+        display: inline-block; width: 1px; height: .9em; background: var(--ink, #1a1a1a);
+        vertical-align: text-bottom; margin-left: 3px;
+        animation: cursorBlinkL 1s steps(1) infinite;
+      }
+      @keyframes cursorBlinkL { 50%{opacity:0} }
+
+      /* Tagline */
+      .tagline-row-l { display:flex; align-items:center; gap:12px; z-index:5; opacity:0;
+        animation: tagInL .6s ease forwards 2.8s; }
+      @keyframes tagInL { to { opacity:1; } }
+      .tagline-dot-l { width:3px; height:3px; border-radius:50%; background:#c4a35a; flex-shrink:0; }
+      .tagline-l {
+        font-family:"JetBrains Mono",monospace; font-size:clamp(8px,1.4vw,10px);
+        font-weight:300; letter-spacing:.2em; text-transform:uppercase; color:#9a9a9a;
+        white-space:nowrap;
+      }
+
+      /* Swipe circle (bird's-eye view) */
+      .swipe-circle-l {
+        position:absolute; z-index:20; width:56px; height:56px; border-radius:50%;
+        pointer-events: none; top:-80px; left:50%; transform:translateX(-50%); opacity:0;
+      }
+      .swipe-circle-l.dropping-l { animation: circleDropL .7s cubic-bezier(.34,1.56,.64,1) forwards 2.7s; }
+      @keyframes circleDropL {
+        0%   { top:-80px; opacity:0; }
+        40%  { opacity:1; }
+        65%  { top:calc(var(--circle-target-y-l,60vh)+10px); }
+        80%  { top:calc(var(--circle-target-y-l,60vh)-4px); }
+        100% { top:var(--circle-target-y-l,60vh); opacity:1; }
+      }
+      .swipe-circle-l::before {
+        content:''; position:absolute; inset:0; border-radius:50%;
+        border:1.5px solid var(--ink,#1a1a1a); opacity:.45;
+        box-shadow:0 0 0 0 rgba(26,26,26,.08);
+        transition:box-shadow .3s ease;
+      }
+      .swipe-circle-l.ready-swipe-l::before {
+        box-shadow:0 0 0 18px rgba(26,26,26,.06), 0 0 0 36px rgba(26,26,26,.03);
+        opacity:.55;
+      }
+      .swipe-circle-l::after {
+        content:''; position:absolute; top:50%; left:50%;
+        width:6px; height:6px; margin:-3px 0 0 -3px; border-radius:50%;
+        background:var(--ink,#1a1a1a); opacity:0; transition:opacity .3s ease;
+      }
+      .swipe-circle-l.ready-swipe-l::after { opacity:.5; }
+      .circle-rings-l { position:absolute; inset:0; opacity:0; transition:opacity .4s ease; }
+      .swipe-circle-l.ready-swipe-l .circle-rings-l { opacity:1; }
+      .circle-rings-l svg { width:100%; height:100%; animation:ringsRotateL 8s linear infinite; }
+      @keyframes ringsRotateL { to { transform:rotate(360deg); } }
+      .swipe-hint-l {
+        position:absolute; top:50%; left:calc(100%+14px);
+        transform:translateY(-50%) translateX(-8px); opacity:0; white-space:nowrap;
+        display:flex; align-items:center; gap:4px;
+        animation:hintInL .4s ease forwards 3.5s, hintPulseL 1.4s ease-in-out infinite 3.9s;
+      }
+      @keyframes hintInL { to { opacity:.35; transform:translateY(-50%) translateX(0); } }
+      @keyframes hintPulseL {
+        0%,100%{transform:translateY(-50%) translateX(0)}
+        50%     {transform:translateY(-50%) translateX(6px)}
+      }
+      .hint-arrow-l { width:16px;height:16px; stroke:#9a9a9a; stroke-width:1.2; fill:none; }
+      .hint-text-l {
+        font-family:"JetBrains Mono",monospace; font-size:8px;
+        letter-spacing:.15em; text-transform:uppercase; color:#9a9a9a;
+      }
+
+      /* Trail during swipe */
+      .swipe-trail-l {
+        position:absolute; z-index:15; width:56px; height:56px; border-radius:50%;
+        border:1px solid var(--ink,#1a1a1a); opacity:0; pointer-events:none;
+        left:50%; top:var(--circle-target-y-l,60vh); transform:translateX(-50%);
+      }
+      .swipe-trail-l.active-l { animation: trailFadeL .5s ease forwards; }
+      @keyframes trailFadeL {
+        0%{opacity:.12;transform:translateX(-50%) scale(1)}
+        100%{opacity:0;transform:translateX(-50%) scale(1.8)}
+      }
+
+      /* Main page wrapper resets */
+      .page-main .page { min-height: 100vh; }
+      .page-main .top-nav { position:relative; z-index:5; }
+    </style>
   </head>
   <body>
+  <script>document.documentElement.classList.add('is-loading');</script>
+
+  <!-- ====== LOADING ANIMATION PAGE (swipes away) ====== -->
+  <div class="pages-container" id="pagesContainer">
+
+    <!-- PAGE 1: LOADER -->
+    <div class="page-loader loader-page" id="loaderPage">
+      <div class="noise-overlay"></div>
+
+      <div class="logo-wrap-l" id="logoWrapL">
+        <span class="deco-mark-l deco-mark-l--tl"><svg viewBox="0 0 24 24"><path d="M0 24 L0 0 L24 0"/></svg></span>
+        <span class="deco-mark-l deco-mark-l--tr"><svg viewBox="0 0 24 24"><path d="M0 0 L24 0 L24 24"/></svg></span>
+        <span class="deco-mark-l deco-mark-l--bl"><svg viewBox="0 0 24 24"><path d="M0 0 L0 24 L24 24"/></svg></span>
+        <span class="deco-mark-l deco-mark-l--br"><svg viewBox="0 0 24 24"><path d="M24 0 L24 24 L0 24"/></svg></span>
+        <svg class="logo-svg-l" viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg">
+          <path d="M347.59,137.37c1.41,4.51,2.61,8.63,3.98,12.69,1.76,5.22,3.71,10.37,5.48,15.59,.51,1.51,1.35,2.21,2.91,2.33,1.63,.13,3.24,.43,4.85,.69,1.5,.24,1.73,.66,.9,1.92-1.11,1.68-2.27,3.33-3.48,4.95-.49,.65-.59,1.18-.24,1.93,1.29,2.77,2.49,5.58,3.8,8.34,.33,.69,.37,1.22-.06,1.81-2.11,2.91-4.01,5.98-6.48,8.61-.54,.57-.92,1.21-1.23,1.91-5.12,11.76-11.86,22.56-19.62,32.73-1.16,1.52-2.52,2.87-4.13,3.94-1.93,1.29-3.43,1.12-5.13-.54-3.25-3.17-5.97-6.8-8.96-10.19-3.8-4.29-7.73-8.44-11.90-12.37-.23-.21-.45-.56-.82-.39-.36,.17-.24,.56-.25,.87-.11,2.51-.31,5-.62,7.5-.19,1.52-.77,2.83-1.65,4.04-1.63,2.25-3.28,4.48-4.93,6.72-1.57,2.12-2.42,2.18-3.88-.09-3.57-5.55-7.02-11.18-10.51-16.78-5.68-9.13-10.52-18.74-15.65-28.18-1.02-1.87-1.05-3.57,.3-5.3,1.57-2.02,3.07-4.10,4.57-6.18,.82-1.14,1.76-1.42,3.09-.86,2.09,.88,4.25,1.62,6.62,2.51-.32-1.68-1.03-2.9-1.6-4.15-3.08-6.75-5.82-13.64-8.34-20.63-.31-.86-.45-1.69-.01-2.53,1.67-3.15,3.77-6,6.19-8.6,.57-.62,1.05-.75,1.37,.27,2.47,7.7,5.65,15.11,8.97,22.47,2.56,5.67,5.02,11.38,7.94,16.88,.79,1.49,.85,1.5,1.87,.11,.84-1.14,1.57-2.37,2.61-3.35,.83-.78,1.4-.75,1.59,.54,.7,4.64,1.44,9.27,1.63,13.97,.07,1.77,.61,3.08,2.02,4.36,8.92,8.12,17.46,16.63,24.99,26.09,.75,.94,1.57,1.81,2.4,2.68,2.11,2.20,3.73,2.05,5.40-.48,1.89-2.88,3.51-5.91,5.06-8.98,1.89-3.75,3.84-7.48,5.24-11.45,.78-2.22,1.5-4.48,1.15-6.88-.74-5.07-3.99-8.02-9.29-8.08-5.01-.05-10.03,.23-15.05,.39-4.36,.14-8.70,.65-13.04,1.08-2.30,.23-2.79-.13-3.60-2.38-1.71-4.72-3.45-9.43-5.04-14.19-.48-1.44-1.21-2.22-2.70-2.37-.54-.05-1.07-.23-1.60-.34-2.46-.52-2.75-.89-1.11-2.88,2.01-2.44,2.17-4.73,1.36-7.76-1.83-6.85-3.13-13.83-4.62-20.76-.75-3.48-.75-6.77,1.97-9.60,1.39-1.45,2.48-3.18,3.73-4.76,.30-.38,.64-.89,1.18-.74,.58,.15,.47,.78,.53,1.25,1.67,11.45,4.11,22.74,7.54,33.80,.45,1.45,1.17,2.09,2.69,2.33,9.37,1.50,18.71,3.10,28.07,4.67,1.45,.24,1.62,0,1.13-1.46-3.55-10.67-6.98-21.36-9.54-32.32-.56-2.41-.41-4.46,1.18-6.44,1.64-2.04,3.07-4.25,4.70-6.29,1.28-1.61,2.02-1.67,3.81-.67,2.17,1.21,3.84,3.05,5.64,4.70,8.32,7.63,16.93,14.92,25.37,22.42,1.47,1.30,2.95,2.60,4.34,3.98,.80,.79,1.29,.78,1.87-.19,2.77-4.62,6.92-7.47,11.97-9.10,2.46-.79,4.95-1.21,7.57-.79,5.63,.92,8.38,7.67,7.68,12.37-1.31,8.88-3.49,17.53-6.01,26.13-1.26,4.30-2.75,8.38-5.75,11.78-.53,.60-.65,1.19,0,1.69,.70,.55,.95-.27,1.25-.61,3.21-3.78,7.28-6.57,11.08-9.67,3.30-2.69,6.62-5.35,9.93-8.02,.30-.24,.58-.51,.90-.71,.34-.21,.72-.70,1.14-.27,.37,.39,.04,.84-.20,1.18-1.25,1.79-2.52,3.56-3.79,5.33-.51,.71-1.07,1.39-.55,2.37,.56,1.05,1.50,.75,2.32,.68,10.33-.85,20.63-1.94,30.81-3.96,1.07-.21,2.16-.30,3.24-.45,3.61-.50,6.17,2.24,5.23,5.81-2.05,7.81-3.90,15.67-6.43,23.35-1.66,5.03-3.25,10.10-6.06,14.63-2.32,3.74-4.98,7.27-7.74,10.71-2.10,2.62-3.69,2.56-5.81-.04-3.09-3.78-5.21-8.19-7.71-12.34-4.02-6.68-7.94-13.43-11.80-20.21-1.81-3.17-3.43-6.45-4.43-9.99-.29-1.01-.61-1.43-1.63-.59-2.14,1.77-4.34,3.48-6.56,5.16-1.08,.82-.48,1.43,.08,2.17,3.97,5.28,8.26,10.30,12.44,15.40,5.95,7.25,12.23,14.24,17.64,21.92,2.23,3.17,4.32,6.42,6.50,9.63,1.03,1.52,.91,2.91-.21,4.35-1.37,1.77-2.66,3.59-3.92,5.43-.53,.77-.69,1.68-1.64,2.29-1.14,.74-.66,1.57-.57-.02-.16,2.26-1.49,1.73-3.79,.95-8.04-2.77-14.97-7.44-21.50-12.73-4.23-3.43-8.52-6.86-11.89-11.20-3.80-4.90-6.49-10.35-7.14-16.62-.39-3.82,1.07-7.20,2.82-10.43,.86-1.58,.89-2.74-.22-4.26-2.79-3.84-5.34-7.85-7.44-12.12-.67-1.37-.97-1.39-1.82-.15-4.69,6.87-10.18,13.07-16.14,18.84-2.62,2.54-5.49,4.82-8.22,7.25-1.36,1.21-1.34,1.29,.38,1.90,5.88,2.09,11.01,5.47,15.99,9.13,.70,.51,1.42,.99,2.55,1.77-.75-2.35-1.35-4.28-1.99-6.19-.97-2.90-1.95-5.79-2.97-8.67-.36-1.00-.33-1.94,.23-2.82,1.70-2.67,3.48-5.28,5.65-7.61,.83-.89,1.38-.89,1.82,.36,3.45,10,6.93,19.99,9.39,30.30,.78,3.27,.61,6.18-1.79,8.83-1.60,1.77-2.89,3.82-4.31,5.75-.80,1.09-1.60,1.10-2.56,.14-5.77-5.76-12.05-10.89-18.87-15.37-3.07-2.02-6.34-3.63-9.75-4.97-.91-.36-1.84-.69-2.75-1.06-2.59-1.05-2.94-1.97-1.42-4.31,3.06-4.73,6.60-9.01,10.96-12.69,7.91-6.69,15.85-13.38,22.41-21.50,1.15-1.43,1.49-2.51,.70-4.34-2.68-6.17-4.16-12.64-3.78-19.42,.06-1.03-.32-1.76-1.07-2.42-7.83-6.87-15.64-13.76-23.47-20.63-1.16-1.01-2.12-2.28-3.91-3.23Zm103.96,54.14c.02-2.67-1.24-3.94-3.79-3.79-1.52,.09-3.04,.31-4.54,.57-6.23,1.09-12.45,2.24-18.76,2.75-1.80,.14-1.83,.14-.89,1.76,2.16,3.73,4.32,7.45,6.54,11.14,3.56,5.93,6.78,12.07,10.83,17.70,.31,.43,.61,1.08,1.17,1.05,.64-.04,.61-.81,.80-1.29,3.62-9.33,5.87-19.06,8.41-28.70,.11-.42,.16-.86,.22-1.19Zm-56.01-3.86c1.60-4.86,2.91-9.41,3.97-14.02,1.13-4.94,2.27-9.89,2.40-14.98,.10-4.02-3.01-7.97-6.77-8.73-3.65-.73-7.01,.39-10.26,1.91-.77,.36-.71,.85-.18,1.41,1.35,1.42,2.77,2.79,4.02,4.29,1.84,2.22,3.81,4.44,3.64,7.61-.20,3.67-.75,7.27-2.85,10.43-.31,.46-.55,.94-.23,1.52,1.89,3.48,3.68,7.03,6.27,10.56Zm22.56,48.29c-7.42-8.96-14.83-17.91-22.25-26.87,2.92,12.71,12.78,19.62,22.25,26.87Zm-72.89-58.71c-2.47-.38-4.94-.74-7.40-1.13-5.91-.94-11.83-1.85-17.74-2.85-1.53-.26-1.63,.23-1.08,1.41,.11,.25,.19,.51,.27,.77,1.21,3.66,1.22,3.79,5.07,3.29,6.92-.89,13.88-1.06,20.88-1.49Zm-46.03,35.53c.44-1.47,.14-2.94,.27-4.37,.33-3.47-.72-6.12-3.62-8.32-3.09-2.34-5.81-5.16-8.69-7.78,3.48,7.16,7.71,13.81,12.04,20.47Z"/>
+          <path d="M230.79,210.19c-.94-1.53-1.88-3.11-2.87-4.65-7.60-11.78-14.99-23.69-22.11-35.77-.64-1.09-.67-1.97-.03-3.02,1.58-2.56,3.33-4.99,5.26-7.29,1.11-1.33,1.57-1.21,2.52,.35,4.73,7.78,9.47,15.56,14.21,23.34,.17,.27,.35,.54,.80,.73-.31-1.26-.58-2.53-.93-3.78-.60-2.14-.26-4.11,1.04-5.91,1.66-2.30,3.29-4.62,5.04-6.85,1.57-2.01,2.92-2.35,5.32-1.41,3.86,1.50,7.70,3.08,11.55,4.61,.53,.21,1.04,.59,1.72,.46-.12-.98-.68-1.74-1.10-2.54-2.80-5.43-5.63-10.85-8.45-16.26-.25-.48-.47-1.04-.86-1.38-1.58-1.41-1.16-2.75-.11-4.25,1.56-2.24,3.15-4.45,4.86-6.57,.85-1.05,1.66-1.05,2.50,.05,1.38,1.79,2.19,3.89,3.24,5.86,5.30,9.90,10.12,20.06,15.69,29.82,.97,1.70,1.13,3.22-.29,4.77-.66,.72-1.13,1.60-1.70,2.42,.07,.02,.16,.07,.21,.04,.64-.34,.88-1.57,1.74-1.19,.77,.33,.39,1.36,.48,2.10,.54,4.72,.73,9.46,.63,14.21-.16,7.33-1.18,14.54-2.80,21.70-.72,3.17-2.56,5.61-4.39,8.11-1.09,1.49-2.14,3.03-3.29,4.47-2.04,2.56-4.71,2.44-6.39-.37-2.49-4.17-4.87-8.40-7.26-12.62-.60-1.05-1.01-1.46-1.81-.14-.73,1.21-1.66,2.30-2.50,3.43-1.40,1.89-2.03,2.09-4.33,1.52-5.82-1.45-11.65-2.86-17.48-4.30-19.83-4.89-40.01-7.91-60.10-11.44-5.42-.95-10.80-2.18-16.30-2.68-.87-.08-1.26-.44-.80-1.27,1.78-3.21,3.91-6.17,6.48-8.80,.74-.76,1.75-.51,2.65-.35,8.16,1.41,16.32,2.85,24.48,4.28,4.83,.84,9.67,1.63,14.49,2.52,1.25,.23,1.47-.09,1.31-1.29-1.47-10.64-2.86-21.29-4.32-31.93-1.76-12.75-3.26-25.53-5.87-38.15-1.10-5.34-2.28-10.67-3.82-15.91-.45-1.52-.39-2.81,.55-4.16,1.75-2.50,3.36-5.10,5.51-7.29,.83-.84,1.19-.60,1.49,.48,2.11,7.79,4.01,15.64,5.32,23.61,1.47,8.98,2.86,17.98,4.08,27,1.35,9.94,2.61,19.89,4.06,29.82,.81,5.56,1.48,11.13,2.20,16.70,.06,.48,.18,1.07-.03,1.45-.76,1.39,.05,1.63,1.15,1.82,9.57,1.63,19.04,3.74,28.46,6.09,.26,.06,.51,.22,.91-.13Zm28.93,11.01c.17-.19,.28-.27,.30-.35,.99-6.31,1.43-12.65,1.32-19.05-.07-4.36-1.86-8.82,.53-13.18-1.72,.14-3.05-.65-4.42-1.29-5.79-2.68-11.52-5.51-17.49-7.77-.45-.17-.97-.62-1.37-.28-.50,.43-.02,1.04,.16,1.50,.75,1.99,1.55,3.96,2.39,5.92,4.34,10.09,9.83,19.58,15.26,29.11,1.03,1.81,1.92,3.74,3.32,5.40Z"/>
+        </svg>
+      </div>
+
+      <div class="name-block-l"><h1 class="main-name-l">Liu KinJohn<span class="name-cursor-l"></span></h1></div>
+
+      <div class="tagline-row-l"><span class="tagline-dot-l"></span><span class="tagline-l">Portfolio &middot; Curatorial Digital Field</span></div>
+
+      <div class="swipe-circle-l" id="swipeCircleL">
+        <div class="circle-rings-l">
+          <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="28" cy="28" r="22" fill="none" stroke="#1a1a1a" stroke-width=".4" opacity=".15"/>
+            <circle cx="28" cy="28" r="16" fill="none" stroke="#1a1a1a" stroke-width=".4" opacity=".1"/>
+            <g stroke="#1a1a1a" stroke-width=".5" opacity=".2">
+              <line x1="28" y1="2" x2="28" y2="7"/><line x1="28" y1="49" x2="28" y2="54"/>
+              <line x1="2" y1="28" x2="7" y2="28"/><line x1="49" y1="28" x2="54" y2="28"/>
+              <line x1="10" y1="10" x2="13.5" y2="13.5"/><line x1="42.5" y1="42.5" x2="46" y2="46"/>
+              <line x1="46" y1="10" x2="42.5" y2="13.5"/><line x1="13.5" y1="42.5" x2="10" y2="46"/>
+            </g>
+          </svg>
+        </div>
+        <div class="swipe-hint-l">
+          <svg class="hint-arrow-l" viewBox="0 0 16 16"><path d="M6 3 L11 8 L6 13 M10 8 L0 8"/></svg>
+          <span class="hint-text-l">Swipe</span>
+        </div>
+      </div>
+    </div><!-- /loader-page -->
+
+    <!-- PAGE 2: MAIN CONTENT (original index.html) -->
+    <div class="page-main">
+
     <div class="page" id="top">
       <header class="top-nav">
         <a class="wordmark" href="#top">LiuKinJohn</a>
@@ -273,9 +487,65 @@
           <p class="body-sm" data-en="2026" data-zh="2026">2026</p>
         </div>
       </footer>
-    </div>
+    </div><!-- /#top -->
+    </div><!-- /page-main -->
 
-    <script>
+  </div><!-- /pages-container -->
+
+  <!-- ========== LOADER ANIMATION SCRIPT ========== -->
+  <script>
+    (function() {
+      document.querySelectorAll('.logo-svg-l path').forEach(function(path) {
+        var len = path.getTotalLength();
+        path.style.setProperty('--path-len', len);
+      });
+      setTimeout(function() { var w=document.getElementById('logoWrapL'); if(w) w.classList.add('logo-fill-in-l'); }, 2800);
+
+      var DROP=2700, DELAY=1300, DUR=850, STEP=80;
+      var circle=document.getElementById('swipeCircleL'), pc=document.getElementById('pagesContainer');
+
+      function setTarget() {
+        var r=document.getElementById('logoWrapL'); if(!r)return;
+        var y=r.getBoundingClientRect().bottom+Math.min(40,innerHeight*.06);
+        document.documentElement.style.setProperty('--circle-target-y-l',y+'px');
+      }
+      requestAnimationFrame(function(){requestAnimationFrame(setTarget)});
+      addEventListener('resize',setTarget);
+      setTimeout(function(){setTarget();circle.classList.add('dropping-l')},DROP);
+      setTimeout(function(){circle.classList.add('ready-swipe-l')},DROP+700);
+
+      setTimeout(function(){
+        var h=circle.querySelector('.swipe-hint-l');if(h)h.style.opacity='0';
+        go();
+      },DROP+700+DELAY);
+
+      function go(){
+        var startY=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--circle-target-y-l'))||innerHeight*.6;
+        var tc=0, tm=Math.floor(DUR/STEP), ts=[];
+        for(var i=0;i<tm;i++){var t=document.createElement('div');t.className='swipe-trail-l';t.style.top=startY+'px';t.style.left='50%';document.getElementById('loaderPage').appendChild(t);ts.push(t);}
+        var t0=performance.now();
+        function frame(now){
+          var e=now-t0,p=Math.min(e/DUR,1);
+          var ease=p<0.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+          var sx=innerWidth/2,ex=-80,cx=sx+(ex-sx)*ease,cy=startY+Math.sin(ease*Math.PI)*(-3);
+          circle.style.left=cx+'px';circle.style.top=cy+'px';circle.style.transform='translateX(-50%)';
+          var ti=Math.floor(e/STEP);
+          while(tc<=ti&&tc<ts.length){var tr=ts[tc];if(tr){tr.style.left=cx+'px';tr.classList.add('active-l');setTimeout(function(t){if(t.parentNode)t.remove()},500,tr);}tc++}
+          var pp=Math.max(0,(e-80)/(DUR-80));
+          if(pp>0&&pp<=1)pc.style.transform='translateX('+(-100*pp)+'vw)';
+          if(p<1)requestAnimationFrame(frame);else{pc.classList.add('swiped');done();}
+        }
+        requestAnimationFrame(frame);
+      }
+
+      function done(){
+        document.querySelectorAll('.swipe-trail-l').forEach(function(t){t.remove()});
+        if(circle)circle.style.opacity='0';
+        document.documentElement.classList.remove('is-loading');
+      }
+    })();
+  </script>
+
       (() => {
         /* Theme Toggle — Light / Dark */
         const storageKey = "site-theme";
