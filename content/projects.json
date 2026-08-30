@@ -4,91 +4,240 @@
     "status": "public",
     "sortDate": "2024-06-01",
     "year": "2024",
-    "title": { "zh": "光影重奏", "en": "Reprise of Light" },
-    "type": { "zh": "3D Mapping / 光影艺术", "en": "3D Mapping / Light Art" },
-    "summary": { "zh": "以光影与空间投影为媒介的 3D Mapping 视觉实验。", "en": "A 3D mapping visual experiment using light and spatial projection as its medium." },
-    "role": { "zh": "视觉设计", "en": "Visual Design" },
-    "cover": "",
+    "title": {
+      "zh": "光影重奏",
+      "en": "Reprise of Light"
+    },
+    "type": {
+      "zh": "3D Mapping / 光影艺术",
+      "en": "3D Mapping / Light Art"
+    },
+    "summary": {
+      "zh": "以光影与空间投影为媒介的 3D Mapping 视觉实验。",
+      "en": "A 3D mapping visual experiment using light and spatial projection as its medium."
+    },
+    "role": {
+      "zh": "视觉设计",
+      "en": "Visual Design"
+    },
+    "cover": "media/light-reprise/cover.jpg",
     "gallery": [],
-    "tags": ["3D Mapping", "Projection", "Visual"],
-    "sourceFolder": "3D Mapping 光影重奏"
+    "tags": [
+      "3D Mapping",
+      "Projection",
+      "Visual"
+    ],
+    "sourceFolder": "3D Mapping 光影重奏",
+    "client": {
+      "zh": "",
+      "en": ""
+    },
+    "tools": []
   },
   {
     "slug": "cui-mai",
     "status": "public",
     "sortDate": "",
     "year": "YEAR TBC",
-    "title": { "zh": "翠脉", "en": "Cui Mai" },
-    "type": { "zh": "产品概念设计", "en": "Product Concept Design" },
-    "summary": { "zh": "围绕“翠脉”展开的产品概念设计。", "en": "A product concept design developed around Cui Mai." },
-    "cover": "",
+    "title": {
+      "zh": "翠脉",
+      "en": "Cui Mai"
+    },
+    "type": {
+      "zh": "产品概念设计",
+      "en": "Product Concept Design"
+    },
+    "summary": {
+      "zh": "围绕“翠脉”展开的产品概念设计。",
+      "en": "A product concept design developed around Cui Mai."
+    },
+    "cover": "media/cui-mai/cover.jpg",
     "gallery": [],
-    "tags": ["Product", "Concept"],
-    "sourceFolder": "产品概念设计 翠脉"
+    "tags": [
+      "Product",
+      "Concept"
+    ],
+    "sourceFolder": "产品概念设计 翠脉",
+    "role": {
+      "zh": "",
+      "en": ""
+    },
+    "client": {
+      "zh": "",
+      "en": ""
+    },
+    "tools": []
   },
   {
     "slug": "space-roaming",
     "status": "public",
     "sortDate": "2024-06-01",
     "year": "2024",
-    "title": { "zh": "空间漫游与想象生产", "en": "Spatial Roaming & the Production of Imagination" },
-    "type": { "zh": "排版编辑", "en": "Editorial Design" },
-    "summary": { "zh": "关于空间漫游与想象生产的编辑与排版研究。", "en": "An editorial and typographic study of spatial roaming and the production of imagination." },
-    "cover": "",
+    "title": {
+      "zh": "空间漫游与想象生产",
+      "en": "Spatial Roaming & the Production of Imagination"
+    },
+    "type": {
+      "zh": "排版编辑",
+      "en": "Editorial Design"
+    },
+    "summary": {
+      "zh": "关于空间漫游与想象生产的编辑与排版研究。",
+      "en": "An editorial and typographic study of spatial roaming and the production of imagination."
+    },
+    "cover": "media/space-roaming/cover.jpg",
     "gallery": [],
-    "tags": ["Editorial", "Typography", "Publication"],
-    "sourceFolder": "排版编辑 空间漫游与想象生产"
+    "tags": [
+      "Editorial",
+      "Typography",
+      "Publication"
+    ],
+    "sourceFolder": "排版编辑 空间漫游与想象生产",
+    "role": {
+      "zh": "",
+      "en": ""
+    },
+    "client": {
+      "zh": "",
+      "en": ""
+    },
+    "tools": []
   },
   {
     "slug": "ling-shi",
     "status": "public",
     "sortDate": "",
     "year": "YEAR TBC",
-    "title": { "zh": "棱视", "en": "Ling Shi" },
-    "type": { "zh": "品牌设计", "en": "Brand Identity" },
-    "summary": { "zh": "“棱视”品牌的视觉识别设计。", "en": "A visual identity project for Ling Shi." },
-    "cover": "",
+    "title": {
+      "zh": "棱视",
+      "en": "Ling Shi"
+    },
+    "type": {
+      "zh": "品牌设计",
+      "en": "Brand Identity"
+    },
+    "summary": {
+      "zh": "“棱视”品牌的视觉识别设计。",
+      "en": "A visual identity project for Ling Shi."
+    },
+    "cover": "media/ling-shi/cover.jpg",
     "gallery": [],
-    "tags": ["Brand", "Identity"],
-    "sourceFolder": "品牌设计 棱视"
+    "tags": [
+      "Brand",
+      "Identity"
+    ],
+    "sourceFolder": "品牌设计 棱视",
+    "role": {
+      "zh": "",
+      "en": ""
+    },
+    "client": {
+      "zh": "",
+      "en": ""
+    },
+    "tools": []
   },
   {
     "slug": "ling-shu",
     "status": "public",
     "sortDate": "2025-03-01",
     "year": "2025",
-    "title": { "zh": "灵枢", "en": "Ling Shu" },
-    "type": { "zh": "品牌设计", "en": "Brand Identity" },
-    "summary": { "zh": "“灵枢”品牌的视觉识别设计。", "en": "A visual identity project for Ling Shu." },
-    "cover": "",
+    "title": {
+      "zh": "灵枢",
+      "en": "Ling Shu"
+    },
+    "type": {
+      "zh": "品牌设计",
+      "en": "Brand Identity"
+    },
+    "summary": {
+      "zh": "“灵枢”品牌的视觉识别设计。",
+      "en": "A visual identity project for Ling Shu."
+    },
+    "cover": "media/ling-shu/cover.jpg",
     "gallery": [],
-    "tags": ["Brand", "Identity"],
-    "sourceFolder": "品牌设计 灵枢"
+    "tags": [
+      "Brand",
+      "Identity"
+    ],
+    "sourceFolder": "品牌设计 灵枢",
+    "role": {
+      "zh": "",
+      "en": ""
+    },
+    "client": {
+      "zh": "",
+      "en": ""
+    },
+    "tools": []
   },
   {
     "slug": "another-sky",
     "status": "public",
     "sortDate": "",
     "year": "YEAR TBC",
-    "title": { "zh": "另一片星空", "en": "Another Sky" },
-    "type": { "zh": "游戏体验设计", "en": "Game Experience Design" },
-    "summary": { "zh": "“另一片星空”游戏体验设计项目。", "en": "A game experience design project titled Another Sky." },
-    "cover": "",
+    "title": {
+      "zh": "另一片星空",
+      "en": "Another Sky"
+    },
+    "type": {
+      "zh": "游戏体验设计",
+      "en": "Game Experience Design"
+    },
+    "summary": {
+      "zh": "“另一片星空”游戏体验设计项目。",
+      "en": "A game experience design project titled Another Sky."
+    },
+    "cover": "media/another-sky/cover.jpg",
     "gallery": [],
-    "tags": ["Game", "Experience"],
-    "sourceFolder": "游戏体验设计 另一片星空"
+    "tags": [
+      "Game",
+      "Experience"
+    ],
+    "sourceFolder": "游戏体验设计 另一片星空",
+    "role": {
+      "zh": "",
+      "en": ""
+    },
+    "client": {
+      "zh": "",
+      "en": ""
+    },
+    "tools": []
   },
   {
     "slug": "gafa-exhibition-2024",
     "status": "public",
     "sortDate": "2024-06-01",
     "year": "2024",
-    "title": { "zh": "广州美术学院 2024 本科毕业作品展", "en": "GAFA 2024 Undergraduate Graduation Exhibition" },
-    "type": { "zh": "展陈设计", "en": "Exhibition Design" },
-    "summary": { "zh": "信息与空间研究中心展厅的展陈与视觉导引设计。", "en": "Exhibition and visual wayfinding design for the Information and Spatial Research Center." },
-    "cover": "",
+    "title": {
+      "zh": "广州美术学院 2024 本科毕业作品展",
+      "en": "GAFA 2024 Undergraduate Graduation Exhibition"
+    },
+    "type": {
+      "zh": "展陈设计",
+      "en": "Exhibition Design"
+    },
+    "summary": {
+      "zh": "信息与空间研究中心展厅的展陈与视觉导引设计。",
+      "en": "Exhibition and visual wayfinding design for the Information and Spatial Research Center."
+    },
+    "cover": "media/gafa-exhibition-2024/cover.jpg",
     "gallery": [],
-    "tags": ["Exhibition", "Spatial Design", "Wayfinding"],
-    "sourceFolder": "展陈设计 广州美术学院2024本科毕业作品展 信息与空间研究中心展厅展陈设计"
+    "tags": [
+      "Exhibition",
+      "Spatial Design",
+      "Wayfinding"
+    ],
+    "sourceFolder": "展陈设计 广州美术学院2024本科毕业作品展 信息与空间研究中心展厅展陈设计",
+    "role": {
+      "zh": "",
+      "en": ""
+    },
+    "client": {
+      "zh": "",
+      "en": ""
+    },
+    "tools": []
   }
 ]
