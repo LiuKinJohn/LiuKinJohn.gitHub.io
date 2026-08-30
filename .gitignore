@@ -50,3 +50,4 @@ wp-config.php
 # Portfolio build and local-manager files
 /dist/
 /.manager-temp/
+/manager.log
