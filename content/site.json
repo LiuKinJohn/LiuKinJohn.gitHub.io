@@ -1,0 +1,37 @@
+{
+  "name": { "zh": "刘秉章", "en": "Liu Bingzhang" },
+  "role": { "zh": "平面设计 / 新媒体艺术", "en": "Graphic Design / New Media Art" },
+  "intro": {
+    "zh": "广州美术学院艺术与科技专业本科生，关注视觉传播、空间叙事与技术驱动的艺术实践。",
+    "en": "An undergraduate student of Art and Technology at the Guangzhou Academy of Fine Arts, working across visual communication, spatial narrative, and technology-led art practice."
+  },
+  "education": [{
+    "title": { "zh": "广州美术学院", "en": "Guangzhou Academy of Fine Arts" },
+    "detail": { "zh": "艺术与科技（本科）", "en": "Art and Technology, BFA" },
+    "date": "2022 — Present"
+  }],
+  "skills": ["Visual Identity", "Editorial Design", "TouchDesigner", "p5.js", "Unity", "Blender", "Illustrator", "Creative Coding"],
+  "experience": [
+    {
+      "title": { "zh": "雅昌（深圳）艺术中心", "en": "Artron Art Center, Shenzhen" },
+      "role": { "zh": "平面设计", "en": "Graphic Design" },
+      "date": "2026.01 — 2026.03"
+    },
+    {
+      "title": { "zh": "深圳广播电影电视集团", "en": "Shenzhen Media Group" },
+      "role": { "zh": "企策部设计", "en": "Design, Corporate Planning" },
+      "date": "2024.07 — 2024.08"
+    }
+  ],
+  "honors": [
+    { "zh": "第五届深圳光影艺术季文创大赛，一等奖", "en": "5th Shenzhen Light Art Season Cultural Creative Competition, First Prize", "date": "2025" },
+    { "zh": "2025 KTK 靳埭强设计奖，终审优秀奖", "en": "2025 KTK Design Award, Finalist Excellence Award", "date": "2025" },
+    { "zh": "全国大学生科技美术设计创新作品大赛，一等奖", "en": "National Student Technology Art & Design Innovation Competition, First Prize", "date": "2025" }
+  ],
+  "contact": {
+    "email": "silicium@foxmail.com",
+    "phone": "13713918006",
+    "location": { "zh": "广州 / 深圳，中国", "en": "Guangzhou / Shenzhen, China" }
+  },
+  "resume": "assets/resume.pdf"
+}

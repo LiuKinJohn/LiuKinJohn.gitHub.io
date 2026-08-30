@@ -1,0 +1,9 @@
+{
+  "name": "liu-bingzhang-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "admin": "node manager/server.mjs"
+  }
+}
