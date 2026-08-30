@@ -15,6 +15,9 @@ if errorlevel 1 (
   )
 )
 
+powershell.exe -NoProfile -Command "try { Invoke-WebRequest -UseBasicParsing -Uri 'http://127.0.0.1:4310/api/projects' -TimeoutSec 2 | Out-Null; exit 0 } catch { exit 1 }"
+if not errorlevel 1 goto open_manager
+
 start "Portfolio Manager" /b "%NODE_EXE%" "manager\server.mjs" > "manager.log" 2>&1
 timeout /t 2 /nobreak >nul
 
@@ -25,8 +28,8 @@ if errorlevel 1 (
   exit /b 1
 )
 
+:open_manager
 start "" "http://127.0.0.1:4310/"
 echo Portfolio Manager is running at http://127.0.0.1:4310/
 echo Keep this window open while editing or publishing.
-pause
 pause
