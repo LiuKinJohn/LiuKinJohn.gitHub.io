@@ -35,13 +35,13 @@
     "tools": []
   },
   {
-    "slug": "cui-mai",
+    "slug": "emevibe",
     "status": "public",
     "sortDate": "",
     "year": "YEAR TBC",
     "title": {
       "zh": "翠脉",
-      "en": "Cui Mai"
+      "en": "EmeVibe"
     },
     "type": {
       "zh": "产品概念设计",
@@ -51,8 +51,10 @@
       "zh": "围绕“翠脉”展开的产品概念设计。",
       "en": "A product concept design developed around Cui Mai."
     },
-    "cover": "media/cui-mai/cover.jpg",
-    "gallery": [],
+    "cover": "media/emevibe/cover.jpg",
+    "gallery": [
+      "media/emevibe/gallery-1788143959662-1.jpg"
+    ],
     "tags": [
       "Product",
       "Concept"
