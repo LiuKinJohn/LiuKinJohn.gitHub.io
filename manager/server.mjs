@@ -16,6 +16,7 @@ const projectsFile = join(contentDir, 'projects.json');
 const siteFile = join(contentDir, 'site.json');
 const maxBody = 160 * 1024 * 1024;
 const port = Number(process.env.PORT || 4310);
+const startedAt = new Date().toISOString();
 
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.pdf': 'application/pdf', '.svg': 'image/svg+xml' };
 const json = (response, status, value) => { response.writeHead(status, { 'content-type': 'application/json; charset=utf-8' }); response.end(JSON.stringify(value)); };
@@ -155,6 +156,7 @@ const server = createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
   try {
     if (request.method === 'GET' && url.pathname === '/') return sendFile(response, dirname(adminFile), basename(adminFile));
+    if (request.method === 'GET' && url.pathname === '/api/health') return json(response, 200, { ok: true, service: 'portfolio-manager', pid: process.pid, startedAt });
     if (request.method === 'GET' && url.pathname === '/api/projects') return json(response, 200, await readJson(projectsFile));
     if (request.method === 'GET' && url.pathname === '/api/site') return json(response, 200, await readJson(siteFile));
     if (request.method === 'GET' && url.pathname.startsWith('/site/')) return sendFile(response, distDir, decodeURIComponent(url.pathname.slice(6)) || 'index.html');
@@ -167,5 +169,9 @@ const server = createServer(async (request, response) => {
   } catch (error) { json(response, 400, { error: error.message || 'Request failed.' }); }
 });
 
+process.on('uncaughtException', (error) => console.error('Uncaught manager error:', error));
+process.on('unhandledRejection', (error) => console.error('Unhandled manager rejection:', error));
+server.on('clientError', (error, socket) => { console.error('Manager client error:', error.message); socket.end('HTTP/1.1 400 Bad Request\r\n\r\n'); });
+server.on('error', (error) => { console.error('Manager server error:', error.message); process.exitCode = 1; });
 try { await runBuild(); } catch (error) { console.error('Initial preview build failed:', error.message); }
 server.listen(port, '127.0.0.1', () => console.log(`Portfolio Manager: http://127.0.0.1:${port}`));
