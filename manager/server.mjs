@@ -147,7 +147,7 @@ async function sendFile(response, base, requested) {
   try {
     const fileStat = await stat(file);
     if (fileStat.isDirectory()) return sendFile(response, base, join(requested, 'index.html'));
-    response.writeHead(200, { 'content-type': mime[extname(file).toLowerCase()] || 'application/octet-stream' });
+    response.writeHead(200, { 'content-type': mime[extname(file).toLowerCase()] || 'application/octet-stream', ...(file === adminFile ? { 'cache-control': 'no-store' } : {}) });
     response.end(await readFile(file));
   } catch { response.writeHead(404); response.end('Not found'); }
 }
