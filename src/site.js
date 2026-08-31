@@ -129,7 +129,16 @@
     setActive(closest, true, source);
   };
 
-  shelf.addEventListener('pointerenter', () => shelf.classList.add('has-interacted'));
+  const setHoveredItem = (event) => {
+    const hovered = event.target.closest('[data-shelf-item]');
+    if (hovered) setActive(hovered, true, 'hover');
+    else if (activeSource === 'hover') clearActive();
+  };
+
+  viewport.addEventListener('pointerenter', (event) => {
+    shelf.classList.add('has-interacted');
+    if (event.pointerType === 'mouse') setHoveredItem(event);
+  });
   items.forEach((item) => {
     item.addEventListener('focus', () => setActive(item, true, 'focus'));
   });
@@ -207,10 +216,7 @@
   viewport.addEventListener('dragstart', (event) => event.preventDefault());
   viewport.addEventListener('pointermove', (event) => {
     if (drag || event.pointerType !== 'mouse') return;
-    const x = event.clientX - viewport.getBoundingClientRect().left + viewport.scrollLeft;
-    const hovered = items.find((item) => x >= item.offsetLeft && x <= item.offsetLeft + item.offsetWidth);
-    if (hovered) setActive(hovered, true, 'hover');
-    else if (activeSource === 'hover') clearActive();
+    setHoveredItem(event);
   });
   viewport.addEventListener('pointerleave', () => {
     if (activeSource === 'hover') clearActive();
