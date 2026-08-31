@@ -49,6 +49,14 @@
   let drag = null;
   let suppressClick = false;
   let edgePadding = 0;
+  let wheelTarget = viewport.scrollLeft;
+  let wheelFrame = 0;
+  let wheelLastTime = 0;
+
+  const syncShelfHeight = () => {
+    const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
+    root.style.setProperty('--works-page-height', `${Math.max(0, window.innerHeight - headerHeight)}px`);
+  };
 
   const setEdgePadding = () => {
     const cardWidth = items[0]?.offsetWidth || 0;
@@ -56,9 +64,14 @@
     track.style.paddingLeft = `${edgePadding}px`;
     track.style.paddingRight = `${edgePadding}px`;
   };
+  syncShelfHeight();
   setEdgePadding();
   requestAnimationFrame(() => { viewport.scrollLeft = Math.min(edgePadding + 28, Math.max(0, viewport.scrollWidth - viewport.clientWidth)); });
-  window.addEventListener('resize', setEdgePadding);
+  window.addEventListener('resize', () => {
+    syncShelfHeight();
+    setEdgePadding();
+    wheelTarget = viewport.scrollLeft;
+  });
 
   const valueForLanguage = (item, key) => item.dataset[`${key}${root.dataset.lang === 'en' ? 'En' : 'Zh'}`] || '';
   const updateInfo = (item, fade = true) => {
@@ -121,13 +134,32 @@
     item.addEventListener('focus', () => setActive(item, true, 'focus'));
   });
 
+  const animateWheelScroll = (time) => {
+    const elapsed = Math.max(1, time - wheelLastTime);
+    wheelLastTime = time;
+    const difference = wheelTarget - viewport.scrollLeft;
+    const step = Math.sign(difference) * Math.min(Math.abs(difference), elapsed * 1.8);
+    viewport.scrollLeft += step;
+    if (Math.abs(wheelTarget - viewport.scrollLeft) > 0.5) {
+      wheelFrame = requestAnimationFrame(animateWheelScroll);
+    } else {
+      viewport.scrollLeft = wheelTarget;
+      wheelFrame = 0;
+    }
+  };
+
   viewport.addEventListener('wheel', (event) => {
     if (root.dataset.worksView !== 'shelf') return;
     const amount = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? -event.deltaY : event.deltaX;
     if (!amount) return;
     event.preventDefault();
     shelf.classList.add('has-interacted');
-    viewport.scrollLeft += amount;
+    const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    wheelTarget = Math.max(0, Math.min(maxScroll, (wheelFrame ? wheelTarget : viewport.scrollLeft) + amount));
+    if (!wheelFrame) {
+      wheelLastTime = performance.now();
+      wheelFrame = requestAnimationFrame(animateWheelScroll);
+    }
   }, { passive: false });
 
   viewport.addEventListener('scroll', () => {
@@ -138,6 +170,9 @@
 
   viewport.addEventListener('pointerdown', (event) => {
     if (event.button !== 0) return;
+    if (wheelFrame) cancelAnimationFrame(wheelFrame);
+    wheelFrame = 0;
+    wheelTarget = viewport.scrollLeft;
     const link = event.target.closest('[data-shelf-item]');
     drag = { pointerId: event.pointerId, startX: event.clientX, startScroll: viewport.scrollLeft, moved: false, href: link?.href || '' };
     shelf.classList.add('has-interacted');
