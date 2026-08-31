@@ -23,19 +23,24 @@ const dateLabel = (project) => project.year === 'YEAR TBC'
   : esc(project.year || '—');
 
 function nav(from) {
+  const viewToggle = from === dist
+    ? `<button class="view-toggle" type="button" aria-label="Switch works view" aria-pressed="true" data-view-toggle><span data-view-label>GRID</span></button>`
+    : '';
   return `<header class="site-header"><a class="wordmark" href="${linkFor(from, 'index.html')}">LIU BINGZHANG</a>
   <nav aria-label="Primary navigation">
     <a href="${linkFor(from, 'index.html')}">WORKS</a>
     <a href="${linkFor(from, 'about/index.html')}">ABOUT</a>
     <a href="${linkFor(from, 'contact/index.html')}">CONTACT</a>
   </nav>
-  <button class="language-toggle" type="button" aria-label="Switch language" aria-pressed="false">中 / EN</button></header>`;
+  <div class="site-tools">${viewToggle}<button class="language-toggle" type="button" aria-label="Switch language" aria-pressed="false">中 / EN</button></div></header>`;
 }
 
 function shell({ title, from, body }) {
   const css = linkFor(from, 'assets/site.css');
   const js = linkFor(from, 'assets/site.js');
-  return `<!doctype html><html lang="zh-CN" data-lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${esc(site.name.en)} — portfolio"><title>${esc(title)} — ${esc(site.name.en)}</title><link rel="stylesheet" href="${css}"></head><body>${nav(from)}<main>${body}</main><footer class="site-footer"><span>© ${new Date().getFullYear()} ${esc(site.name.en)}</span><a href="${linkFor(from, 'contact/index.html')}">CONTACT</a></footer><script src="${js}"></script></body></html>`;
+  const controlsCss = linkFor(from, 'assets/site-tools.css');
+  const shelfCss = from === dist ? `<link rel="stylesheet" href="${linkFor(from, 'assets/works-shelf.css')}">` : '';
+  return `<!doctype html><html lang="zh-CN" data-lang="zh" data-works-view="shelf"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${esc(site.name.en)} — portfolio"><title>${esc(title)} — ${esc(site.name.en)}</title><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="${controlsCss}">${shelfCss}</head><body>${nav(from)}<main>${body}</main><footer class="site-footer"><span>© ${new Date().getFullYear()} ${esc(site.name.en)}</span><a href="${linkFor(from, 'contact/index.html')}">CONTACT</a></footer><script src="${js}"></script></body></html>`;
 }
 
 function workCard(project, from) {
@@ -45,11 +50,22 @@ function workCard(project, from) {
   return `<a class="work-card" href="${href}"><figure><img src="${linkFor(from, project.cover)}" alt="${esc(project.title.en || project.title.zh)}"></figure>${content}</a>`;
 }
 
+function shelfItem(project, from) {
+  const href = linkFor(from, `works/${project.slug}/index.html`);
+  const year = project.year === 'YEAR TBC'
+    ? { zh: '年份待确认', en: 'Year to be confirmed' }
+    : { zh: project.year || '—', en: project.year || '—' };
+  const media = project.cover
+    ? `<img src="${linkFor(from, project.cover)}" alt="${esc(project.title.en || project.title.zh)}">`
+    : `<span class="shelf-placeholder" aria-hidden="true"></span>`;
+  return `<a class="shelf-item" href="${href}" data-shelf-item data-title-zh="${esc(project.title.zh)}" data-title-en="${esc(project.title.en)}" data-type-zh="${esc(project.type.zh)}" data-type-en="${esc(project.type.en)}" data-year-zh="${esc(year.zh)}" data-year-en="${esc(year.en)}" aria-label="${esc(project.title.en || project.title.zh)}">${media}</a>`;
+}
+
 function worksPage() {
   const from = dist;
   return shell({
     title: 'Works', from,
-    body: `<section class="works-intro"><p class="eyebrow">${lang({ zh: '作品索引', en: 'Selected works' })}</p><h1>${lang({ zh: '设计、空间与技术之间的实践。', en: 'Practice across design, space, and technology.' })}</h1><p class="intro-copy">${lang(site.intro)}</p></section><section class="works-grid" aria-label="Works">${projects.map((project) => workCard(project, from)).join('')}</section>`
+    body: `<section class="works-shelf-view" data-works-shelf aria-label="Works shelf"><div class="shelf-layout"><aside class="shelf-info" aria-live="polite"><div class="shelf-info-content" data-shelf-info><p class="shelf-info-type" data-shelf-type></p><h1 data-shelf-title></h1><p class="shelf-info-year" data-shelf-year></p></div></aside><div class="shelf-viewport" data-shelf-viewport><div class="shelf-track" data-shelf-track>${projects.map((project) => shelfItem(project, from)).join('')}</div><div class="shelf-rail" aria-hidden="true"></div></div></div></section><section class="works-grid-view"><section class="works-intro"><p class="eyebrow">${lang({ zh: '作品索引', en: 'Selected works' })}</p><h1>${lang({ zh: '设计、空间与技术之间的实践。', en: 'Practice across design, space, and technology.' })}</h1><p class="intro-copy">${lang(site.intro)}</p></section><section class="works-grid" aria-label="Works">${projects.map((project) => workCard(project, from)).join('')}</section></section>`
   });
 }
 
@@ -100,6 +116,8 @@ for (const project of projects) {
 }
 await cp(join(root, 'src', 'site.css'), join(dist, 'assets', 'site.css'));
 await writeFile(join(dist, 'assets', 'site.css'), `${await readFile(join(root, 'src', 'site.css'), 'utf8')}\n.eyebrow{margin:0 0 20px}\n`);
+await cp(join(root, 'src', 'site-tools.css'), join(dist, 'assets', 'site-tools.css'));
+await cp(join(root, 'src', 'works-shelf.css'), join(dist, 'assets', 'works-shelf.css'));
 await cp(join(root, 'src', 'site.js'), join(dist, 'assets', 'site.js'));
 try { await cp(join(content, 'media'), join(dist, 'media'), { recursive: true }); } catch { /* Media is created by the local manager when assets are uploaded. */ }
 try { await cp(join(root, 'assets', 'resume.pdf'), join(dist, 'assets', 'resume.pdf')); } catch { /* The CV is optional until uploaded via the manager. */ }
