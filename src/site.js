@@ -71,9 +71,23 @@
     syncShelfHeight();
     setEdgePadding();
     wheelTarget = viewport.scrollLeft;
+    requestAnimationFrame(() => syncActivePresentation());
   });
 
   const valueForLanguage = (item, key) => item.dataset[`${key}${root.dataset.lang === 'en' ? 'En' : 'Zh'}`] || '';
+  const rackHeight = () => shelf.querySelector('.shelf-fade')?.getBoundingClientRect().height || 0;
+  const isRackInteraction = (event) => {
+    const rect = viewport.getBoundingClientRect();
+    return event.clientY >= rect.bottom - rackHeight() || Boolean(event.target.closest('[data-shelf-item]'));
+  };
+  const syncActivePresentation = (item = activeItem) => {
+    if (!item) return;
+    const infoCenter = infoPanel.offsetTop;
+    const itemCenter = viewport.offsetTop + item.offsetTop + item.offsetHeight / 2;
+    const scale = Math.min(1.3, Math.max(1.16, 1 + window.innerWidth * 0.00015));
+    item.style.setProperty('--active-offset', `${Math.round(infoCenter - itemCenter)}px`);
+    item.style.setProperty('--active-scale', scale.toFixed(3));
+  };
   const updateInfo = (item, fade = true) => {
     if (!item) return;
     const apply = () => {
@@ -92,6 +106,8 @@
   const clearActive = () => {
     if (!activeItem) return;
     activeItem.classList.remove('is-active');
+    activeItem.style.removeProperty('--active-offset');
+    activeItem.style.removeProperty('--active-scale');
     activeItem = null;
     activeSource = 'none';
     shelf.classList.remove('has-active');
@@ -115,7 +131,7 @@
     activeSource = source;
     activeItem.classList.add('is-active');
     shelf.classList.add('has-active', 'has-interacted');
-    infoPanel.style.setProperty('--info-anchor', `${Math.max(0, activeItem.offsetTop - activeItem.offsetHeight * 0.43)}px`);
+    syncActivePresentation(activeItem);
     updateInfo(activeItem, fade);
   };
 
@@ -136,6 +152,7 @@
   };
 
   viewport.addEventListener('pointerenter', (event) => {
+    if (!isRackInteraction(event)) return;
     shelf.classList.add('has-interacted');
     if (event.pointerType === 'mouse') setHoveredItem(event);
   });
@@ -158,7 +175,7 @@
   };
 
   viewport.addEventListener('wheel', (event) => {
-    if (root.dataset.worksView !== 'shelf') return;
+    if (root.dataset.worksView !== 'shelf' || !isRackInteraction(event)) return;
     const amount = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? -event.deltaY : event.deltaX;
     if (!amount) return;
     event.preventDefault();
@@ -178,7 +195,7 @@
   }, { passive: true });
 
   viewport.addEventListener('pointerdown', (event) => {
-    if (event.button !== 0) return;
+    if (event.button !== 0 || !isRackInteraction(event)) return;
     if (wheelFrame) cancelAnimationFrame(wheelFrame);
     wheelFrame = 0;
     wheelTarget = viewport.scrollLeft;
@@ -216,6 +233,11 @@
   viewport.addEventListener('dragstart', (event) => event.preventDefault());
   viewport.addEventListener('pointermove', (event) => {
     if (drag || event.pointerType !== 'mouse') return;
+    if (!isRackInteraction(event)) {
+      if (activeSource === 'hover') clearActive();
+      return;
+    }
+    shelf.classList.add('has-interacted');
     setHoveredItem(event);
   });
   viewport.addEventListener('pointerleave', () => {
