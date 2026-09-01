@@ -146,7 +146,8 @@
   };
 
   const setHoveredItem = (event) => {
-    const hovered = event.target.closest('[data-shelf-item]');
+    const x = event.clientX - viewport.getBoundingClientRect().left + viewport.scrollLeft;
+    const hovered = items.find((item) => x >= item.offsetLeft && x <= item.offsetLeft + item.offsetWidth);
     if (hovered) setActive(hovered, true, 'hover');
     else if (activeSource === 'hover') clearActive();
   };
