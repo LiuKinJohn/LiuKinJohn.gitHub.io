@@ -19,7 +19,7 @@ html[data-works-view="grid"] .works-shelf-view{display:none}
 .shelf-item{position:relative;display:block;flex:0 0 clamp(280px,27vw,540px);aspect-ratio:3/2;background:#dededb;overflow:hidden;transform:translateY(33.333%) scale(1);transform-origin:center;transition:transform .32s cubic-bezier(.22,.75,.24,1);will-change:transform}
 .shelf-item img,.shelf-placeholder{display:block;width:100%;height:100%;object-fit:cover}
 .shelf-placeholder{background:#dededb}
-.shelf-item.is-active,.shelf-item:focus-visible{z-index:2;transform:translateY(var(--active-offset,-10%)) scale(var(--active-scale,1.2));outline:0}
+.shelf-item.is-active,.shelf-item:focus-visible{z-index:2;transform:translate(var(--active-offset-x,0px),var(--active-offset,-10%)) scale(var(--active-scale,1.2));outline:0}
 .shelf-item:focus-visible{outline:1px solid var(--ink);outline-offset:5px}
 .shelf-rail{position:absolute;z-index:1;right:0;bottom:0;left:0;border-top:1px solid var(--ink);pointer-events:none}
 .shelf-fade{position:absolute;z-index:4;bottom:0;width:clamp(36px,7vw,130px);height:var(--rack-height);pointer-events:none}

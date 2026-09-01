@@ -84,8 +84,11 @@
     if (!item) return;
     const infoCenter = infoPanel.offsetTop;
     const itemCenter = viewport.offsetTop + item.offsetTop + item.offsetHeight / 2;
+    const itemCenterX = item.offsetLeft + item.offsetWidth / 2;
+    const presentationCenterX = viewport.scrollLeft + viewport.clientWidth * 0.6;
     const scale = Math.min(1.3, Math.max(1.16, 1 + window.innerWidth * 0.00015));
     item.style.setProperty('--active-offset', `${Math.round(infoCenter - itemCenter)}px`);
+    item.style.setProperty('--active-offset-x', `${Math.round(presentationCenterX - itemCenterX)}px`);
     item.style.setProperty('--active-scale', scale.toFixed(3));
   };
   const updateInfo = (item, fade = true) => {
@@ -107,6 +110,7 @@
     if (!activeItem) return;
     activeItem.classList.remove('is-active');
     activeItem.style.removeProperty('--active-offset');
+    activeItem.style.removeProperty('--active-offset-x');
     activeItem.style.removeProperty('--active-scale');
     activeItem = null;
     activeSource = 'none';
@@ -124,9 +128,13 @@
     if (!item) return;
     if (activeItem === item) {
       activeSource = source;
+      syncActivePresentation(activeItem);
       return;
     }
     activeItem?.classList.remove('is-active');
+    activeItem?.style.removeProperty('--active-offset');
+    activeItem?.style.removeProperty('--active-offset-x');
+    activeItem?.style.removeProperty('--active-scale');
     activeItem = item;
     activeSource = source;
     activeItem.classList.add('is-active');
@@ -147,7 +155,8 @@
 
   const setHoveredItem = (event) => {
     const x = event.clientX - viewport.getBoundingClientRect().left + viewport.scrollLeft;
-    const hovered = items.find((item) => x >= item.offsetLeft && x <= item.offsetLeft + item.offsetWidth);
+    const directItem = event.target.closest('[data-shelf-item]');
+    const hovered = directItem === activeItem ? directItem : items.find((item) => x >= item.offsetLeft && x <= item.offsetLeft + item.offsetWidth);
     if (hovered) setActive(hovered, true, 'hover');
     else if (activeSource === 'hover') clearActive();
   };
