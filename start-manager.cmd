@@ -20,7 +20,7 @@ if errorlevel 1 (
 )
 
 set "PORTFOLIO_NODE=%NODE_EXE%"
-powershell.exe -NoProfile -Command "try { $health=Invoke-RestMethod -Uri '%MANAGER_URL%/api/health' -TimeoutSec 2; if ($health.service -eq 'portfolio-manager') { exit 0 }; exit 1 } catch { exit 1 }"
+powershell.exe -NoProfile -Command "$expected=[string][Math]::Truncate(([DateTimeOffset](Get-Item -LiteralPath '%CD%\manager\server.mjs').LastWriteTimeUtc).ToUnixTimeMilliseconds()); try { $health=Invoke-RestMethod -Uri '%MANAGER_URL%/api/health' -TimeoutSec 2; if ($health.service -eq 'portfolio-manager' -and $health.serverVersion -eq $expected) { exit 0 }; exit 1 } catch { exit 1 }"
 if not errorlevel 1 goto open_manager
 
 rem Stop only a stale Node process that is confirmed to be this manager.
@@ -32,7 +32,7 @@ if errorlevel 2 (
 
 set /a RETRIES=0
 :wait_for_manager
-powershell.exe -NoProfile -Command "try { $health=Invoke-RestMethod -Uri '%MANAGER_URL%/api/health' -TimeoutSec 2; if ($health.service -eq 'portfolio-manager') { exit 0 }; exit 1 } catch { exit 1 }"
+powershell.exe -NoProfile -Command "$expected=[string][Math]::Truncate(([DateTimeOffset](Get-Item -LiteralPath '%CD%\manager\server.mjs').LastWriteTimeUtc).ToUnixTimeMilliseconds()); try { $health=Invoke-RestMethod -Uri '%MANAGER_URL%/api/health' -TimeoutSec 2; if ($health.service -eq 'portfolio-manager' -and $health.serverVersion -eq $expected) { exit 0 }; exit 1 } catch { exit 1 }"
 if not errorlevel 1 goto open_manager
 set /a RETRIES+=1
 if %RETRIES% LSS 6 (

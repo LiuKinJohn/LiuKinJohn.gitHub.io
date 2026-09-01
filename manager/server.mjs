@@ -6,7 +6,8 @@ import { basename, dirname, extname, join, normalize, relative } from 'node:path
 import { fileURLToPath } from 'node:url';
 
 const execFile = promisify(execFileCallback);
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const serverFile = fileURLToPath(import.meta.url);
+const root = join(dirname(serverFile), '..');
 const contentDir = join(root, 'content');
 const mediaDir = join(contentDir, 'media');
 const tempDir = join(root, '.manager-temp');
@@ -17,6 +18,7 @@ const siteFile = join(contentDir, 'site.json');
 const maxBody = 160 * 1024 * 1024;
 const port = Number(process.env.PORT || 4310);
 const startedAt = new Date().toISOString();
+const serverVersion = String(Math.trunc((await stat(serverFile)).mtimeMs));
 
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.pdf': 'application/pdf', '.svg': 'image/svg+xml' };
 const json = (response, status, value) => { response.writeHead(status, { 'content-type': 'application/json; charset=utf-8' }); response.end(JSON.stringify(value)); };
@@ -176,7 +178,7 @@ const server = createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
   try {
     if (request.method === 'GET' && url.pathname === '/') return sendFile(response, dirname(adminFile), basename(adminFile));
-    if (request.method === 'GET' && url.pathname === '/api/health') return json(response, 200, { ok: true, service: 'portfolio-manager', pid: process.pid, startedAt });
+    if (request.method === 'GET' && url.pathname === '/api/health') return json(response, 200, { ok: true, service: 'portfolio-manager', pid: process.pid, startedAt, serverVersion });
     if (request.method === 'GET' && url.pathname === '/api/projects') return json(response, 200, await readJson(projectsFile));
     if (request.method === 'GET' && url.pathname === '/api/site') return json(response, 200, await readJson(siteFile));
     if (request.method === 'GET' && url.pathname.startsWith('/site/')) return sendFile(response, distDir, decodeURIComponent(url.pathname.slice(6)) || 'index.html');
