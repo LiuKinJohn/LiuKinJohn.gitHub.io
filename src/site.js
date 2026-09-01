@@ -39,6 +39,7 @@
   const items = [...shelf.querySelectorAll('[data-shelf-item]')];
   const infoPanel = shelf.querySelector('.shelf-info');
   const info = shelf.querySelector('[data-shelf-info]');
+  const shelfIndex = shelf.querySelector('[data-shelf-index]');
   const title = shelf.querySelector('[data-shelf-title]');
   const type = shelf.querySelector('[data-shelf-type]');
   const year = shelf.querySelector('[data-shelf-year]');
@@ -82,13 +83,21 @@
   };
   const syncActivePresentation = (item = activeItem) => {
     if (!item) return;
-    const infoCenter = infoPanel.offsetTop;
+    const pageMargin = infoPanel.getBoundingClientRect().left - shelf.getBoundingClientRect().left;
+    const top = Math.max(64, viewport.clientHeight * 0.1);
+    const bottom = Math.max(top + 120, viewport.clientHeight - rackHeight() * 0.58);
+    const left = Math.max(viewport.clientWidth * 0.42, infoPanel.offsetLeft + infoPanel.offsetWidth + pageMargin);
+    const right = viewport.clientWidth - pageMargin;
+    const height = Math.max(1, Math.min(bottom - top, (right - left) / 1.5));
+    const width = height * 1.5;
+    const presentationCenterY = bottom - height / 2;
+    const presentationCenterX = right - width / 2;
     const itemCenter = viewport.offsetTop + item.offsetTop + item.offsetHeight / 2;
     const itemCenterX = item.offsetLeft + item.offsetWidth / 2;
-    const presentationCenterX = viewport.scrollLeft + viewport.clientWidth * 0.6;
-    const scale = Math.min(1.3, Math.max(1.16, 1 + window.innerWidth * 0.00015));
-    item.style.setProperty('--active-offset', `${Math.round(infoCenter - itemCenter)}px`);
-    item.style.setProperty('--active-offset-x', `${Math.round(presentationCenterX - itemCenterX)}px`);
+    const scale = width / item.offsetWidth;
+    shelf.style.setProperty('--presentation-bottom', `${Math.round(viewport.clientHeight - bottom)}px`);
+    item.style.setProperty('--active-offset', `${Math.round(presentationCenterY - itemCenter)}px`);
+    item.style.setProperty('--active-offset-x', `${Math.round(viewport.scrollLeft + presentationCenterX - itemCenterX)}px`);
     item.style.setProperty('--active-scale', scale.toFixed(3));
   };
   const updateInfo = (item, fade = true) => {
@@ -97,6 +106,7 @@
       title.textContent = valueForLanguage(item, 'title');
       type.textContent = valueForLanguage(item, 'type');
       year.textContent = valueForLanguage(item, 'year');
+      if (shelfIndex) shelfIndex.textContent = item.dataset.index || '';
       requestAnimationFrame(() => info.classList.remove('is-switching'));
     };
     if (fade) {
@@ -121,6 +131,7 @@
       title.textContent = '';
       type.textContent = '';
       year.textContent = '';
+      if (shelfIndex) shelfIndex.textContent = '';
     }, 110);
   };
 

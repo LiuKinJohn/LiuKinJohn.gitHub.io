@@ -24,6 +24,7 @@ const safeSlug = (value) => String(value || '').trim().toLowerCase().replace(/[^
 const bilingual = (value = {}) => ({ zh: String(value.zh || '').trim(), en: String(value.en || '').trim() });
 const readJson = async (file) => JSON.parse(await readFile(file, 'utf8'));
 const writeJson = async (file, value) => writeFile(file, `${JSON.stringify(value, null, 2)}\n`);
+const orderModes = new Set(['manual', 'date-asc', 'date-desc']);
 
 function ensureInside(base, candidate) {
   const resolved = normalize(join(base, candidate));
@@ -125,6 +126,25 @@ async function deleteProject(slug) {
   await rm(join(mediaDir, slug), { recursive: true, force: true });
 }
 
+async function saveWorksOrder(payload) {
+  const mode = orderModes.has(payload?.mode) ? payload.mode : 'date-desc';
+  const site = await readJson(siteFile);
+  site.worksOrder = { ...(site.worksOrder || {}), mode };
+  await writeJson(siteFile, site);
+  return site.worksOrder;
+}
+
+async function reorderProjects(payload) {
+  const projects = await readJson(projectsFile);
+  const slugs = Array.isArray(payload?.slugs) ? payload.slugs.map(safeSlug) : [];
+  if (slugs.length !== projects.length || new Set(slugs).size !== projects.length) throw new Error('Project order is incomplete. Refresh and try again.');
+  const bySlug = new Map(projects.map((project) => [project.slug, project]));
+  if (slugs.some((slug) => !bySlug.has(slug))) throw new Error('Project order contains an unknown project. Refresh and try again.');
+  const next = slugs.map((slug) => bySlug.get(slug));
+  await writeJson(projectsFile, next);
+  return next;
+}
+
 async function saveResume(upload) {
   if (!upload?.dataUrl?.startsWith('data:application/pdf;base64,')) throw new Error('Please choose a PDF.');
   const target = join(root, 'assets', 'resume.pdf');
@@ -161,6 +181,8 @@ const server = createServer(async (request, response) => {
     if (request.method === 'GET' && url.pathname === '/api/site') return json(response, 200, await readJson(siteFile));
     if (request.method === 'GET' && url.pathname.startsWith('/site/')) return sendFile(response, distDir, decodeURIComponent(url.pathname.slice(6)) || 'index.html');
     if (request.method === 'POST' && url.pathname === '/api/projects') return json(response, 200, { project: await upsertProject(await bodyOf(request)) });
+    if (request.method === 'POST' && url.pathname === '/api/projects/reorder') return json(response, 200, { projects: await reorderProjects(await bodyOf(request)) });
+    if (request.method === 'POST' && url.pathname === '/api/works-order') return json(response, 200, { worksOrder: await saveWorksOrder(await bodyOf(request)) });
     if (request.method === 'DELETE' && url.pathname.startsWith('/api/projects/')) { await deleteProject(safeSlug(decodeURIComponent(url.pathname.slice(14)))); return json(response, 200, { ok: true }); }
     if (request.method === 'POST' && url.pathname === '/api/resume') { await saveResume((await bodyOf(request)).resume); return json(response, 200, { ok: true }); }
     if (request.method === 'POST' && url.pathname === '/api/build') { const output = await runBuild(); return json(response, 200, { ok: true, output: output.stdout }); }

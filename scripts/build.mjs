@@ -8,8 +8,22 @@ const content = join(root, 'content');
 const readJson = async (file) => JSON.parse(await readFile(join(content, file), 'utf8'));
 const site = await readJson('site.json');
 const allProjects = await readJson('projects.json');
-const projects = allProjects.filter((project) => project.status !== 'draft')
-  .sort((a, b) => (b.sortDate || '').localeCompare(a.sortDate || ''));
+const worksOrder = site.worksOrder?.mode || 'date-desc';
+const validSortDate = (value) => /^\d{4}-\d{2}-\d{2}$/.test(String(value || ''));
+const orderedProjects = (items, mode = worksOrder) => {
+  const projects = [...items];
+  if (mode === 'manual') return projects;
+  const direction = mode === 'date-asc' ? 1 : -1;
+  return projects.sort((a, b) => {
+    const aHasDate = validSortDate(a.sortDate);
+    const bHasDate = validSortDate(b.sortDate);
+    if (!aHasDate && !bHasDate) return 0;
+    if (!aHasDate) return 1;
+    if (!bHasDate) return -1;
+    return a.sortDate.localeCompare(b.sortDate) * direction;
+  });
+};
+const projects = orderedProjects(allProjects.filter((project) => project.status !== 'draft'));
 const fileExists = async (file) => access(file).then(() => true).catch(() => false);
 const hasResume = await fileExists(join(root, site.resume));
 
@@ -50,7 +64,7 @@ function workCard(project, from) {
   return `<a class="work-card" href="${href}"><figure><img src="${linkFor(from, project.cover)}" alt="${esc(project.title.en || project.title.zh)}"></figure>${content}</a>`;
 }
 
-function shelfItem(project, from) {
+function shelfItem(project, from, index, total) {
   const href = linkFor(from, `works/${project.slug}/index.html`);
   const year = project.year === 'YEAR TBC'
     ? { zh: '年份待确认', en: 'Year to be confirmed' }
@@ -58,14 +72,14 @@ function shelfItem(project, from) {
   const media = project.cover
     ? `<img src="${linkFor(from, project.cover)}" alt="${esc(project.title.en || project.title.zh)}">`
     : `<span class="shelf-placeholder" aria-hidden="true"></span>`;
-  return `<a class="shelf-item" href="${href}" data-shelf-item data-title-zh="${esc(project.title.zh)}" data-title-en="${esc(project.title.en)}" data-type-zh="${esc(project.type.zh)}" data-type-en="${esc(project.type.en)}" data-year-zh="${esc(year.zh)}" data-year-en="${esc(year.en)}" aria-label="${esc(project.title.en || project.title.zh)}">${media}</a>`;
+  return `<a class="shelf-item" href="${href}" data-shelf-item data-index="${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}" data-title-zh="${esc(project.title.zh)}" data-title-en="${esc(project.title.en)}" data-type-zh="${esc(project.type.zh)}" data-type-en="${esc(project.type.en)}" data-year-zh="${esc(year.zh)}" data-year-en="${esc(year.en)}" aria-label="${esc(project.title.en || project.title.zh)}">${media}</a>`;
 }
 
 function worksPage() {
   const from = dist;
   return shell({
     title: 'Works', from,
-    body: `<section class="works-shelf-view" data-works-shelf aria-label="Works shelf"><div class="shelf-layout"><aside class="shelf-info" aria-live="polite"><div class="shelf-info-content" data-shelf-info><p class="shelf-info-type" data-shelf-type></p><h1 data-shelf-title></h1><p class="shelf-info-year" data-shelf-year></p></div></aside><div class="shelf-viewport" data-shelf-viewport><div class="shelf-track" data-shelf-track>${projects.map((project) => shelfItem(project, from)).join('')}</div><div class="shelf-rail" aria-hidden="true"></div></div><div class="shelf-fade shelf-fade--left" aria-hidden="true"></div><div class="shelf-fade shelf-fade--right" aria-hidden="true"></div></div></section><section class="works-grid-view"><section class="works-intro"><p class="eyebrow">${lang({ zh: '作品索引', en: 'Selected works' })}</p><h1>${lang({ zh: '设计、空间与技术之间的实践。', en: 'Practice across design, space, and technology.' })}</h1><p class="intro-copy">${lang(site.intro)}</p></section><section class="works-grid" aria-label="Works">${projects.map((project) => workCard(project, from)).join('')}</section></section>`
+    body: `<section class="works-shelf-view" data-works-shelf aria-label="Works shelf"><div class="shelf-layout"><aside class="shelf-info" aria-live="polite"><div class="shelf-info-content" data-shelf-info><p class="shelf-info-type" data-shelf-type></p><h1 data-shelf-title></h1><p class="shelf-info-year" data-shelf-year></p></div></aside><p class="shelf-index" data-shelf-index aria-live="polite"></p><div class="shelf-viewport" data-shelf-viewport><div class="shelf-track" data-shelf-track>${projects.map((project, index) => shelfItem(project, from, index, projects.length)).join('')}</div><div class="shelf-rail" aria-hidden="true"></div></div><div class="shelf-fade shelf-fade--left" aria-hidden="true"></div><div class="shelf-fade shelf-fade--right" aria-hidden="true"></div></div></section><section class="works-grid-view"><section class="works-intro"><p class="eyebrow">${lang({ zh: '作品索引', en: 'Selected works' })}</p><h1>${lang({ zh: '设计、空间与技术之间的实践。', en: 'Practice across design, space, and technology.' })}</h1><p class="intro-copy">${lang(site.intro)}</p></section><section class="works-grid" aria-label="Works">${projects.map((project) => workCard(project, from)).join('')}</section></section>`
   });
 }
 
