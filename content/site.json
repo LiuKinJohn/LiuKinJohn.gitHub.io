@@ -5,6 +5,10 @@
     "zh": "广州美术学院艺术与科技专业本科生，关注视觉传播、空间叙事与技术驱动的艺术实践。",
     "en": "An undergraduate student of Art and Technology at the Guangzhou Academy of Fine Arts, working across visual communication, spatial narrative, and technology-led art practice."
   },
+  "worksIntro": {
+    "zh": "设计、空间与技术之间的实践。",
+    "en": "Practice across design, space, and technology."
+  },
   "education": [{
     "title": { "zh": "广州美术学院", "en": "Guangzhou Academy of Fine Arts" },
     "detail": { "zh": "艺术与科技（本科）", "en": "Art and Technology, BFA" },

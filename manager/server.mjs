@@ -136,6 +136,15 @@ async function saveWorksOrder(payload) {
   return site.worksOrder;
 }
 
+async function saveWorksIntro(payload) {
+  const worksIntro = bilingual(payload?.worksIntro);
+  if (!worksIntro.zh || !worksIntro.en) throw new Error('Chinese and English WORKS introduction text is required.');
+  const site = await readJson(siteFile);
+  site.worksIntro = worksIntro;
+  await writeJson(siteFile, site);
+  return site.worksIntro;
+}
+
 async function reorderProjects(payload) {
   const projects = await readJson(projectsFile);
   const slugs = Array.isArray(payload?.slugs) ? payload.slugs.map(safeSlug) : [];
@@ -181,6 +190,7 @@ const server = createServer(async (request, response) => {
     if (request.method === 'GET' && url.pathname === '/api/health') return json(response, 200, { ok: true, service: 'portfolio-manager', pid: process.pid, startedAt, serverVersion });
     if (request.method === 'GET' && url.pathname === '/api/projects') return json(response, 200, await readJson(projectsFile));
     if (request.method === 'GET' && url.pathname === '/api/site') return json(response, 200, await readJson(siteFile));
+    if (request.method === 'POST' && url.pathname === '/api/site') return json(response, 200, { worksIntro: await saveWorksIntro(await bodyOf(request)) });
     if (request.method === 'GET' && url.pathname.startsWith('/site/')) return sendFile(response, distDir, decodeURIComponent(url.pathname.slice(6)) || 'index.html');
     if (request.method === 'POST' && url.pathname === '/api/projects') return json(response, 200, { project: await upsertProject(await bodyOf(request)) });
     if (request.method === 'POST' && url.pathname === '/api/projects/reorder') return json(response, 200, { projects: await reorderProjects(await bodyOf(request)) });

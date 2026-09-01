@@ -18,7 +18,11 @@
   const navigationKey = 'portfolio-navigation-chosen';
   const rememberNavigation = () => { try { sessionStorage.setItem(navigationKey, 'true'); } catch { /* Session storage is optional. */ } };
   const navigationRemembered = () => { try { return sessionStorage.getItem(navigationKey) === 'true'; } catch { return false; } };
-  const dismissLanding = () => { if (root.dataset.landingGuide) root.dataset.landingGuide = 'done'; };
+  const dismissLanding = () => {
+    if (root.dataset.landingGuide) root.dataset.landingGuide = 'done';
+    const lockedShelf = document.querySelector('[data-works-shelf]');
+    if (lockedShelf) lockedShelf.inert = false;
+  };
   if (landingNav && root.dataset.landingGuide === 'active') {
     landingNav.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', (event) => {
@@ -42,6 +46,9 @@
   const viewToggle = document.querySelector('[data-view-toggle]');
   if (!shelf || !viewToggle) return;
 
+  const landingLocked = root.dataset.landingGuide === 'active' || root.dataset.landingGuide === 'closing';
+  if (landingLocked) shelf.inert = true;
+
   const mobile = window.matchMedia('(max-width: 760px)').matches;
   const setView = (view, persist = true) => {
     root.dataset.worksView = view;
@@ -52,7 +59,7 @@
   };
 
   const savedView = localStorage.getItem(viewKey);
-  setView(savedView || (mobile ? 'grid' : 'shelf'), false);
+  setView(landingLocked ? 'shelf' : (savedView || (mobile ? 'grid' : 'shelf')), false);
   viewToggle.addEventListener('click', () => {
     setView(root.dataset.worksView === 'shelf' ? 'grid' : 'shelf');
     requestAnimationFrame(setEdgePadding);

@@ -7,6 +7,7 @@ const dist = join(root, 'dist');
 const content = join(root, 'content');
 const readJson = async (file) => JSON.parse(await readFile(join(content, file), 'utf8'));
 const site = await readJson('site.json');
+const worksIntro = site.worksIntro || { zh: '设计、空间与技术之间的实践。', en: 'Practice across design, space, and technology.' };
 const allProjects = await readJson('projects.json');
 const worksOrder = site.worksOrder?.mode || 'date-desc';
 const validSortDate = (value) => /^\d{4}-\d{2}-\d{2}$/.test(String(value || ''));
@@ -53,12 +54,13 @@ function nav(from) {
 
 function shell({ title, from, body }) {
   const css = linkFor(from, 'assets/site.css');
+  const titleCss = linkFor(from, 'assets/title-breaks.css');
   const js = linkFor(from, 'assets/site.js');
   const controlsCss = linkFor(from, 'assets/site-tools.css');
   const shelfCss = from === dist ? `<link rel="stylesheet" href="${linkFor(from, 'assets/works-shelf.css')}">` : '';
   const landingBoot = from === dist ? `<script>try{const n=performance.getEntriesByType('navigation')[0];if(n?.type!=='reload'&&!sessionStorage.getItem('portfolio-navigation-chosen'))document.documentElement.dataset.landingGuide='active'}catch{}</script>` : '';
   const bodyClass = from === dist ? ' class="works-home"' : '';
-  return `<!doctype html><html lang="zh-CN" data-lang="zh" data-works-view="shelf"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${esc(site.name.en)} — portfolio"><title>${esc(title)} — ${esc(site.name.en)}</title><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="${controlsCss}">${shelfCss}${landingBoot}</head><body${bodyClass}>${nav(from)}<main>${body}</main><footer class="site-footer"><span>© ${new Date().getFullYear()} ${esc(site.name.en)}</span><a href="${linkFor(from, 'contact/index.html')}">CONTACT</a></footer><script src="${js}"></script></body></html>`;
+  return `<!doctype html><html lang="zh-CN" data-lang="zh" data-works-view="shelf"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${esc(site.name.en)} — portfolio"><title>${esc(title)} — ${esc(site.name.en)}</title><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="${titleCss}"><link rel="stylesheet" href="${controlsCss}">${shelfCss}${landingBoot}</head><body${bodyClass}>${nav(from)}<main>${body}</main><footer class="site-footer"><span>© ${new Date().getFullYear()} ${esc(site.name.en)}</span><a href="${linkFor(from, 'contact/index.html')}">CONTACT</a></footer><script src="${js}"></script></body></html>`;
 }
 
 function workCard(project, from) {
@@ -83,7 +85,7 @@ function worksPage() {
   const from = dist;
   return shell({
     title: 'Works', from,
-    body: `<nav class="landing-nav" aria-label="Choose a section" data-landing-nav>${primaryLinks(from)}</nav><section class="works-shelf-view" data-works-shelf aria-label="Works shelf"><div class="shelf-layout"><aside class="shelf-info" aria-live="polite"><div class="shelf-info-content" data-shelf-info><p class="shelf-info-type" data-shelf-type></p><h1 data-shelf-title></h1><p class="shelf-info-year" data-shelf-year></p></div></aside><p class="shelf-index" data-shelf-index aria-live="polite"></p><div class="shelf-viewport" data-shelf-viewport><div class="shelf-track" data-shelf-track>${projects.map((project, index) => shelfItem(project, from, index, projects.length)).join('')}</div><div class="shelf-rail" aria-hidden="true"></div></div><div class="shelf-fade shelf-fade--left" aria-hidden="true"></div><div class="shelf-fade shelf-fade--right" aria-hidden="true"></div></div></section><section class="works-grid-view"><section class="works-intro"><p class="eyebrow">${lang({ zh: '作品索引', en: 'Selected works' })}</p><h1>${lang({ zh: '设计、空间与技术之间的实践。', en: 'Practice across design, space, and technology.' })}</h1><p class="intro-copy">${lang(site.intro)}</p></section><section class="works-grid" aria-label="Works">${projects.map((project) => workCard(project, from)).join('')}</section></section>`
+    body: `<nav class="landing-nav" aria-label="Choose a section" data-landing-nav>${primaryLinks(from)}</nav><section class="works-shelf-view" data-works-shelf aria-label="Works shelf"><div class="shelf-layout"><aside class="shelf-info" aria-live="polite"><h1 class="shelf-default-intro" data-shelf-default-intro>${lang(worksIntro)}</h1><div class="shelf-info-content" data-shelf-info><p class="shelf-info-type" data-shelf-type></p><h1 data-shelf-title></h1><p class="shelf-info-year" data-shelf-year></p></div></aside><p class="shelf-index" data-shelf-index aria-live="polite"></p><div class="shelf-viewport" data-shelf-viewport><div class="shelf-track" data-shelf-track>${projects.map((project, index) => shelfItem(project, from, index, projects.length)).join('')}</div><div class="shelf-rail" aria-hidden="true"></div></div><div class="shelf-fade shelf-fade--left" aria-hidden="true"></div><div class="shelf-fade shelf-fade--right" aria-hidden="true"></div></div></section><section class="works-grid-view"><section class="works-intro"><p class="eyebrow">${lang({ zh: '作品索引', en: 'Selected works' })}</p><h1>${lang(worksIntro)}</h1><p class="intro-copy">${lang(site.intro)}</p></section><section class="works-grid" aria-label="Works">${projects.map((project) => workCard(project, from)).join('')}</section></section>`
   });
 }
 
@@ -135,6 +137,7 @@ for (const project of projects) {
 await cp(join(root, 'src', 'site.css'), join(dist, 'assets', 'site.css'));
 await writeFile(join(dist, 'assets', 'site.css'), `${await readFile(join(root, 'src', 'site.css'), 'utf8')}\n.eyebrow{margin:0 0 20px}\n`);
 await cp(join(root, 'src', 'site-tools.css'), join(dist, 'assets', 'site-tools.css'));
+await cp(join(root, 'src', 'title-breaks.css'), join(dist, 'assets', 'title-breaks.css'));
 await cp(join(root, 'src', 'works-shelf.css'), join(dist, 'assets', 'works-shelf.css'));
 await cp(join(root, 'src', 'site.js'), join(dist, 'assets', 'site.js'));
 try { await cp(join(content, 'media'), join(dist, 'media'), { recursive: true }); } catch { /* Media is created by the local manager when assets are uploaded. */ }
