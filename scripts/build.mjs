@@ -36,16 +36,18 @@ const dateLabel = (project) => project.year === 'YEAR TBC'
   ? lang({ zh: '年份待确认', en: 'Year to be confirmed' })
   : esc(project.year || '—');
 
+function primaryLinks(from) {
+  return `<a href="${linkFor(from, 'index.html')}">WORKS</a>
+    <a href="${linkFor(from, 'about/index.html')}">ABOUT</a>
+    <a href="${linkFor(from, 'contact/index.html')}">CONTACT</a>`;
+}
+
 function nav(from) {
   const viewToggle = from === dist
     ? `<button class="view-toggle" type="button" aria-label="Switch works view" aria-pressed="true" data-view-toggle><span data-view-label>GRID</span></button>`
     : '';
   return `<header class="site-header"><a class="wordmark" href="${linkFor(from, 'index.html')}">LIU BINGZHANG</a>
-  <nav aria-label="Primary navigation">
-    <a href="${linkFor(from, 'index.html')}">WORKS</a>
-    <a href="${linkFor(from, 'about/index.html')}">ABOUT</a>
-    <a href="${linkFor(from, 'contact/index.html')}">CONTACT</a>
-  </nav>
+  <nav aria-label="Primary navigation">${primaryLinks(from)}</nav>
   <div class="site-tools">${viewToggle}<button class="language-toggle" type="button" aria-label="Switch language" aria-pressed="false">中 / EN</button></div></header>`;
 }
 
@@ -54,7 +56,9 @@ function shell({ title, from, body }) {
   const js = linkFor(from, 'assets/site.js');
   const controlsCss = linkFor(from, 'assets/site-tools.css');
   const shelfCss = from === dist ? `<link rel="stylesheet" href="${linkFor(from, 'assets/works-shelf.css')}">` : '';
-  return `<!doctype html><html lang="zh-CN" data-lang="zh" data-works-view="shelf"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${esc(site.name.en)} — portfolio"><title>${esc(title)} — ${esc(site.name.en)}</title><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="${controlsCss}">${shelfCss}</head><body>${nav(from)}<main>${body}</main><footer class="site-footer"><span>© ${new Date().getFullYear()} ${esc(site.name.en)}</span><a href="${linkFor(from, 'contact/index.html')}">CONTACT</a></footer><script src="${js}"></script></body></html>`;
+  const landingBoot = from === dist ? `<script>try{const n=performance.getEntriesByType('navigation')[0];if(n?.type!=='reload'&&!sessionStorage.getItem('portfolio-navigation-chosen'))document.documentElement.dataset.landingGuide='active'}catch{}</script>` : '';
+  const bodyClass = from === dist ? ' class="works-home"' : '';
+  return `<!doctype html><html lang="zh-CN" data-lang="zh" data-works-view="shelf"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${esc(site.name.en)} — portfolio"><title>${esc(title)} — ${esc(site.name.en)}</title><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="${controlsCss}">${shelfCss}${landingBoot}</head><body${bodyClass}>${nav(from)}<main>${body}</main><footer class="site-footer"><span>© ${new Date().getFullYear()} ${esc(site.name.en)}</span><a href="${linkFor(from, 'contact/index.html')}">CONTACT</a></footer><script src="${js}"></script></body></html>`;
 }
 
 function workCard(project, from) {
@@ -79,7 +83,7 @@ function worksPage() {
   const from = dist;
   return shell({
     title: 'Works', from,
-    body: `<section class="works-shelf-view" data-works-shelf aria-label="Works shelf"><div class="shelf-layout"><aside class="shelf-info" aria-live="polite"><div class="shelf-info-content" data-shelf-info><p class="shelf-info-type" data-shelf-type></p><h1 data-shelf-title></h1><p class="shelf-info-year" data-shelf-year></p></div></aside><p class="shelf-index" data-shelf-index aria-live="polite"></p><div class="shelf-viewport" data-shelf-viewport><div class="shelf-track" data-shelf-track>${projects.map((project, index) => shelfItem(project, from, index, projects.length)).join('')}</div><div class="shelf-rail" aria-hidden="true"></div></div><div class="shelf-fade shelf-fade--left" aria-hidden="true"></div><div class="shelf-fade shelf-fade--right" aria-hidden="true"></div></div></section><section class="works-grid-view"><section class="works-intro"><p class="eyebrow">${lang({ zh: '作品索引', en: 'Selected works' })}</p><h1>${lang({ zh: '设计、空间与技术之间的实践。', en: 'Practice across design, space, and technology.' })}</h1><p class="intro-copy">${lang(site.intro)}</p></section><section class="works-grid" aria-label="Works">${projects.map((project) => workCard(project, from)).join('')}</section></section>`
+    body: `<nav class="landing-nav" aria-label="Choose a section" data-landing-nav>${primaryLinks(from)}</nav><section class="works-shelf-view" data-works-shelf aria-label="Works shelf"><div class="shelf-layout"><aside class="shelf-info" aria-live="polite"><div class="shelf-info-content" data-shelf-info><p class="shelf-info-type" data-shelf-type></p><h1 data-shelf-title></h1><p class="shelf-info-year" data-shelf-year></p></div></aside><p class="shelf-index" data-shelf-index aria-live="polite"></p><div class="shelf-viewport" data-shelf-viewport><div class="shelf-track" data-shelf-track>${projects.map((project, index) => shelfItem(project, from, index, projects.length)).join('')}</div><div class="shelf-rail" aria-hidden="true"></div></div><div class="shelf-fade shelf-fade--left" aria-hidden="true"></div><div class="shelf-fade shelf-fade--right" aria-hidden="true"></div></div></section><section class="works-grid-view"><section class="works-intro"><p class="eyebrow">${lang({ zh: '作品索引', en: 'Selected works' })}</p><h1>${lang({ zh: '设计、空间与技术之间的实践。', en: 'Practice across design, space, and technology.' })}</h1><p class="intro-copy">${lang(site.intro)}</p></section><section class="works-grid" aria-label="Works">${projects.map((project) => workCard(project, from)).join('')}</section></section>`
   });
 }
 

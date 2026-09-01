@@ -14,6 +14,30 @@
   setLanguage(localStorage.getItem(languageKey) || 'zh');
   languageToggle?.addEventListener('click', () => setLanguage(root.dataset.lang === 'zh' ? 'en' : 'zh'));
 
+  const landingNav = document.querySelector('[data-landing-nav]');
+  const navigationKey = 'portfolio-navigation-chosen';
+  const rememberNavigation = () => { try { sessionStorage.setItem(navigationKey, 'true'); } catch { /* Session storage is optional. */ } };
+  const navigationRemembered = () => { try { return sessionStorage.getItem(navigationKey) === 'true'; } catch { return false; } };
+  const dismissLanding = () => { if (root.dataset.landingGuide) root.dataset.landingGuide = 'done'; };
+  if (landingNav && root.dataset.landingGuide === 'active') {
+    landingNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        rememberNavigation();
+        const destination = new URL(link.href, window.location.href);
+        const isWorks = destination.pathname === window.location.pathname;
+        if (isWorks) {
+          root.dataset.landingGuide = 'closing';
+          window.setTimeout(dismissLanding, 460);
+          return;
+        }
+        document.body.classList.add('is-page-leaving');
+        window.setTimeout(() => window.location.assign(destination.href), 190);
+      });
+    });
+  }
+  window.addEventListener('pageshow', () => { if (navigationRemembered()) dismissLanding(); });
+
   const shelf = document.querySelector('[data-works-shelf]');
   const viewToggle = document.querySelector('[data-view-toggle]');
   if (!shelf || !viewToggle) return;
