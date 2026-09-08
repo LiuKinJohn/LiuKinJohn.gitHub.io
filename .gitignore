@@ -51,3 +51,6 @@ wp-config.php
 /dist/
 /.manager-temp/
 /manager.log
+
+# Local project handoff notes
+/PROJECT_STATUS.md
