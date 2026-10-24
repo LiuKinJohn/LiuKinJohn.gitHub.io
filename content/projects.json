@@ -13,7 +13,7 @@
       "en": "3D Mapping / Light Art"
     },
     "summary": {
-      "zh": "以光影与空间投影为媒介的 3D Mapping 视觉实验。",
+      "zh": "以光影与空间投影为媒介的 3D Mapping 视觉实验，包含了使用电脑进行控制的视觉效果。",
       "en": "A 3D mapping visual experiment using light, shadow and spatial projection as its medium."
     },
     "role": {
@@ -29,14 +29,18 @@
     "tags": [
       "3D Mapping",
       "Projection",
-      "Visual"
+      "Visual Communication"
     ],
     "sourceFolder": "3D Mapping 光影重奏",
     "client": {
       "zh": "",
       "en": ""
     },
-    "tools": []
+    "tools": [],
+    "homeSummary": {
+      "zh": "以光影与空间投影为媒介的 3D Mapping 视觉实验",
+      "en": "A 3D mapping visual experiment using light, shadow and spatial projection as its medium."
+    }
   },
   {
     "slug": "emevibe",
@@ -88,11 +92,15 @@
       "en": "Editorial Design"
     },
     "summary": {
-      "zh": "关于空间漫游与想象生产的编辑与排版研究。",
+      "zh": "关于网红城市、在地文化和想象生产的编辑与排版研究。",
       "en": "An editorial and typographic study of spatial roaming and the production of imagination."
     },
     "cover": "media/space-roaming/cover.jpg",
-    "gallery": [],
+    "gallery": [
+      "media/space-roaming/gallery-1792841698606-1.jpg",
+      "media/space-roaming/gallery-1792841699115-2.jpg",
+      "media/space-roaming/gallery-1792841699598-3.jpg"
+    ],
     "tags": [
       "Editorial",
       "Typography",
@@ -107,7 +115,11 @@
       "zh": "",
       "en": ""
     },
-    "tools": []
+    "tools": [],
+    "homeSummary": {
+      "zh": "关于网红城市、在地文化和想象生产的编辑与排版研究。",
+      "en": ""
+    }
   },
   {
     "slug": "ling-shi",
@@ -179,7 +191,11 @@
       "zh": "",
       "en": ""
     },
-    "tools": []
+    "tools": [],
+    "homeSummary": {
+      "zh": "以“灵枢”为核心概念，基于思辨主题，构建了一个面向生态、未来可持续发展的品牌视觉系统",
+      "en": "A visual identity project for ecology and future sustainable development."
+    }
   },
   {
     "slug": "another-sky",

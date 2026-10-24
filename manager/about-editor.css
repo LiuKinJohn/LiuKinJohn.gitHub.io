@@ -1,0 +1,31 @@
+.about-editor{display:grid;gap:30px}
+.about-editor .grid{margin-bottom:0}
+.about-editor-section{display:grid;gap:12px}
+.about-section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:9px}
+.about-section-head h2{margin:0;font-size:16px}
+.about-section-head button{padding:6px 9px}
+.about-items{display:grid;gap:12px}
+.about-item{display:grid;gap:14px;border:1px solid var(--line);background:rgb(255 255 255 / .52);padding:14px}
+.about-item-toolbar{display:flex;align-items:center;gap:6px}
+.about-item-toolbar strong{margin-right:auto;font-size:12px;letter-spacing:.05em}
+.about-item-toolbar button{min-width:35px;padding:5px 8px}
+.about-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.about-fields .wide{grid-column:1/-1}
+.about-fields label{display:grid;gap:6px}
+.icon-picker,.color-picker{display:flex;flex-wrap:wrap;gap:8px}
+.icon-option,.color-option{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid transparent;border-radius:8px;background:#eeede9;padding:0}
+.icon-option:hover,.color-option:hover{background:#e4e3de;color:inherit}
+.icon-option.selected,.color-option.selected{border-color:#426b58;background:#fff}
+.icon-option svg{width:21px;height:21px}
+.icon-none{font-size:18px;line-height:1;color:var(--muted)}
+.color-option::before{content:"";width:22px;height:22px;border-radius:50%;background:var(--swatch);box-shadow:inset 0 0 0 1px rgb(0 0 0 / .08)}
+.color-custom{display:flex;align-items:center;gap:10px;margin-top:9px}
+.color-custom input[type="color"]{width:54px;height:38px;padding:3px}
+.skill-preview{display:inline-flex;align-items:center;gap:7px;justify-self:start;border:1px solid rgb(0 0 0 / .12);border-radius:999px;padding:7px 11px;background:var(--preview-color);color:var(--preview-ink)}
+.skill-preview svg{width:15px;height:15px}
+.resume-manager{display:grid;gap:14px;border-top:1px solid var(--ink);padding-top:20px}
+.resume-manager h2{margin:0;font-size:20px}
+.resume-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.resume-actions input{max-width:520px}
+.about-save{position:sticky;bottom:0;z-index:1;background:linear-gradient(to top,var(--paper) 72%,transparent);padding:28px 0 10px}
+@media(max-width:760px){.about-fields{grid-template-columns:1fr}.about-fields .wide{grid-column:auto}.about-item{padding:12px}.icon-option,.color-option{width:44px;height:44px}.about-save{position:static;background:none;padding-top:10px}}

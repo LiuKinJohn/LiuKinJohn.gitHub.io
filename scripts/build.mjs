@@ -1,6 +1,7 @@
 import { access, cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { skillIconIds, skillIconSvg } from './skill-icons.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
@@ -37,6 +38,38 @@ const dateLabel = (project) => project.year === 'YEAR TBC'
   ? lang({ zh: '年份待确认', en: 'Year to be confirmed' })
   : esc(project.year || '—');
 
+const firstSentence = (value, language) => {
+  const text = String(value || '').trim().replace(/\s+/g, ' ');
+  if (!text) return '';
+  const matched = language === 'zh'
+    ? text.match(/^[\s\S]*?[。！？]/u)
+    : text.match(/^[\s\S]*?[.!?](?:["'”’])?(?=\s|$)/u);
+  return matched?.[0]?.trim() || text;
+};
+
+const homeSummary = (project) => ({
+  zh: String(project.homeSummary?.zh || '').trim() || firstSentence(project.summary?.zh, 'zh'),
+  en: String(project.homeSummary?.en || '').trim() || firstSentence(project.summary?.en, 'en')
+});
+
+const safeColor = (value) => /^#[0-9a-f]{6}$/i.test(String(value || '')) ? String(value) : '#e6e5e0';
+const contrastColor = (value) => {
+  const color = safeColor(value).slice(1);
+  const channels = [0, 2, 4].map((index) => Number.parseInt(color.slice(index, index + 2), 16) / 255);
+  const luminance = channels.map((channel) => channel <= .03928 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4)
+    .reduce((sum, channel, index) => sum + channel * [.2126, .7152, .0722][index], 0);
+  return luminance > .48 ? '#111111' : '#ffffff';
+};
+
+function skillTag(skill) {
+  const normalized = typeof skill === 'string'
+    ? { label: { zh: skill, en: skill }, icon: 'none', color: '#e6e5e0' }
+    : { label: skill?.label || { zh: skill?.zh || '', en: skill?.en || '' }, icon: skill?.icon || 'none', color: skill?.color };
+  const color = safeColor(normalized.color);
+  const icon = skillIconIds.has(normalized.icon) ? normalized.icon : 'none';
+  return `<li style="--skill-color:${color};--skill-ink:${contrastColor(color)}">${skillIconSvg(icon)}<span>${lang(normalized.label)}</span></li>`;
+}
+
 function primaryLinks(from) {
   return `<a href="${linkFor(from, 'index.html')}">WORKS</a>
     <a href="${linkFor(from, 'about/index.html')}">ABOUT</a>
@@ -67,7 +100,7 @@ function shell({ title, from, body }) {
 
 function workCard(project, from) {
   const href = linkFor(from, `works/${project.slug}/index.html`);
-  const content = `<div class="work-card-meta"><span>${dateLabel(project)}</span><span>${lang(project.type)}</span></div><h2>${lang(project.title)}</h2><p>${lang(project.summary)}</p><span class="work-card-open">${lang({ zh: '查看项目', en: 'View project' })}</span>`;
+  const content = `<div class="work-card-meta"><span>${dateLabel(project)}</span><span>${lang(project.type)}</span></div><h2>${lang(project.title)}</h2><p>${lang(homeSummary(project))}</p><span class="work-card-open">${lang({ zh: '查看项目', en: 'View project' })}</span>`;
   if (!project.cover) return `<a class="work-card work-card--text" href="${href}">${content}</a>`;
   return `<a class="work-card" href="${href}"><figure><img src="${linkFor(from, project.cover)}" alt="${esc(project.title.en || project.title.zh)}"></figure>${content}</a>`;
 }
@@ -115,7 +148,7 @@ function aboutPage() {
   const resume = hasResume
     ? `<p class="resume-note">${lang({ zh: '可下载最新版本的个人简历。', en: 'Download the current version of my CV.' })}</p><a class="text-button" href="${linkFor(from, site.resume)}" download>${lang({ zh: '下载 CV / Resume', en: 'Download CV / Resume' })}</a>`
     : `<p class="resume-note">${lang({ zh: '简历即将更新。', en: 'CV coming soon.' })}</p>`;
-  return shell({ title: 'About', from, body: `<section class="about-hero"><p class="eyebrow">ABOUT</p><h1>${lang(site.name)}</h1><p>${lang(site.role)}</p><p class="intro-copy">${lang(site.intro)}</p></section><div class="about-layout">${section({ zh: '教育背景', en: 'Education' }, education)}${section({ zh: '技能', en: 'Capabilities' }, `<ul class="skill-list">${site.skills.map((skill) => `<li>${esc(skill)}</li>`).join('')}</ul>`)}${section({ zh: '经历', en: 'Experience' }, experience)}${section({ zh: '荣誉', en: 'Selected honors' }, honors)}${section({ zh: '简历', en: 'CV / Resume' }, resume)}</div>` });
+  return shell({ title: 'About', from, body: `<section class="about-hero"><p class="eyebrow">ABOUT</p><h1>${lang(site.name)}</h1><p>${lang(site.role)}</p><p class="intro-copy">${lang(site.intro)}</p></section><div class="about-layout">${section({ zh: '教育背景', en: 'Education' }, education)}${section({ zh: '技能', en: 'Capabilities' }, `<ul class="skill-list">${site.skills.map(skillTag).join('')}</ul>`)}${section({ zh: '实习经历', en: 'Internships' }, experience)}${section({ zh: '荣誉', en: 'Selected honors' }, honors)}${section({ zh: '简历', en: 'CV / Resume' }, resume)}</div>` });
 }
 
 function contactPage() {

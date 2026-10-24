@@ -4,6 +4,7 @@ import { promisify } from 'node:util';
 import { mkdir, readFile, readdir, rm, stat, unlink, writeFile } from 'node:fs/promises';
 import { basename, dirname, extname, join, normalize, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { skillIconChoices, skillIconIds } from '../scripts/skill-icons.mjs';
 
 const execFile = promisify(execFileCallback);
 const serverFile = fileURLToPath(import.meta.url);
@@ -26,6 +27,7 @@ const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; cha
 const json = (response, status, value) => { response.writeHead(status, { 'content-type': 'application/json; charset=utf-8' }); response.end(JSON.stringify(value)); };
 const safeSlug = (value) => String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 const bilingual = (value = {}) => ({ zh: String(value.zh || '').trim(), en: String(value.en || '').trim() });
+const safeColor = (value) => /^#[0-9a-f]{6}$/i.test(String(value || '')) ? String(value).toLowerCase() : '#e6e5e0';
 const readJson = async (file) => JSON.parse(await readFile(file, 'utf8'));
 const writeJson = async (file, value) => writeFile(file, `${JSON.stringify(value, null, 2)}\n`);
 const orderModes = new Set(['manual', 'date-asc', 'date-desc']);
@@ -81,6 +83,7 @@ function projectFrom(payload, existing = {}) {
     title: bilingual(payload.title),
     type: bilingual(payload.type),
     summary: bilingual(payload.summary),
+    homeSummary: bilingual(payload.homeSummary),
     role: bilingual(payload.role),
     client: bilingual(payload.client),
     tools: Array.isArray(payload.tools) ? payload.tools.map(String).map((entry) => entry.trim()).filter(Boolean) : [],
@@ -147,6 +150,49 @@ async function saveWorksIntro(payload) {
   return site.worksIntro;
 }
 
+async function saveAbout(payload) {
+  const about = payload?.about || {};
+  const site = await readJson(siteFile);
+  const name = bilingual(about.name);
+  const role = bilingual(about.role);
+  const intro = bilingual(about.intro);
+  if (!name.zh || !name.en || !role.zh || !role.en || !intro.zh || !intro.en) throw new Error('ABOUT 的姓名、身份介绍和个人介绍需要同时填写中文与英文。');
+
+  const education = (Array.isArray(about.education) ? about.education : []).map((item) => ({
+    title: bilingual(item.title),
+    detail: bilingual(item.detail),
+    date: String(item.date || '').trim()
+  })).filter((item) => item.title.zh || item.title.en || item.detail.zh || item.detail.en || item.date);
+  const experience = (Array.isArray(about.experience) ? about.experience : []).map((item) => ({
+    title: bilingual(item.title),
+    role: bilingual(item.role),
+    date: String(item.date || '').trim()
+  })).filter((item) => item.title.zh || item.title.en || item.role.zh || item.role.en || item.date);
+  const honors = (Array.isArray(about.honors) ? about.honors : []).map((item) => ({
+    ...bilingual(item),
+    date: String(item.date || '').trim()
+  })).filter((item) => item.zh || item.en || item.date);
+  const skills = (Array.isArray(about.skills) ? about.skills : []).map((item) => {
+    const legacy = typeof item === 'string' ? { label: { zh: item, en: item } } : item || {};
+    const label = bilingual(legacy.label || legacy);
+    return {
+      label,
+      icon: skillIconIds.has(legacy.icon) ? legacy.icon : 'none',
+      color: safeColor(legacy.color)
+    };
+  }).filter((item) => item.label.zh || item.label.en);
+
+  site.name = name;
+  site.role = role;
+  site.intro = intro;
+  site.education = education;
+  site.skills = skills;
+  site.experience = experience;
+  site.honors = honors;
+  await writeJson(siteFile, site);
+  return site;
+}
+
 async function reorderProjects(payload) {
   const projects = await readJson(projectsFile);
   const slugs = Array.isArray(payload?.slugs) ? payload.slugs.map(safeSlug) : [];
@@ -160,8 +206,27 @@ async function reorderProjects(payload) {
 
 async function saveResume(upload) {
   if (!upload?.dataUrl?.startsWith('data:application/pdf;base64,')) throw new Error('Please choose a PDF.');
+  const data = Buffer.from(upload.dataUrl.split(',')[1], 'base64');
+  if (data.length > 25 * 1024 * 1024) throw new Error('简历 PDF 不能超过 25 MB。');
+  if (data.subarray(0, 5).toString('ascii') !== '%PDF-') throw new Error('所选文件不是有效的 PDF。');
   const target = join(root, 'assets', 'resume.pdf');
-  await writeFile(target, Buffer.from(upload.dataUrl.split(',')[1], 'base64'));
+  await mkdir(dirname(target), { recursive: true });
+  await writeFile(target, data);
+  const site = await readJson(siteFile);
+  if (site.resume !== 'assets/resume.pdf') {
+    site.resume = 'assets/resume.pdf';
+    await writeJson(siteFile, site);
+  }
+  return resumeStatus();
+}
+
+async function resumeStatus() {
+  try {
+    const info = await stat(join(root, 'assets', 'resume.pdf'));
+    return { exists: true, name: 'resume.pdf', size: info.size, updatedAt: info.mtime.toISOString() };
+  } catch {
+    return { exists: false, name: 'resume.pdf', size: 0, updatedAt: null };
+  }
 }
 
 async function runBuild() { return execFile(process.execPath, [join(root, 'scripts', 'build.mjs')], { cwd: root, maxBuffer: 2 * 1024 * 1024 }); }
@@ -194,7 +259,7 @@ async function pushMain() {
 
 async function publish(message) {
   await runBuild();
-  const files = ['content', 'src', 'scripts', 'manager', 'package.json', 'README.md', '.github'];
+  const files = ['content', 'assets', 'src', 'scripts', 'manager', 'package.json', 'README.md', '.github'];
   await execFile('git', ['add', '--', ...files], gitOptions);
   const staged = await execFile('git', ['diff', '--cached', '--name-only'], gitOptions);
   const output = [];
@@ -222,16 +287,20 @@ const server = createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
   try {
     if (request.method === 'GET' && url.pathname === '/') return sendFile(response, dirname(adminFile), basename(adminFile));
+    if (request.method === 'GET' && url.pathname.startsWith('/manager-assets/')) return sendFile(response, dirname(adminFile), decodeURIComponent(url.pathname.slice(16)));
     if (request.method === 'GET' && url.pathname === '/api/health') return json(response, 200, { ok: true, service: 'portfolio-manager', pid: process.pid, startedAt, serverVersion });
     if (request.method === 'GET' && url.pathname === '/api/projects') return json(response, 200, await readJson(projectsFile));
     if (request.method === 'GET' && url.pathname === '/api/site') return json(response, 200, await readJson(siteFile));
+    if (request.method === 'GET' && url.pathname === '/api/skill-icons') return json(response, 200, skillIconChoices);
+    if (request.method === 'GET' && url.pathname === '/api/resume') return json(response, 200, await resumeStatus());
     if (request.method === 'POST' && url.pathname === '/api/site') return json(response, 200, { worksIntro: await saveWorksIntro(await bodyOf(request)) });
+    if (request.method === 'POST' && url.pathname === '/api/about') return json(response, 200, { site: await saveAbout(await bodyOf(request)) });
     if (request.method === 'GET' && url.pathname.startsWith('/site/')) return sendFile(response, distDir, decodeURIComponent(url.pathname.slice(6)) || 'index.html');
     if (request.method === 'POST' && url.pathname === '/api/projects') return json(response, 200, { project: await upsertProject(await bodyOf(request)) });
     if (request.method === 'POST' && url.pathname === '/api/projects/reorder') return json(response, 200, { projects: await reorderProjects(await bodyOf(request)) });
     if (request.method === 'POST' && url.pathname === '/api/works-order') return json(response, 200, { worksOrder: await saveWorksOrder(await bodyOf(request)) });
     if (request.method === 'DELETE' && url.pathname.startsWith('/api/projects/')) { await deleteProject(safeSlug(decodeURIComponent(url.pathname.slice(14)))); return json(response, 200, { ok: true }); }
-    if (request.method === 'POST' && url.pathname === '/api/resume') { await saveResume((await bodyOf(request)).resume); return json(response, 200, { ok: true }); }
+    if (request.method === 'POST' && url.pathname === '/api/resume') { const resume = await saveResume((await bodyOf(request)).resume); return json(response, 200, { ok: true, resume }); }
     if (request.method === 'POST' && url.pathname === '/api/build') { const output = await runBuild(); return json(response, 200, { ok: true, output: output.stdout }); }
     if (request.method === 'POST' && url.pathname === '/api/publish') { const payload = await bodyOf(request); const output = await publish(payload.message); return json(response, 200, { ok: true, output: `${output.stdout}\n${output.stderr}` }); }
     json(response, 404, { error: 'Not found.' });
