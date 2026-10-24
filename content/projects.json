@@ -45,8 +45,8 @@
   {
     "slug": "emevibe",
     "status": "public",
-    "sortDate": "",
-    "year": "YEAR TBC",
+    "sortDate": "2026-03-20",
+    "year": "2026",
     "title": {
       "zh": "翠脉",
       "en": "EmeVibe"
@@ -56,15 +56,20 @@
       "en": "Product Concept Design"
     },
     "summary": {
-      "zh": "围绕“翠脉”展开的产品概念设计。",
-      "en": "A product concept design developed around Cui Mai."
+      "zh": "翠脉，取\"翠\"之玉色温润与\"脉\"之气血运行，以压电陶瓷振动模拟中医的推按手法，作用于头部经络淤堵之处——\"翠\"暗示触肤生凉、安神不躁的材质体验，\"脉\"直指疏通气血、缓解偏头痛的功能本质，二字合一，将科技振动转化为如古人以玉枕\"玉气润经脉\"的中式养生叙事。\n\n头部不适与压力相关的困扰在当下其实非常普遍。翠脉是一款采用压电陶瓷脉冲振动技术的可穿戴头部舒缓仪器，能精准缓解因伏案办公、专注学习等场景引发的头部胀痛、偏头痛与肌肉紧张。它以轻量化贴耳式设计，采用传统棉麻编织与镍钛记忆合金为主的材料，适配多元生活场景，不干扰工作与娱乐。控制操作极简直观、材质亲肤透气，无论上班族的疲劳时刻，还是长辈的日常舒缓需求都能满足，是全家共享、随时随地为头部减压的随身健康好物。",
+      "en": "EmeVibe combines the warm and smooth jade color of \"翠 (Cui)\" with the circulation of \"脉 (Mai)\" of blood and qi. It uses piezoelectric ceramic vibration to simulate the pushing and pressing techniques in traditional Chinese medicine, acting on the blocked meridians in the head - \"Cui\" implies the material experience of skin contact generating coolness and calming the mind without agitation, while \"Mai\" directly points to the function of promoting blood circulation and relieving tension headaches. The combination of these two words transforms the technological vibration into a Chinese-style health narrative similar to the ancient practice of using a jade pillow to \"moisten the meridians with jade qi\".\n\nHead discomfort and stress-related problems are actually very common nowadays. EmeVibe is a wearable head relaxation device that uses piezoelectric ceramic pulse vibration technology. It can precisely relieve head pain, tension headaches, and muscle tension caused by scenarios such as desk work and concentrated study. It features a lightweight ear-attached design, using traditional cotton and linen weaving and nickel-titanium memory alloy as the main materials, suitable for various life scenarios, without interfering with work and entertainment. The control operation is extremely intuitive and visually pleasing, with a skin-friendly and breathable material. Whether it's the fatigue moments of office workers or the daily relaxation needs of elders, it can meet all requirements. It is a portable health good that can be shared by the whole family and relieve stress for the head anytime and anywhere."
     },
     "cover": "media/emevibe/cover.jpg",
     "gallery": [
-      "media/emevibe/gallery-1788143959662-1.jpg"
+      "media/emevibe/gallery-1792843964861-1.jpg",
+      "media/emevibe/gallery-1792844037122-1.jpg",
+      "media/emevibe/gallery-1792844047404-1.jpg",
+      "media/emevibe/gallery-1792844047897-2.jpg",
+      "media/emevibe/gallery-1792844048270-3.jpg"
     ],
     "tags": [
-      "Product",
+      "Product Design",
+      "Wearable Design",
       "Concept"
     ],
     "sourceFolder": "产品概念设计 翠脉",
@@ -73,10 +78,14 @@
       "en": ""
     },
     "client": {
-      "zh": "",
-      "en": ""
+      "zh": "科爱元素 TechLove",
+      "en": "TechLove"
     },
-    "tools": []
+    "tools": [],
+    "homeSummary": {
+      "zh": "理疗概念产品设计",
+      "en": "Design of therapeutic concept products."
+    }
   },
   {
     "slug": "space-roaming",
