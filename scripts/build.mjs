@@ -144,7 +144,7 @@ function aboutPage() {
   const section = (title, body) => `<section class="about-section"><h2>${lang(title)}</h2>${body}</section>`;
   const education = `<ul class="detail-list">${site.education.map((item) => `<li><div>${lang(item.title)}<small>${lang(item.detail)}</small></div><time>${esc(item.date)}</time></li>`).join('')}</ul>`;
   const experience = `<ul class="detail-list">${site.experience.map((item) => `<li><div>${lang(item.title)}<small>${lang(item.role)}</small></div><time>${esc(item.date)}</time></li>`).join('')}</ul>`;
-  const honors = `<ul class="detail-list">${site.honors.map((item) => `<li><div>${lang(item)} </div><time>${esc(item.date)}</time></li>`).join('')}</ul>`;
+  const honors = `<ul class="detail-list">${site.honors.map((item) => `<li><div>${lang(item)}${item.award?.zh || item.award?.en ? `<small>${lang(item.award)}</small>` : ''}</div><time>${esc(item.date)}</time></li>`).join('')}</ul>`;
   const resume = hasResume
     ? `<p class="resume-note">${lang({ zh: '可下载最新版本的个人简历。', en: 'Download the current version of my CV.' })}</p><a class="text-button" href="${linkFor(from, site.resume)}" download>${lang({ zh: '下载 CV / Resume', en: 'Download CV / Resume' })}</a>`
     : `<p class="resume-note">${lang({ zh: '简历即将更新。', en: 'CV coming soon.' })}</p>`;

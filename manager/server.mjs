@@ -170,8 +170,9 @@ async function saveAbout(payload) {
   })).filter((item) => item.title.zh || item.title.en || item.role.zh || item.role.en || item.date);
   const honors = (Array.isArray(about.honors) ? about.honors : []).map((item) => ({
     ...bilingual(item),
+    award: bilingual(item.award),
     date: String(item.date || '').trim()
-  })).filter((item) => item.zh || item.en || item.date);
+  })).filter((item) => item.zh || item.en || item.award.zh || item.award.en || item.date);
   const skills = (Array.isArray(about.skills) ? about.skills : []).map((item) => {
     const legacy = typeof item === 'string' ? { label: { zh: item, en: item } } : item || {};
     const label = bilingual(legacy.label || legacy);
