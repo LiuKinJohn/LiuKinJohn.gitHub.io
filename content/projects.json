@@ -260,5 +260,49 @@
       "zh": "围绕海上丝绸之路的古今演变，探索历史文化展示与数字技术结合的展陈体验",
       "en": "Exploring the exhibition experience that combines historical cultural display with digital technology, focusing on the evolution of the Maritime Silk Road throughout history"
     }
+  },
+  {
+    "slug": "the-anthropocene",
+    "status": "public",
+    "sortDate": "2025-01-19",
+    "year": "2025",
+    "title": {
+      "zh": "人类世",
+      "en": "The Anthropocene"
+    },
+    "type": {
+      "zh": "艺术装置",
+      "en": "Installation Design"
+    },
+    "summary": {
+      "zh": "人虽然在走向现代化的进程中创造了巨大的物质财富，获取了巨大的利益，但这却是以掠夺自然、破坏自然为代价的。这种现代化正在打破人类赖以生存的生态平衡：我们改变了气候，改变了大气、海洋和土壤的化学组成，也改变了地貌，甚至以牺牲其他生命形式为代价进行扩张。这些变化正在侵蚀我们所知的、地球维系生命的能力，甚至已跨过了它。尽管当下全球众多国家已经发起了一系列减排或生态利好公约，但相关措施带来的效果目前难以达到维持生态平衡的标准，人类与自然的关系仍在变得日益紧张。自然，作为承载地球上数以亿计生物生活的家园，正在被深深嵌入人类的生存结构之中。\n\t\n我们应该如何思考人和自然未来的关系？\n在我们对环境的治理过程之中，我们应该怎样和自然“再相处”？",
+      "en": "Although people have created tremendous material wealth and gained huge benefits in the process of modernization, this was achieved at the cost of plundering and destroying nature. This kind of modernization is breaking the ecological balance on which human beings rely for survival: we have changed the climate, altered the chemical composition of the atmosphere, oceans and soil, and also changed the landforms, even expanding at the expense of other life forms. These changes are eroding the ability of the Earth to sustain life as we know it, and even have surpassed it. Although many countries around the world have initiated a series of emission reduction or ecological-friendly conventions at present, the effects of the relevant measures are currently unable to meet the standards for maintaining ecological balance, and the relationship between humans and nature is still becoming increasingly tense. Nature, as the home where billions of living creatures on Earth live, is being deeply integrated into the human survival structure. \n\nHow should we think about the future relationship between humans and nature? \nIn the process of our environmental governance, how should we \"re-engage\" with nature?"
+    },
+    "homeSummary": {
+      "zh": "我们应该如何思考人和自然未来的关系？",
+      "en": "How should we think about the future relationship between humans and nature?"
+    },
+    "role": {
+      "zh": "",
+      "en": ""
+    },
+    "client": {
+      "zh": "",
+      "en": ""
+    },
+    "tools": [],
+    "tags": [
+      "Interactive Installation",
+      "Interactive Design",
+      "Speculative Design"
+    ],
+    "cover": "media/the-anthropocene/cover.jpg",
+    "gallery": [
+      "media/the-anthropocene/gallery-1792845958205-1.jpg",
+      "media/the-anthropocene/gallery-1792845958789-2.jpg",
+      "media/the-anthropocene/gallery-1792845959365-3.jpg",
+      "media/the-anthropocene/gallery-1792845959941-4.jpg",
+      "media/the-anthropocene/gallery-1792845960561-5.jpg"
+    ]
   }
 ]
