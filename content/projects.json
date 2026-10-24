@@ -140,27 +140,31 @@
     "tools": []
   },
   {
-    "slug": "ling-shu",
+    "slug": "miraculous-pivot",
     "status": "public",
     "sortDate": "2025-03-01",
     "year": "2025",
     "title": {
       "zh": "灵枢",
-      "en": "Ling Shu"
+      "en": "Miraculous Pivot"
     },
     "type": {
       "zh": "品牌设计",
       "en": "Brand Identity"
     },
     "summary": {
-      "zh": "“灵枢”品牌的视觉识别设计。",
-      "en": "A visual identity project for Ling Shu."
+      "zh": "“灵枢”一词出自《黄帝内经》：“经络腧穴”“脏腑气血输布之枢纽”，原意为针灸、经络学中的“灵巧之枢纽”，强调通过关键节点的调控，激活人体自组织能力，今则引申为事物的核心机制或关键环节。\n\n在环境污染仍无法根治的今天，我们分别从农业、科技、生物等多个领域和角度出发，探寻未来生态、未来生存的新关键和新形式。在对未来世界的想象中想象发展的关键节点，基于一定的理论探索建立可持续的生态调节、发展机制，为未来设计。\n\n在视觉的表达上，我们希望通过对资源、气候、社会、生物等几个角度所抛出来的问题来表现我们这次设计的主题。并针对这次的世界观提取了主要元素来完成相关设计和主配色的选取。\n\n色彩不仅还原了生态危机世界观下的视觉真实，更表达了我们所思考的一种深刻的价值立场。它回应土地的荒芜、资源的消耗与文明的沉降；也投射出在困局之中，人类仍有转向之可能。黄色象征复苏，锈红如警钟长鸣，而灰蓝天幕则像是遥远却仍在的希望；标志如同星体运行的轨道，既象征生态系统的物质、能量的往复流转，也寓意在生态危机的“临界点”，人类与自然能够实现关键转向；内层小圆形态取自瞳孔，承接形态的设计逻辑：既代表“感知 — 反思 — 行动”的链条，呼应“观察环境、理解危机、寻找转向”的价值，也隐喻人类在“废墟与希望交织的未来”中，对生态和命运的凝视与抉择。",
+      "en": "A visual identity project for Miraculous Pivot. The term \"Miraculous Pivot (Lingshu)\" comes from Yellow Emperor’s Inner Canon (Huangdi Neijing), referring to \"the pivotal point of meridians, acupoints, zang-fu organs and the distribution of qi and blood\". Originally it means the \"smart hub\" in acupuncture and meridian studies, emphasizing that we can activate the body's self-organizing ability by regulating those key nodes. Now it's extended to mean the core mechanism or critical link of things.\n\nIn terms of visual expression, we aim to convey the theme of our design by addressing issues from several angles such as resources, climate, society, and biology. We have extracted the main elements from this worldview to complete the related design and select the main color scheme.\n\nThe color not only restores the visual reality under the worldview of ecological crisis but also expresses a profound value stance that we have contemplated. It responds to the desolation of the land, the consumption of resources, and the decline of civilization; it also projects that in the predicament, humans still have the possibility of turning. Yellow symbolizes recovery, rust red like a long alarm bell, and the gray-blue sky backdrop is like a distant yet still existing hope; the logo is like the orbit of celestial bodies, symbolizing the reciprocal circulation of matter and energy in the ecosystem, and also implying that at the \"critical point\" of ecological crisis, humans and nature can achieve a key turning point; the inner small circular shape is derived from the pupil, following the design logic: it represents the chain of \"perception - reflection - action\", echoes the value of \"observing the environment, understanding the crisis, and seeking a turning point\", and also metaphorically represents that in the \"future intertwined with ruins and hope\", humans gaze at and make choices about ecology and destiny."
     },
-    "cover": "media/ling-shu/cover.jpg",
-    "gallery": [],
+    "cover": "media/miraculous-pivot/cover.jpg",
+    "gallery": [
+      "media/miraculous-pivot/gallery-1792835652017-1.jpg",
+      "media/miraculous-pivot/gallery-1792835652594-2.jpg"
+    ],
     "tags": [
       "Brand",
-      "Identity"
+      "Identity",
+      "Visual Design"
     ],
     "sourceFolder": "品牌设计 灵枢",
     "role": {
