@@ -1,15 +1,15 @@
 {
   "name": {
     "zh": "刘秉章",
-    "en": "Liu Bingzhang"
+    "en": "Bingzhang Liu"
   },
   "role": {
-    "zh": "平面设计 / 新媒体艺术",
-    "en": "Graphic Design / New Media Art"
+    "zh": "平面设计 / 视觉设计 / 新媒体艺术",
+    "en": "Graphic Design / Visual Design / New Media Art"
   },
   "intro": {
-    "zh": "广州美术学院艺术与科技专业本科生，关注视觉传播、空间叙事与技术驱动的艺术实践。",
-    "en": "An undergraduate student of Art and Technology at the Guangzhou Academy of Fine Arts, working across visual communication, spatial narrative, and technology-led art practice."
+    "zh": "目前于广州美术学院就读艺术与科技专业，具备平面设计与新媒体艺术背景。掌握视觉设计、创意视效相关工具（Illustrator、p5.js、TouchDesigner等）、AI工具（Lovart、即梦、Stitch等）、建模与效果展示工具（SketchUp、Unity、D5、Blender）的使用。个人曾多次荣获校级奖学金和三好学生等荣誉，多次参加校内外落地项目和相关设计实践。擅长跨媒介整合与技术驱动的视觉表达，拥有展览项目与品牌设计经验，具备解决创意落地与用户体验之间的整合问题的能力，能够独立推进项目从概念构想到落地执行的完整流程，并已积累相关设计与创意方向的实际项目经验与实习经验，可胜任新媒体艺术、平面设计及创意技术相关的岗位。",
+    "en": "An undergraduate student of Art and Science at the Guangzhou Academy of Fine Arts (GAFA), working across visual communication, spatial narrative, and technology-led art practice."
   },
   "worksIntro": {
     "zh": "设计、空间与技术之间的实践。",
@@ -23,60 +23,181 @@
       },
       "detail": {
         "zh": "艺术与科技（本科）",
-        "en": "Art and Technology, BFA"
+        "en": "Arts and Secience, BFA"
       },
-      "date": "2022 — Present"
+      "date": "2023 — Now"
     }
   ],
   "skills": [
-    "Visual Identity",
-    "Editorial Design",
-    "TouchDesigner",
-    "p5.js",
-    "Unity",
-    "Blender",
-    "Illustrator",
-    "Creative Coding"
+    {
+      "label": {
+        "zh": "VI设计",
+        "en": "Visual Identity"
+      },
+      "icon": "none",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "平面设计",
+        "en": "Graphic Design"
+      },
+      "icon": "none",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "Adobe系",
+        "en": "Adobe Creative Suite"
+      },
+      "icon": "pen",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "SketchUp",
+        "en": "SketchUp"
+      },
+      "icon": "layers",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "TouchDesigner",
+        "en": "TouchDesigner"
+      },
+      "icon": "code",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "p5.js",
+        "en": "p5.js"
+      },
+      "icon": "code",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "Unity",
+        "en": "Unity"
+      },
+      "icon": "cube",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "Blender",
+        "en": "Blender"
+      },
+      "icon": "cube",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "D5",
+        "en": "D5 Render"
+      },
+      "icon": "cube",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "New Media",
+        "en": "New Media"
+      },
+      "icon": "sparkles",
+      "color": "#e6e5e0"
+    },
+    {
+      "label": {
+        "zh": "Creative Coding",
+        "en": "Creative Coding"
+      },
+      "icon": "code",
+      "color": "#e6e5e0"
+    }
   ],
   "experience": [
+    {
+      "title": {
+        "zh": "深圳海上世界文化艺术中心",
+        "en": "Shenzhen Sea World Culture and Arts Centre"
+      },
+      "role": {
+        "zh": "排版与设计助理",
+        "en": "Graphic Design Volunteer"
+      },
+      "date": "2026.03 - Now"
+    },
     {
       "title": {
         "zh": "雅昌（深圳）艺术中心",
         "en": "Artron Art Center, Shenzhen"
       },
       "role": {
-        "zh": "平面设计",
-        "en": "Graphic Design"
+        "zh": "平面设计岗",
+        "en": "Graphic Design Intern"
       },
       "date": "2026.01 — 2026.03"
     },
     {
       "title": {
         "zh": "深圳广播电影电视集团",
-        "en": "Shenzhen Media Group"
+        "en": "Shenzhen Media Group, Corporate Planning Department"
       },
       "role": {
-        "zh": "企策部设计",
-        "en": "Design, Corporate Planning"
+        "zh": "企策部设计岗",
+        "en": "Design Intern"
       },
       "date": "2024.07 — 2024.08"
     }
   ],
   "honors": [
     {
-      "zh": "第五届深圳光影艺术季文创大赛，一等奖",
-      "en": "5th Shenzhen Light Art Season Cultural Creative Competition, First Prize",
-      "date": "2025"
+      "zh": "2026 英国国际艺术设计大赛（学术论文类）终选入围",
+      "en": "Selection Award | 2026 UK International Art and Design Competition",
+      "date": "2026.08"
     },
     {
-      "zh": "2025 KTK 靳埭强设计奖，终审优秀奖",
-      "en": "2025 KTK Design Award, Finalist Excellence Award",
-      "date": "2025"
+      "zh": "第20届中国好创意 全国数智声景专项赛 三等奖",
+      "en": "Third Prize | 20th China Good Creativity Digital Soundscape Competition",
+      "date": "2026.07"
     },
     {
-      "zh": "全国大学生科技美术设计创新作品大赛，一等奖",
-      "en": "National Student Technology Art & Design Innovation Competition, First Prize",
-      "date": "2025"
+      "zh": "2025年KTK靳埭强设计奖 初审（华南赛区）银奖 / 终审 优秀奖",
+      "en": "Silver Award (South China) & Excellence Award (Final Round) | KTK Design Award",
+      "date": "2025.12"
+    },
+    {
+      "zh": "2025年全国大学生科技美术设计创新作品大赛（科技展演）一等奖",
+      "en": "First Prize | National College Student Science, Art and Design Innovation Competition",
+      "date": "2025.12"
+    },
+    {
+      "zh": "2025年“华夏奖”文化艺术设计大赛（秋季 视觉传达类）金奖",
+      "en": "Gold Award | Huaxia Cultural and Art Design Competition",
+      "date": "2025.11"
+    },
+    {
+      "zh": "第二十二届山西设计奖 终评 优秀奖",
+      "en": "Excellence Award (Final Round) | 22nd Shanxi Design Award",
+      "date": "2025.11"
+    },
+    {
+      "zh": "2025年第十一届东方设计奖·全国高校创新设计大赛 广东赛区 二等奖",
+      "en": "Second Prize (Guangdong Region) | 11th National University Innovation Design Competition",
+      "date": "2025.08"
+    },
+    {
+      "zh": "第五届深圳光影艺术季文创大赛 一等奖",
+      "en": "First Prize | 5th Glow Shenzhen Creative Competition",
+      "date": "2025.02"
+    },
+    {
+      "zh": "2024年KTK靳埭强设计奖 初审（华南赛区）金奖 / 终审 优秀奖",
+      "en": "Gold Award (South China) & Excellence Award (Final Round) | KTK Design Award",
+      "date": "2024.12"
     }
   ],
   "contact": {
