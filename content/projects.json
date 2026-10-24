@@ -133,22 +133,29 @@
   {
     "slug": "ling-shi",
     "status": "public",
-    "sortDate": "",
-    "year": "YEAR TBC",
+    "sortDate": "2025-06-19",
+    "year": "2025",
     "title": {
       "zh": "棱视",
-      "en": "Ling Shi"
+      "en": "LensEdge"
     },
     "type": {
       "zh": "品牌设计",
       "en": "Brand Identity"
     },
     "summary": {
-      "zh": "“棱视”品牌的视觉识别设计。",
-      "en": "A visual identity project for Ling Shi."
+      "zh": "提到户外品牌，你会想到什么色彩？是金属的冷灰，还是大地的草绿？棱视同样作为一家户外品牌，却独选 “蓝” 作为主题色，这背后是对品牌定位的拆解、分析和对户外运动的思考延展。\n\t\n作为一个虚拟的品牌设计，这是我们通过简单的小范围调研后所收集的一些材料和背景了解，针对户外领域做的一次小小的尝试：我们锚定户外攀岩这一运动类别，希望通过一些更个性化、人性化的技术解决攀岩中的问题所在。最后，为了展示最终的结论和虚拟产品产出，我们借助AI工具，选择以一套品牌视觉的形式来展示我们的产出风格和调性、丰富我们最后的成果。",
+      "en": "When it comes to outdoor brands, what colors do you think of? Is it the cold gray of metals, or the green of the earth? Rongshi, as another outdoor brand, has chosen \"blue\" as its main color. This choice is a result of the brand's positioning analysis and the extension of thoughts on outdoor sports.\n\nAs a virtual brand design, this is some of the materials and background information we collected through a simple small-scale research after our investigation. It is a small attempt we made for the outdoor field based on our understanding of the brand positioning: We focused on the outdoor rock climbing category and hoped to solve the problems in rock climbing through more personalized and humanized technologies. Finally, to present the final conclusion and the virtual product output, we used AI tools and chose to present our output style and tone in a set of brand visual form, enriching our final results."
     },
     "cover": "media/ling-shi/cover.jpg",
-    "gallery": [],
+    "gallery": [
+      "media/ling-shi/gallery-1792844511741-1.jpg",
+      "media/ling-shi/gallery-1792844512282-2.jpg",
+      "media/ling-shi/gallery-1792844512785-3.jpg",
+      "media/ling-shi/gallery-1792844513299-4.jpg",
+      "media/ling-shi/gallery-1792844513856-5.jpg",
+      "media/ling-shi/gallery-1792844514403-6.jpg"
+    ],
     "tags": [
       "Brand",
       "Identity"
@@ -162,7 +169,11 @@
       "zh": "",
       "en": ""
     },
-    "tools": []
+    "tools": [],
+    "homeSummary": {
+      "zh": "户外攀岩类\n装备品牌设计",
+      "en": "Exploration of Outdoor Equipment Brand Design."
+    }
   },
   {
     "slug": "miraculous-pivot",
@@ -205,40 +216,6 @@
       "zh": "以“灵枢”为核心概念，基于思辨主题，构建了一个面向生态、未来可持续发展的品牌视觉系统",
       "en": "A visual identity project for ecology and future sustainable development."
     }
-  },
-  {
-    "slug": "another-sky",
-    "status": "public",
-    "sortDate": "",
-    "year": "YEAR TBC",
-    "title": {
-      "zh": "另一片星空",
-      "en": "Another Sky"
-    },
-    "type": {
-      "zh": "游戏体验设计",
-      "en": "Game Experience Design"
-    },
-    "summary": {
-      "zh": "“另一片星空”游戏体验设计项目。",
-      "en": "A game experience design project titled Another Sky."
-    },
-    "cover": "media/another-sky/cover.jpg",
-    "gallery": [],
-    "tags": [
-      "Game",
-      "Experience"
-    ],
-    "sourceFolder": "游戏体验设计 另一片星空",
-    "role": {
-      "zh": "",
-      "en": ""
-    },
-    "client": {
-      "zh": "",
-      "en": ""
-    },
-    "tools": []
   },
   {
     "slug": "gafa-exhibition-2024",
