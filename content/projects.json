@@ -85,7 +85,7 @@
     "year": "2024",
     "title": {
       "zh": "空间漫游与想象生产",
-      "en": "Spatial Roaming & the Production of Imagination"
+      "en": "Spatial Roaming & Imagination Production"
     },
     "type": {
       "zh": "排版编辑",
@@ -234,26 +234,31 @@
   {
     "slug": "gafa-exhibition-2024",
     "status": "public",
-    "sortDate": "2024-06-01",
+    "sortDate": "2024-05-21",
     "year": "2024",
     "title": {
-      "zh": "广州美术学院 2024 本科毕业作品展",
-      "en": "GAFA 2024 Undergraduate Graduation Exhibition"
+      "zh": "广州美术学院\n2024年本科毕业作品展",
+      "en": "GAFA Degree Show 2024\n(Bachelor)"
     },
     "type": {
       "zh": "展陈设计",
       "en": "Exhibition Design"
     },
     "summary": {
-      "zh": "信息与空间研究中心展厅的展陈与视觉导引设计。",
-      "en": "Exhibition and visual wayfinding design for the Information and Spatial Research Center."
+      "zh": "艺术与科技专业，信息与空间研究中心展厅的展陈与视觉导引设计。展厅主题围绕海上丝绸之路的古今演变展开，物料制作在此主题的基础上贴合此次专业“深蓝创想”毕业设计主题进一步衍生，设计制作了包括“海丝游径”导览册、广州古地图展厅地贴、一套共12种样式的古建介绍小卡等展厅物料，同时利用微信小程序AR技术展现相关文化遗产介绍视频和图标，在观众观看作品、了解海丝文化的同时增添新奇感和记忆点。",
+      "en": "Art and Science Major, Exhibition and Visual Guidance Design of the Information and Space Research Center. The exhibition theme revolves around the evolution of the Maritime Silk Road throughout history. The material production is further developed based on this theme and in line with the current professional \"Deep Blue Imagination\" graduation design theme. Exhibition materials such as the \"Maritime Silk Road Tour Guide Book\", floor stickers for the Guangzhou Ancient Map, and a set of 12 different styles of ancient architecture introduction cards were designed and produced. At the same time, the AR technology of the WeChat mini-program was utilized to present introduction videos and icons of related cultural heritage, adding novelty and memory points for the audience while they view the works and learn about the Maritime Silk Road culture."
     },
     "cover": "media/gafa-exhibition-2024/cover.jpg",
-    "gallery": [],
+    "gallery": [
+      "media/gafa-exhibition-2024/gallery-1792843109745-1.jpg",
+      "media/gafa-exhibition-2024/gallery-1792843110335-2.jpg",
+      "media/gafa-exhibition-2024/gallery-1792843110943-3.jpg",
+      "media/gafa-exhibition-2024/gallery-1792843111499-4.jpg"
+    ],
     "tags": [
       "Exhibition",
       "Spatial Design",
-      "Wayfinding"
+      "Wayfinding Plan"
     ],
     "sourceFolder": "展陈设计 广州美术学院2024本科毕业作品展 信息与空间研究中心展厅展陈设计",
     "role": {
@@ -264,6 +269,10 @@
       "zh": "",
       "en": ""
     },
-    "tools": []
+    "tools": [],
+    "homeSummary": {
+      "zh": "围绕海上丝绸之路的古今演变，探索历史文化展示与数字技术结合的展陈体验",
+      "en": "Exploring the exhibition experience that combines historical cultural display with digital technology, focusing on the evolution of the Maritime Silk Road throughout history"
+    }
   }
 ]
