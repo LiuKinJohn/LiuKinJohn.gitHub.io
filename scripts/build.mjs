@@ -48,8 +48,9 @@ function nav(from) {
     ? `<button class="view-toggle" type="button" aria-label="Switch works view" aria-pressed="true" data-view-toggle><span data-view-label>GRID</span></button>`
     : '';
   return `<header class="site-header"><a class="wordmark" href="${linkFor(from, 'index.html')}">LIU BINGZHANG</a>
-  <nav aria-label="Primary navigation">${primaryLinks(from)}</nav>
-  <div class="site-tools">${viewToggle}<button class="language-toggle" type="button" aria-label="Switch language" aria-pressed="false">中 / EN</button></div></header>`;
+  <nav class="primary-nav" aria-label="Primary navigation">${primaryLinks(from)}</nav>
+  <div class="site-tools">${viewToggle}<button class="language-toggle" type="button" aria-label="Switch language" aria-pressed="false">中 / EN</button></div>
+  <details class="mobile-menu" data-mobile-menu><summary aria-label="Open navigation"><span class="menu-label menu-label--open">MENU</span><span class="menu-label menu-label--close">CLOSE</span></summary><nav class="mobile-menu-panel" aria-label="Mobile navigation">${primaryLinks(from)}</nav></details></header>`;
 }
 
 function shell({ title, from, body }) {
@@ -57,10 +58,11 @@ function shell({ title, from, body }) {
   const titleCss = linkFor(from, 'assets/title-breaks.css');
   const js = linkFor(from, 'assets/site.js');
   const controlsCss = linkFor(from, 'assets/site-tools.css');
+  const mobileCss = linkFor(from, 'assets/mobile.css');
   const shelfCss = from === dist ? `<link rel="stylesheet" href="${linkFor(from, 'assets/works-shelf.css')}">` : '';
   const landingBoot = from === dist ? `<script>try{const n=performance.getEntriesByType('navigation')[0];if(n?.type!=='reload'&&!sessionStorage.getItem('portfolio-navigation-chosen'))document.documentElement.dataset.landingGuide='active'}catch{}</script>` : '';
   const bodyClass = from === dist ? ' class="works-home"' : '';
-  return `<!doctype html><html lang="zh-CN" data-lang="zh" data-works-view="shelf"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${esc(site.name.en)} — portfolio"><title>${esc(title)} — ${esc(site.name.en)}</title><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="${titleCss}"><link rel="stylesheet" href="${controlsCss}">${shelfCss}${landingBoot}</head><body${bodyClass}>${nav(from)}<main>${body}</main><footer class="site-footer"><span>© ${new Date().getFullYear()} ${esc(site.name.en)}</span><a href="${linkFor(from, 'contact/index.html')}">CONTACT</a></footer><script src="${js}"></script></body></html>`;
+  return `<!doctype html><html lang="zh-CN" data-lang="zh" data-works-view="shelf"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="${esc(site.name.en)} — portfolio"><title>${esc(title)} — ${esc(site.name.en)}</title><link rel="stylesheet" href="${css}"><link rel="stylesheet" href="${titleCss}"><link rel="stylesheet" href="${controlsCss}">${shelfCss}<link rel="stylesheet" href="${mobileCss}">${landingBoot}</head><body${bodyClass}>${nav(from)}<main>${body}</main><footer class="site-footer"><span>© ${new Date().getFullYear()} ${esc(site.name.en)}</span><a href="${linkFor(from, 'contact/index.html')}">CONTACT</a></footer><script src="${js}"></script></body></html>`;
 }
 
 function workCard(project, from) {
@@ -139,6 +141,7 @@ await writeFile(join(dist, 'assets', 'site.css'), `${await readFile(join(root, '
 await cp(join(root, 'src', 'site-tools.css'), join(dist, 'assets', 'site-tools.css'));
 await cp(join(root, 'src', 'title-breaks.css'), join(dist, 'assets', 'title-breaks.css'));
 await cp(join(root, 'src', 'works-shelf.css'), join(dist, 'assets', 'works-shelf.css'));
+await cp(join(root, 'src', 'mobile.css'), join(dist, 'assets', 'mobile.css'));
 await cp(join(root, 'src', 'site.js'), join(dist, 'assets', 'site.js'));
 try { await cp(join(content, 'media'), join(dist, 'media'), { recursive: true }); } catch { /* Media is created by the local manager when assets are uploaded. */ }
 try { await cp(join(root, 'assets', 'resume.pdf'), join(dist, 'assets', 'resume.pdf')); } catch { /* The CV is optional until uploaded via the manager. */ }

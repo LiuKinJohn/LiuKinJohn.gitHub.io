@@ -14,6 +14,18 @@
   setLanguage(localStorage.getItem(languageKey) || 'zh');
   languageToggle?.addEventListener('click', () => setLanguage(root.dataset.lang === 'zh' ? 'en' : 'zh'));
 
+  const mobileMenu = document.querySelector('[data-mobile-menu]');
+  mobileMenu?.addEventListener('toggle', () => {
+    mobileMenu.querySelector('summary')?.setAttribute('aria-label', mobileMenu.open ? 'Close navigation' : 'Open navigation');
+  });
+  mobileMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => mobileMenu.removeAttribute('open')));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobileMenu?.open) {
+      mobileMenu.removeAttribute('open');
+      mobileMenu.querySelector('summary')?.focus();
+    }
+  });
+
   const landingNav = document.querySelector('[data-landing-nav]');
   const navigationKey = 'portfolio-navigation-chosen';
   const rememberNavigation = () => { try { sessionStorage.setItem(navigationKey, 'true'); } catch { /* Session storage is optional. */ } };
@@ -49,7 +61,7 @@
   const landingLocked = root.dataset.landingGuide === 'active' || root.dataset.landingGuide === 'closing';
   if (landingLocked) shelf.inert = true;
 
-  const mobile = window.matchMedia('(max-width: 760px)').matches;
+  const mobileQuery = window.matchMedia('(max-width: 760px)');
   const setView = (view, persist = true) => {
     root.dataset.worksView = view;
     viewToggle.querySelector('[data-view-label]').textContent = view === 'shelf' ? 'GRID' : 'SHELF';
@@ -59,9 +71,15 @@
   };
 
   const savedView = localStorage.getItem(viewKey);
-  setView(landingLocked ? 'shelf' : (savedView || (mobile ? 'grid' : 'shelf')), false);
+  const preferredDesktopView = () => localStorage.getItem(viewKey) || savedView || 'shelf';
+  setView(mobileQuery.matches ? 'grid' : (landingLocked ? 'shelf' : preferredDesktopView()), false);
   viewToggle.addEventListener('click', () => {
+    if (mobileQuery.matches) return;
     setView(root.dataset.worksView === 'shelf' ? 'grid' : 'shelf');
+    requestAnimationFrame(setEdgePadding);
+  });
+  mobileQuery.addEventListener('change', (event) => {
+    setView(event.matches ? 'grid' : preferredDesktopView(), false);
     requestAnimationFrame(setEdgePadding);
   });
 
