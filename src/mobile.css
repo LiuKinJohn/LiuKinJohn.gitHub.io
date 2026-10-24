@@ -47,7 +47,7 @@
     top: 50svh;
     width: 100%;
     flex-direction: column;
-    gap: 4px;
+    gap: clamp(18px, 2.8svh, 24px);
     padding: 0 max(18px, env(safe-area-inset-right)) 0 max(18px, env(safe-area-inset-left));
     font-size: clamp(3rem, 15vw, 4.6rem);
     line-height: .92;
@@ -67,7 +67,7 @@
 
   html[data-landing-guide="closing"] .landing-nav {
     top: 50svh;
-    gap: 4px;
+    gap: clamp(18px, 2.8svh, 24px);
     font-size: clamp(3rem, 15vw, 4.6rem);
     opacity: 0;
     transform: translate(-50%, -50%) scale(.97);

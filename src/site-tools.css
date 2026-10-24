@@ -91,9 +91,20 @@
     display: grid !important;
     gap: 0 !important;
     padding: 10px max(18px, env(safe-area-inset-right)) 18px max(18px, env(safe-area-inset-left));
-    border-bottom: 1px solid var(--ink);
+    border-bottom: 0;
     background: var(--paper);
     backdrop-filter: blur(12px);
+  }
+
+  .mobile-menu-panel::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    height: clamp(72px, 12svh, 104px);
+    background: linear-gradient(to bottom, var(--paper) 0%, color-mix(in srgb, var(--paper) 82%, transparent) 38%, transparent 100%);
+    pointer-events: none;
   }
 
   .mobile-menu:not([open]) .mobile-menu-panel {
@@ -116,6 +127,6 @@
   }
 
   .site-header .mobile-menu-panel a:last-child {
-    border-bottom: 1px solid var(--line);
+    border-bottom: 0;
   }
 }
