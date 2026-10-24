@@ -2,3 +2,4 @@
 
 .skill-list li{display:inline-flex;align-items:center;gap:7px;background:var(--skill-color,var(--paper));color:var(--skill-ink,var(--ink));border-color:color-mix(in srgb,var(--skill-ink,var(--ink)) 25%,transparent)}
 .skill-icon{width:15px;height:15px;flex:0 0 15px}
+.project-summary{white-space:pre-wrap}
