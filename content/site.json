@@ -155,48 +155,84 @@
   ],
   "honors": [
     {
-      "zh": "2026 英国国际艺术设计大赛（学术论文类）终选入围",
-      "en": "Selection Award | 2026 UK International Art and Design Competition",
+      "zh": "2026 英国国际艺术设计大赛",
+      "en": "2026 UK International Art and Design Competition",
+      "award": {
+        "zh": "（学术论文类）终选入围",
+        "en": "Selection Award"
+      },
       "date": "2026.08"
     },
     {
-      "zh": "第20届中国好创意 全国数智声景专项赛 三等奖",
-      "en": "Third Prize | 20th China Good Creativity Digital Soundscape Competition",
+      "zh": "第20届中国好创意 全国数智声景专项赛",
+      "en": "20th China Good Creativity Digital Soundscape Competition",
+      "award": {
+        "zh": "三等奖",
+        "en": "Third Prize"
+      },
       "date": "2026.07"
     },
     {
-      "zh": "2025年KTK靳埭强设计奖 初审（华南赛区）银奖 / 终审 优秀奖",
-      "en": "Silver Award (South China) & Excellence Award (Final Round) | KTK Design Award",
+      "zh": "2025年KTK靳埭强设计奖",
+      "en": "KTK 2025 Design Award",
+      "award": {
+        "zh": "初审（华南赛区）银奖 / 终审 优秀奖",
+        "en": "Silver Award (South China) & Excellence Award (Final Round)"
+      },
       "date": "2025.12"
     },
     {
-      "zh": "2025年全国大学生科技美术设计创新作品大赛（科技展演）一等奖",
-      "en": "First Prize | National College Student Science, Art and Design Innovation Competition",
+      "zh": "2025年全国大学生科技美术设计创新作品大赛",
+      "en": "National College Student Science, Art and Design Innovation Competition",
+      "award": {
+        "zh": "（科技展演）一等奖",
+        "en": "First Prize"
+      },
       "date": "2025.12"
     },
     {
-      "zh": "2025年“华夏奖”文化艺术设计大赛（秋季 视觉传达类）金奖",
-      "en": "Gold Award | Huaxia Cultural and Art Design Competition",
+      "zh": "2025年“华夏奖”文化艺术设计大赛",
+      "en": "Huaxia Cultural and Art Design Competition",
+      "award": {
+        "zh": "（秋季 视觉传达类）金奖",
+        "en": "Gold Award"
+      },
       "date": "2025.11"
     },
     {
-      "zh": "第二十二届山西设计奖 终评 优秀奖",
-      "en": "Excellence Award (Final Round) | 22nd Shanxi Design Award",
+      "zh": "第二十二届山西设计奖",
+      "en": "22nd Shanxi Design Award",
+      "award": {
+        "zh": "终评 优秀奖",
+        "en": "Excellence Award (Final Round)"
+      },
       "date": "2025.11"
     },
     {
-      "zh": "2025年第十一届东方设计奖·全国高校创新设计大赛 广东赛区 二等奖",
-      "en": "Second Prize (Guangdong Region) | 11th National University Innovation Design Competition",
+      "zh": "2025年第十一届东方设计奖·全国高校创新设计大赛",
+      "en": "11th National University Innovation Design Competition",
+      "award": {
+        "zh": "广东赛区 二等奖",
+        "en": "Second Prize (Guangdong Region)"
+      },
       "date": "2025.08"
     },
     {
-      "zh": "第五届深圳光影艺术季文创大赛 一等奖",
-      "en": "First Prize | 5th Glow Shenzhen Creative Competition",
+      "zh": "第五届深圳光影艺术季文创大赛",
+      "en": "5th Glow Shenzhen Creative Competition",
+      "award": {
+        "zh": "一等奖",
+        "en": "First Prize"
+      },
       "date": "2025.02"
     },
     {
-      "zh": "2024年KTK靳埭强设计奖 初审（华南赛区）金奖 / 终审 优秀奖",
-      "en": "Gold Award (South China) & Excellence Award (Final Round) | KTK Design Award",
+      "zh": "2024年KTK靳埭强设计奖",
+      "en": "KTK 2024 Design Award",
+      "award": {
+        "zh": "初审（华南赛区）金奖 / 终审 优秀奖",
+        "en": "Gold Award (South China) & Excellence Award (Final Round)"
+      },
       "date": "2024.12"
     }
   ],
