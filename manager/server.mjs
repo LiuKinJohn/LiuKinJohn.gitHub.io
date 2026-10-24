@@ -19,6 +19,8 @@ const maxBody = 160 * 1024 * 1024;
 const port = Number(process.env.PORT || 4310);
 const startedAt = new Date().toISOString();
 const serverVersion = String(Math.trunc((await stat(serverFile)).mtimeMs));
+const gitOptions = { cwd: root, maxBuffer: 2 * 1024 * 1024 };
+const defaultGithubIp = '140.82.112.4';
 
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.pdf': 'application/pdf', '.svg': 'image/svg+xml' };
 const json = (response, status, value) => { response.writeHead(status, { 'content-type': 'application/json; charset=utf-8' }); response.end(JSON.stringify(value)); };
@@ -163,14 +165,47 @@ async function saveResume(upload) {
 }
 
 async function runBuild() { return execFile(process.execPath, [join(root, 'scripts', 'build.mjs')], { cwd: root, maxBuffer: 2 * 1024 * 1024 }); }
+
+function commandOutput(result) {
+  return [result?.stdout, result?.stderr].map((value) => String(value || '').trim()).filter(Boolean).join('\n');
+}
+
+function commandError(error) {
+  return commandOutput(error) || String(error?.message || 'Git command failed.');
+}
+
+async function pushMain() {
+  try {
+    return await execFile('git', ['push', 'origin', 'main'], gitOptions);
+  } catch (error) {
+    const details = commandError(error);
+    if (!/could not resolve (?:hostname|host)[: ]+github\.com/i.test(details)) throw new Error(details);
+
+    const configuredIp = String(process.env.PORTFOLIO_GITHUB_IP || '').trim();
+    const githubIp = /^\d{1,3}(?:\.\d{1,3}){3}$/.test(configuredIp) ? configuredIp : defaultGithubIp;
+    const sshCommand = `ssh -o ConnectTimeout=10 -o Hostname=${githubIp} -o HostKeyAlias=github.com`;
+    try {
+      return await execFile('git', ['-c', `core.sshCommand=${sshCommand}`, 'push', 'origin', 'main'], gitOptions);
+    } catch (fallbackError) {
+      throw new Error(commandError(fallbackError));
+    }
+  }
+}
+
 async function publish(message) {
   await runBuild();
   const files = ['content', 'src', 'scripts', 'manager', 'package.json', 'README.md', '.github'];
-  await execFile('git', ['add', '--', ...files], { cwd: root, maxBuffer: 2 * 1024 * 1024 });
-  try { await execFile('git', ['commit', '-m', String(message || 'Update portfolio content')], { cwd: root, maxBuffer: 2 * 1024 * 1024 }); } catch (error) {
-    if (!String(error.stderr || error.message).includes('nothing to commit')) throw error;
+  await execFile('git', ['add', '--', ...files], gitOptions);
+  const staged = await execFile('git', ['diff', '--cached', '--name-only'], gitOptions);
+  const output = [];
+  if (staged.stdout.trim()) {
+    const commit = await execFile('git', ['commit', '-m', String(message || 'Update portfolio content')], gitOptions);
+    output.push(commandOutput(commit));
+  } else {
+    output.push('没有新的内容需要提交，继续检查远端同步。');
   }
-  return execFile('git', ['push', 'origin', 'main'], { cwd: root, maxBuffer: 2 * 1024 * 1024 });
+  output.push(commandOutput(await pushMain()) || '已与 GitHub 同步。');
+  return { stdout: output.filter(Boolean).join('\n'), stderr: '' };
 }
 
 async function sendFile(response, base, requested) {
