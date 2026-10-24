@@ -1,12 +1,12 @@
 [
   {
-    "slug": "light-reprise",
+    "slug": "light-shadow-ensemble",
     "status": "public",
-    "sortDate": "2024-06-01",
+    "sortDate": "2024-01-04",
     "year": "2024",
     "title": {
       "zh": "光影重奏",
-      "en": "Reprise of Light"
+      "en": "Light & Shadow Ensemble"
     },
     "type": {
       "zh": "3D Mapping / 光影艺术",
@@ -14,14 +14,18 @@
     },
     "summary": {
       "zh": "以光影与空间投影为媒介的 3D Mapping 视觉实验。",
-      "en": "A 3D mapping visual experiment using light and spatial projection as its medium."
+      "en": "A 3D mapping visual experiment using light, shadow and spatial projection as its medium."
     },
     "role": {
-      "zh": "视觉设计",
-      "en": "Visual Design"
+      "zh": "",
+      "en": ""
     },
-    "cover": "media/light-reprise/cover.jpg",
-    "gallery": [],
+    "cover": "media/light-shadow-ensemble/cover.jpg",
+    "gallery": [
+      "media/light-shadow-ensemble/gallery-1792837092617-1.jpg",
+      "media/light-shadow-ensemble/gallery-1792837151176-1.jpg",
+      "media/light-shadow-ensemble/gallery-1792837151767-2.jpg"
+    ],
     "tags": [
       "3D Mapping",
       "Projection",
@@ -142,7 +146,7 @@
   {
     "slug": "miraculous-pivot",
     "status": "public",
-    "sortDate": "2025-03-01",
+    "sortDate": "2025-05-13",
     "year": "2025",
     "title": {
       "zh": "灵枢",
